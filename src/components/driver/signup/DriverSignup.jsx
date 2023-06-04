@@ -3,30 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 
-import { userSchema } from "../../../validations/UserSignup";
-import { userSignup } from "../../../axios/services/user/User";
-import './Signup.css'
+import {driverSchema } from "../../../validations/driverSignup";
 
 
 
 
 
-export default function SignUP() {
-    const navigate=useNavigate()
-    function allready() {
-      navigate('/login')
+
+export default function DriverSignup() {
+
+    function onSubmit(){
+    
     }
-
-   async function onSubmit(e) {
-       const response = await userSignup(values)
-    if(response.status===200){
-     navigate('/login')
-     toast.success('successfully registred ')
-    }else{
-      
-    }
-    }
-
+  
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: {
@@ -35,7 +24,7 @@ export default function SignUP() {
         password: "",
         cpassword: "",
       },
-      validationSchema: userSchema,
+      validationSchema: driverSchema,
       onSubmit,
     });
 
@@ -130,9 +119,23 @@ export default function SignUP() {
                                 />
                                  {errors.cpassword&&touched.cpassword&&( <p className="text-red-600">{errors.cpassword}</p>)}
                             </div>
+                            <div className="flex flex-col items-start">
+                                <input 
+                                    type="file"
+                                    name="image"
+                                    value={values.image}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+
+                                    className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                />
+                                 {errors.image&&touched.image&&( <p className="text-red-600">{errors.image}</p>)}
+                                
+                                
+                            </div>
                         </div>
                         <div className="flex items-center justify-end mt-4">
-                     <button  className="text-sm text-gray-600 underline hover:text-gray-900" onClick={allready}>
+                     <button  className="text-sm text-gray-600 underline hover:text-gray-900" >
                      Already registered?
                      </button>    
                             <button
