@@ -10,7 +10,7 @@ export const userSignup = async (values) => {
       },
     };
 
-    const response = await axiosClientInstance.post("/signup", values, config);
+    const response = await axiosClientInstance.post("signup", values, config);
     return response;
   } catch (error) {
     console.log(error.message, "error in signup client......");
@@ -25,7 +25,7 @@ export const userLogin = async (values) => {
         "Content-Type": "application/json",
       },
     };
-    const response = await axiosClientInstance.post("/login", values, config);
+    const response = await axiosClientInstance.post("login", values, config);
     console.log(response, "response");
     return response;
   } catch (error) {
@@ -43,7 +43,7 @@ export const userLogin = async (values) => {
       },
     };
         
-    const response = await axiosClientInstance.get(`/verify?userid=${userid}`, config);
+    const response = await axiosClientInstance.get(`verify?userid=${userid}`, config);
     return response;
   } catch (error) {
     console.log(error.message, "error in signup client......");

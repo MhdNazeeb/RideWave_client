@@ -5,64 +5,33 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 import { userLoginSchema } from "../../../validations/userLogin";
-import { userLogin } from "../../../axios/services/user/User";
-import { ClientLogin } from "../../../redux/userSlice";
-import { driverLogin } from "../../../axios/services/driver/driverSignup";
-import { driverLoginRedux } from "../../../redux/driverSlice";
-import "./UserLogin.css";
+import { adminLogin } from "../../../axios/services/admin/admin";
+import { adminLoginRedux } from "../../../redux/adminSlice";
 
-export default function Login() {
+export default function Signin() {
+  console.log("compontn");
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login, setLogin] = useState("user");
 
   async function onSubmit() {
-    if (login === "user") {
-      const response = await userLogin(values);
-      if (response?.data?.status === "Login success") {
-        toast.success(response?.data?.status);
-        dispatch(
-          ClientLogin({
-            token: response?.data?.token,
-            user: response?.data?.user,
-          })
-        );
-        navigate("/");
-      } else if (response.data.message === "not verified") {
-        toast.success(response?.data?.status);
-      } else if (
-        response.data.status === "Account has been verified successfully"
-      ) {
-        dispatch(
-          ClientLogin({
-            token: response?.data?.token,
-            user: response?.data?.user,
-          })
-        );
-        navigate("/");
+    const response = await adminLogin(values);
 
-        toast.success(response?.data?.status);
-      } else {
-        toast.error(response?.data?.status);
-      }
-    } else {
-      const response = await driverLogin(values);
-      if (response?.data?.status === "Login success") {
-        toast.success(response?.data?.status);
-        dispatch(
-          driverLoginRedux({
-            token: response?.data?.token,
-            driver: response?.data?.driver,
-          })
-        );
-        navigate('/')
-      } else if (response?.data?.status === "something wrong") {
-        toast.error(response?.data?.status);
-      } else if (response?.data?.status === "User doesnt exist") {
-        toast.error(response?.data?.status);
-      } else if (response?.data?.status === "incorrect password") {
-        toast.error(response?.data?.status);
-      }
+    if (response?.data?.status === "Login success") {
+      console.log(response,'this admin response');
+      toast.success(response?.data?.status);
+      dispatch(
+        adminLoginRedux({
+          admin: response?.data?.admin,
+          token: response?.data?.token,
+        })
+      );
+      
+    } else if (response?.data?.status === "incorrect password") {
+      toast.error(response?.data?.status);
+    } else if (response?.data?.status === "something wrong") {
+      toast.error(response?.data?.status);
+    } else if (response?.data?.status === "User doesnt exist") {
+      toast.error(response?.data?.status);
     }
   }
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -79,25 +48,8 @@ export default function Login() {
     <div className="login relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-gray-800 rounded-md shadow-xl lg:max-w-xl">
         <div className="flex justify-around">
-          <div
-            className={
-              login === "user"
-                ? "bg-violet-900 rounded-lg w-1/2 p-5 text-2xl font-semibold text-center  text-white uppercase cursor-pointer"
-                : "bg-gray-800 w-1/2 p-5  text-2xl font-semibold text-center  text-white uppercase cursor-pointer"
-            }
-            onClick={() => setLogin("user")}
-          >
-            login user
-          </div>
-          <div
-            className={
-              login === "driver"
-                ? "bg-violet-900 rounded-lg w-1/2 p-5 text-2xl font-semibold text-center  text-white uppercase cursor-pointer"
-                : " bg-gray-800 w-1/2 p-5  text-2xl font-semibold text-center  text-white uppercase cursor-pointer"
-            }
-            onClick={() => setLogin("driver")}
-          >
-            login driver
+          <div className="bg-violet-900 rounded-lg w-1/2 p-5 text-2xl font-semibold text-center  text-white uppercase cursor-pointer">
+            login admin
           </div>
         </div>
         <form className="mt-6" onSubmit={handleSubmit}>
@@ -151,9 +103,6 @@ export default function Login() {
             </button>
           </div>
         </form>
-        <div className="relative flex items-center justify-center w-full mt-6 border border-t">
-          <div className="absolute px-5 bg-white">Or</div>
-        </div>
         <div className="flex mt-4 gap-x-2">
           <button
             type="button"
@@ -168,20 +117,7 @@ export default function Login() {
             </svg>
           </button>
         </div>
-
-        <p className="mt-8 text-xs font-light text-center text-gray-700">
-          {" "}
-          Don't have an account?{" "}
-          {login === "user" ? (
-            <Link to="/signup" className="text-white font-bold">
-              Signup
-            </Link>
-          ) : (
-            <Link to="/driver/signup" className="text-white font-bold">
-              Signup
-            </Link>
-          )}
-        </p>
+ 
       </div>
     </div>
   );

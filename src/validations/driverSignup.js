@@ -28,11 +28,11 @@ export const driverSchema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password'), null], 'Password must match')
     .required('Required'),
-    attachment: yup.mixed()
-    .nullable()
-    .notRequired()
-    .test("FILE_SIZE", "Uploaded file is too big.", 
-        value => !value || (value && value.size <= FILE_SIZE))
-    .test("FILE_FORMAT", "Uploaded file has unsupported format.", 
-        value => !value || (value && SUPPORTED_FORMATS.includes(value.type)))
+  // image: yup.mixed()
+  //   .nullable()
+  //   .notRequired()
+  //   // .test("fileSiz", "Uploaded file is too big.", 
+  //   //     value => !value || (value && value.size <= 3048572))
+  //   .test("FILE_FORMAT", "Uploaded file has unsupported format.", 
+  //       value => !value || (value && ['image/jpeg','image/png','image/jpg'].includes(value.type)))
 });

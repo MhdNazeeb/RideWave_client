@@ -1,6 +1,6 @@
-import { axiosClientInstance } from "../../instances/instance";
+import { axiosAdminInstance } from "../../instances/instance";
 
-export const DriverSignup = async (values) => {
+export const adminLogin = async (values) => {
   try {
     const config = {
       headers: {
@@ -10,11 +10,9 @@ export const DriverSignup = async (values) => {
       },
     };
 
-    const response = await axiosClientInstance.post("/driver/signup", values, config);
+    const response = await axiosAdminInstance.post("login", values, config);
     return response;
   } catch (error) {
     console.log(error.message, "error in signup client......");
   }
 };
-
- 
