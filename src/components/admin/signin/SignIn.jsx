@@ -15,9 +15,9 @@ export default function Signin() {
 
   async function onSubmit() {
     const response = await adminLogin(values);
-
+     navigate('/admin/dashboard')
     if (response?.data?.status === "Login success") {
-      console.log(response,'this admin response');
+      
       toast.success(response?.data?.status);
       dispatch(
         adminLoginRedux({

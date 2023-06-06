@@ -1,16 +1,18 @@
 import React from 'react'
-import {Route,Routes } from 'react-router-dom'
+import {Navigate, Route,Routes } from 'react-router-dom'
 import DriverSignupPage from '../../pages/driver/signup/DriverSignupPage';
+import Login from '../../pages/user/login/Login';
+import { useSelector } from 'react-redux';
 
 
 
 export default function DriverRoutes() {
-    console.log('reached route driver ');
     
   return (
     <>
       <Routes>
         <Route path='signup' element={<DriverSignupPage/>}/>
+        
       </Routes>
     </>
   )

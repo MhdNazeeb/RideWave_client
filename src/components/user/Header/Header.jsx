@@ -17,6 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { clientLogout } from "../../../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { driverLogout } from "../../../redux/driverSlice";
 
 
 const products = [
@@ -65,11 +66,15 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const clientDetails = useSelector((state)=>state.userReducer.user)
+ const DriverDetails = useSelector((state)=>state.driverReducer.driver)
   const client = clientDetails?.user;
+  const driver = DriverDetails?.driver
+  console.log(driver,'this driver login');
   const navigate=useNavigate()
   const dispatch=useDispatch()
   function logout() {
     console.log('logut')
+    dispatch(driverLogout())
    dispatch(clientLogout())
    navigate('/login')
   }
@@ -102,13 +107,13 @@ export default function Header() {
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
-            <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
+            {/* <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
               Product
               <ChevronDownIcon
                 className="h-5 w-5 flex-none text-gray-400"
                 aria-hidden="true"
               />
-            </Popover.Button>
+            </Popover.Button> */}
 
             <Transition
               as={Fragment}
@@ -162,20 +167,25 @@ export default function Header() {
                 </div>
               </Popover.Panel>
             </Transition>
+            
           </Popover>
 
           <Link to="" className="text-sm font-semibold leading-6 text-white">
-            Features
+            HOME
           </Link>
           <Link to="" className="text-sm font-semibold leading-6 text-white">
-            Marketplace
+            RIDE
           </Link>
           <Link to="" className="text-sm font-semibold leading-6 text-white">
-            Company
+            WALLET
           </Link>
+          <Link to="" className="text-sm font-semibold leading-6 text-white">
+            RIDE HISTORY
+          </Link>
+
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {client ? <button  className="text-sm font-semibold leading-6 text-white" onClick={logout}>
+          {driver ||client ? <button  className="text-sm font-semibold leading-6 text-white" onClick={logout}>
             Log out <span aria-hidden="true">&rarr;</span>
           </button>:<Link to="/login" className="text-sm font-semibold leading-6 text-white">
             Log in <span aria-hidden="true">&rarr;</span>
@@ -256,7 +266,7 @@ export default function Header() {
                 </Link>
               </div>
               <div className="py-6">
-                {client ? (
+                { driver|| client ? (
                   <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" onClick={logout}>
                     Logout
                   </button>
