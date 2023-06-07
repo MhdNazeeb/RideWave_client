@@ -58,10 +58,14 @@ export default function Login() {
         navigate('/')
       } else if (response?.data?.status === "something wrong") {
         toast.error(response?.data?.status);
-      } else if (response?.data?.status === "User doesnt exist") {
+      } else if (response?.data?.status === "User doesn't exist") {
         toast.error(response?.data?.status);
       } else if (response?.data?.status === "incorrect password") {
         toast.error(response?.data?.status);
+      }else if(response?.data?.status === "this id is blocked"){
+        toast.error(response?.data?.status);
+      }else if(response?.data?.status === "it may take 24 houres to verify driver"){
+        toast.success(response?.data?.status)
       }
     }
   }

@@ -4,8 +4,9 @@ import { BsArrowLeftCircle, BsBorderWidth, BsChatDotsFill } from "react-icons/bs
 import { HiUsers } from "react-icons/hi";
 import { IoIosNotifications } from "react-icons/io";
 import { BiFootball } from "react-icons/bi";
+import { AiFillCar } from "react-icons/ai";
 import { MdAnalytics, MdAdminPanelSettings, MdPhotoLibrary,  } from "react-icons/md";
-import { GrLogout } from "react-icons/gr";
+import { FiLogOut } from "react-icons/fi";
 import HamburgerButton from "../HamburgerMenuButton/HamburgerButton";
 import { FaCity } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -29,7 +30,7 @@ const Sidebar = () => {
         //     path: "",
         //     src: <IoIosNotifications />,
         // },
-        { title: "drivers",  path:"", src: <HiUsers /> },
+        { title: "drivers",  path:"/admin/driverlist", src: <HiUsers /> },
        
         
         // {
@@ -45,7 +46,7 @@ const Sidebar = () => {
         { title: "Bookings", path: "", src: <BsBorderWidth /> },
        
         { title: "driver approvel", path: "", src: <FaCity /> },
-        { title: "car approvel", path: "", src: <MdPhotoLibrary /> },
+        { title: "car approvel", path: "", src: <AiFillCar /> },
     ];
     const handleLogout = () => {
         console.log('this dispatch');
@@ -92,10 +93,10 @@ const Sidebar = () => {
                     <li onClick={handleLogout} 
                         className={`flex items-center gap-x-6 p-3 text-base font-normal rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700  'bg-gray-200 dark:bg-gray-700' }`}
                        >
-                        <span className="text-2xl">
-                            <GrLogout />
+                        <span className="text-2xl text-sky-400">
+                            <FiLogOut />
                         </span>
-                        <span  className={`${!open && "hidden"} origin-left duration-300 hover:block`}>Logout</span>
+                        <span  className={`${!open && "hidden"} origin-left duration-300 hover:block text-red-600`}>Logout</span>
                     </li>
                 </ul>
             </div>

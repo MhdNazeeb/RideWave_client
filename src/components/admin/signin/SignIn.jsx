@@ -15,9 +15,9 @@ export default function Signin() {
 
   async function onSubmit() {
     const response = await adminLogin(values);
-     navigate('/admin/dashboard')
+    
     if (response?.data?.status === "Login success") {
-      
+     
       toast.success(response?.data?.status);
       dispatch(
         adminLoginRedux({
@@ -25,12 +25,13 @@ export default function Signin() {
           token: response?.data?.token,
         })
       );
+      navigate('/admin/dashboard')
       
     } else if (response?.data?.status === "incorrect password") {
       toast.error(response?.data?.status);
     } else if (response?.data?.status === "something wrong") {
       toast.error(response?.data?.status);
-    } else if (response?.data?.status === "User doesnt exist") {
+    } else if (response?.data?.status === "User doesn't exist") {
       toast.error(response?.data?.status);
     }
   }
