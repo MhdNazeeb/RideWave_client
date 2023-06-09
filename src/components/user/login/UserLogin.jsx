@@ -30,9 +30,7 @@ export default function Login() {
         navigate("/");
       } else if (response.data.message === "not verified") {
         toast.success(response?.data?.status);
-      } else if (
-        response.data.status === "Account has been verified successfully"
-      ) {
+      } else if (response.data.status === "Account has been verified successfully" ) {
         dispatch(
           ClientLogin({
             token: response?.data?.token,
@@ -62,7 +60,7 @@ export default function Login() {
         toast.error(response?.data?.status);
       } else if (response?.data?.status === "incorrect password") {
         toast.error(response?.data?.status);
-      }else if(response?.data?.status === "this id is blocked"){
+      }else if(response?.data?.status === "your account has been banned"){
         toast.error(response?.data?.status);
       }else if(response?.data?.status === "it may take 24 houres to verify driver"){
         toast.success(response?.data?.status)
@@ -80,8 +78,8 @@ export default function Login() {
     });
 
   return (
-    <div className="login relative flex flex-col justify-center min-h-screen overflow-hidden">
-      <div className="w-full p-6 m-auto bg-gray-800 rounded-md shadow-xl lg:max-w-xl">
+    <div className="bg-gray-800 relative flex flex-col justify-center min-h-screen overflow-hidden ">
+      <div className="w-full p-6 m-auto bg-gray-900 rounded-md shadow-xl lg:max-w-xl">
         <div className="flex justify-around">
           <div
             className={

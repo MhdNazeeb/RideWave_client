@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { block, getUsers } from "../../../axios/services/admin/admin";
+import { getUsers } from "../../../axios/services/admin/admin";
 import UserModal from "../usermodalverification/UserModal";
+
 
 export default function userlist() {
   const [userData, setUserData] = useState([]);
@@ -12,8 +13,11 @@ export default function userlist() {
   useEffect(() => {
     getUsers().then((res) => {
       setUserData(res?.data);
+
     });
   }, [blockStatus]);
+   
+  console.log(userData,'this is user data')
 
   const statusChange = async (id,blocking) => {
     setUserModal(true);
@@ -47,17 +51,14 @@ export default function userlist() {
                   </tr>
                 </thead>
                 {userData &&
-                  userData.map((item, index) => {
+                  userData.map((item) => {
                     return (
                       <tbody className="text-gray-600 text-sm font-light">
                         <tr className="border-b border-gray-200 hover:bg-gray-100">
                           <td className="py-3 px-6 text-left">
                             <div className="flex items-center">
                               <div className="mr-2">
-                                <img
-                                  className="w-6 h-6 rounded-full"
-                                  src="/images/1.jpg"
-                                />
+                              
                               </div>
                               <span>{item.name}</span>
                             </div>
@@ -73,7 +74,7 @@ export default function userlist() {
                             </div>
                           </td>
                           <td className="py-3 px-6 text-center">
-                            {item.status ? (
+                            {item.userVerify ? (
                               <button
                                 className="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
                                 onClick={() => statusChange(item._id, "active")}

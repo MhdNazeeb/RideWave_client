@@ -31,6 +31,7 @@ const Sidebar = () => {
         //     src: <IoIosNotifications />,
         // },
         { title: "drivers",  path:"/admin/driverlist", src: <HiUsers /> },
+        { title: "car approvel", path: "/admin/carlist", src: <AiFillCar /> },
        
         
         // {
@@ -45,8 +46,8 @@ const Sidebar = () => {
         // },
         { title: "Bookings", path: "", src: <BsBorderWidth /> },
        
-        { title: "driver approvel", path: "", src: <FaCity /> },
-        { title: "car approvel", path: "", src: <AiFillCar /> },
+        // { title: "driver approvel", path: "", src: <FaCity /> },
+        
     ];
     const handleLogout = () => {
         console.log('this dispatch');
@@ -60,7 +61,7 @@ const Sidebar = () => {
             <div
                 className={`${
                     open ? "w-60" : "w-fit"
-                } hidden sm:block relative h-screen duration-300 bg-gray-950 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
+                } hidden sm:block relative h-screen duration-300 bg-gray-900 border-r border-gray-200 dark:border-gray-600 p-5 dark:bg-slate-800`}
             >
                 <BsArrowLeftCircle
                     className={`${

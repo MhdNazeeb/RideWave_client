@@ -3,7 +3,7 @@ import avathar from '../../../assets/images/small-taxi-1.jpg'
 
 function Features() {
   return (
-    <div className='flex flex-wrap justify-around pt-10 bg-slate-300'>
+    <div className='flex flex-wrap justify-around pt-10 bg-gray-800'>
         
 <div className=" my-10 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   <a href="#">

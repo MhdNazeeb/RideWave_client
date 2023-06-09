@@ -3,7 +3,7 @@ import Layout from '../../../components/admin/SideBarComponents/components/Layou
 import DriverList from '../../../components/admin/driverList/driverList'
 
 function DriverListPage() {
-  console.log('this is driver ListPage');
+  
   return (
     <div>
         <Layout>

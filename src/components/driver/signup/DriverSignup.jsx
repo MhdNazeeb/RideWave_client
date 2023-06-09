@@ -55,9 +55,9 @@ export default function DriverSignup() {
 
   return (
     <div>
-      <div className="signup flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
+      <div className="bg-gray-800 flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 ">
         <div></div>
-        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-gray-800 shadow-md sm:max-w-md sm:rounded-lg">
+        <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-gray-900 shadow-md sm:max-w-md sm:rounded-lg">
           <form onSubmit={handleSubmit}>
             <div>
               <label
