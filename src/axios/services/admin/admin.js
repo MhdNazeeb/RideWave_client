@@ -120,3 +120,55 @@ export const  getCarList = async () => {
      console.log(error.message, "error in signup client......");
    }
  };
+export const  blockDrivers = async (status,id) => {
+   try {
+     const config = {
+       headers: {
+         // Accept: "application/json",
+         // Authorization: `Bearer ${token}`,
+         "Content-Type": "application/json",
+       },
+     };
+ 
+     
+     const response = await axiosAdminInstance.patch("drivers",{id,status},config);
+     return response;
+   } catch (error) {
+     console.log(error.message, "error in signup client......");
+   }
+ };
+export const  getCar = async (id) => {
+  console.log(id,'this car id');
+   try {
+     const config = {
+       headers: {
+         // Accept: "application/json",
+         // Authorization: `Bearer ${token}`,
+         "Content-Type": "application/json",
+       },
+     };
+ 
+     
+     const response = await axiosAdminInstance.get("car",{params:{id}},config);
+     return response;
+   } catch (error) {
+     console.log(error.message, "error in signup client......");
+   }
+ };
+ export const  verifyCar = async (status,id) => {
+  try {
+    const config = {
+      headers: {
+        // Accept: "application/json",
+        // Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    
+    const response = await axiosAdminInstance.patch("car",{id,status},config);
+    return response;
+  } catch (error) {
+    console.log(error.message, "error in signup client......");
+  }
+};

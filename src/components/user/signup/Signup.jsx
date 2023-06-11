@@ -19,11 +19,13 @@ export default function SignUP() {
 
    async function onSubmit(e) {
        const response = await userSignup(values)
-    if(response.status===200){
+       
+    if(response.data.message==='new account created sucessfully'){
      navigate('/login')
      toast.success('successfully registred ')
-    }else{
-      
+    }else if(response.data.message === 'email all ready registered'){
+        console.log('all redy');
+        toast.error(response.data.message)
     }
     }
 

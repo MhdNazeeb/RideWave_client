@@ -30,7 +30,7 @@ export const CarSchema = yup.object().shape({
     Features: yup
     .string()
     .min(2, 'modal  must be at least 2 characters')
-    .max(20)
+    .max(100)
     // .matches(/^[a-zA-Z]+$/, 'Only alphabets are allowed')
     .required('Required'),
     Rate: yup

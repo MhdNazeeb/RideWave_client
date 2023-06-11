@@ -19,6 +19,7 @@ export default function Login() {
   async function onSubmit() {
     if (login === "user") {
       const response = await userLogin(values);
+      console.log(response?.data?.status,'this status ');
       if (response?.data?.status === "Login success") {
         toast.success(response?.data?.status);
         dispatch(
@@ -28,9 +29,11 @@ export default function Login() {
           })
         );
         navigate("/");
-      } else if (response.data.message === "not verified") {
-        toast.success(response?.data?.status);
-      } else if (response.data.status === "Account has been verified successfully" ) {
+      } else if (response?.data.status === "User doesn't exist") {
+        toast.error(response?.data?.status);
+      } else if (
+        response.data.status === "Account has been verified successfully"
+      ) {
         dispatch(
           ClientLogin({
             token: response?.data?.token,
@@ -38,11 +41,11 @@ export default function Login() {
           })
         );
         navigate("/");
-
-        toast.success(response?.data?.status);
-      } else {
+      } else if (response?.data?.status === "something wrong") {
         toast.error(response?.data?.status);
-      }
+      } else if (response?.data?.message === "your account has been banned") {
+        toast.error(response?.data?.message);
+      } else toast.success(response?.data?.status);
     } else {
       const response = await driverLogin(values);
       if (response?.data?.status === "Login success") {
@@ -53,17 +56,22 @@ export default function Login() {
             driver: response?.data?.driver,
           })
         );
-        navigate('/')
+        navigate("/");
       } else if (response?.data?.status === "something wrong") {
         toast.error(response?.data?.status);
       } else if (response?.data?.status === "User doesn't exist") {
         toast.error(response?.data?.status);
       } else if (response?.data?.status === "incorrect password") {
         toast.error(response?.data?.status);
-      }else if(response?.data?.status === "your account has been banned"){
+      } else if (response?.data?.status === "your account has been banned") {
         toast.error(response?.data?.status);
-      }else if(response?.data?.status === "it may take 24 houres to verify driver"){
-        toast.success(response?.data?.status)
+      } else if (
+        response?.data?.status === "it may take 24 houres to verify driver"
+      ) {
+        toast.success(response?.data?.status);
+      } else if (response?.data?.status === "We regret to inform you that your account verification request has been rejected") {
+        console.log(response?.data?.status);
+        toast.error(response?.data?.status);
       }
     }
   }

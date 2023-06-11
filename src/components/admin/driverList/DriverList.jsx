@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getDrivers } from "../../../axios/services/admin/admin";
+import { blockDrivers, getDrivers } from "../../../axios/services/admin/admin";
 import { useNavigate } from "react-router-dom";
 
 export default function DriverList() {
   const navigate = useNavigate()
+  const [refresh,setrefresh] = useState(false)
   const [driverData, setDriverData] = useState([]);
 
   useEffect(() => {
@@ -12,11 +13,15 @@ export default function DriverList() {
       setDriverData(res.data);
       console.log(driverData, "this driver");
     });
-  }, []);
+  }, [refresh]);
 
   function handleEdit(id){
   navigate("/admin/driver_verify/",{state:{id}})
 
+  }
+   async function handleStatus(status,id) {
+  const res = await blockDrivers(status,id)
+     setrefresh(!refresh)
   }
 
   return (
@@ -38,6 +43,7 @@ export default function DriverList() {
                     <th className="py-3 px-6 text-left">Client license</th>
                     <th className="py-3 px-6 text-center">Contact</th>
                     <th className="py-3 px-6 text-center">Rides</th>
+                    <th className="py-3 px-6 text-center">Driver right</th>
                     <th className="py-3 px-6 text-center">Status</th>
                     <th className="py-3 px-6 text-center">View</th>
                   </tr>
@@ -69,13 +75,26 @@ export default function DriverList() {
                             </div>
                           </td>
                           <td className="py-3 px-6 text-center">
-                            {item.isverify ? (
+                            {item.isverify === 'verified'? (
                               <span className="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs">
                                 verified
                               </span>
-                            ) : (
+                            ) : item.isverify === 'not verified'? (
                               <span className="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">
                                 not verified
+                              </span>
+                            ): <span className="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">
+                               Rejected
+                          </span>}
+                          </td>
+                          <td className="py-3 px-6 text-center">
+                            {item.DriverStatus ? (
+                              <span className="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs" onClick={()=>handleStatus('active',item._id)}>
+                                active
+                              </span>
+                            ) : (
+                              <span className="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"onClick={()=>handleStatus('block',item._id)}>
+                                block
                               </span>
                             )}
                           </td>

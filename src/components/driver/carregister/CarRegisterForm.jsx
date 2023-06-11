@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 export default function CarRegisterForm() {
   const [Carimage, setCarImage] = useState([]);
   async function onSubmit() {
+    console.log('this is onsubmit');
     const data = {
       ...values,
       Carimage,
@@ -147,7 +148,7 @@ export default function CarRegisterForm() {
                   )}
                 </div>
               </div>
-              <div className="col-span-full sm:col-span-3">
+              {/* <div className="col-span-full sm:col-span-3">
                 <div className="form-control w-full max-w-xs">
                   <label className="label">
                     <span className="label-text"> seats</span>
@@ -165,7 +166,7 @@ export default function CarRegisterForm() {
                     <p className="text-red-600">{errors.Seats}</p>
                   )}
                 </div>
-              </div>
+              </div> */}
               <div className="col-span-full sm:col-span-3">
                 <div className="form-control w-full max-w-xs">
                   <label className="label">
@@ -227,6 +228,7 @@ export default function CarRegisterForm() {
               <button
                 className="btn btn-active px-8 py-1 md:px-auto place-items-center bg-red-800 shadow-[5px_5px_10px_10px_rgba(0,0,0,0.3)]"
                 type="submit"
+                onClick={onSubmit}
               >
                 submit
               </button>

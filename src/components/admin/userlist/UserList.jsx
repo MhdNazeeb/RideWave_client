@@ -47,6 +47,7 @@ export default function userlist() {
                     <th className="py-3 px-6 text-center">Email</th>
                     <th className="py-3 px-6 text-center">Rides</th>
                     <th className="py-3 px-6 text-center">Status</th>
+                    <th className="py-3 px-6 text-center">user rights</th>
                     {/* <th className="py-3 px-6 text-center">Actions</th> */}
                   </tr>
                 </thead>
@@ -74,12 +75,12 @@ export default function userlist() {
                             </div>
                           </td>
                           <td className="py-3 px-6 text-center">
-                            {item.userVerify ? (
+                            {item.status ? (
                               <button
                                 className="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
                                 onClick={() => statusChange(item._id, "active")}
                               >
-                                Active
+                                active
                               </button>
                             ) : (
                               <button
@@ -88,7 +89,26 @@ export default function userlist() {
                                   statusChange(item._id, "block")
                                 }
                               >
-                                Blocked
+                                 block
+                              </button>
+                            )}
+                          </td>
+                          <td className="py-3 px-6 text-center">
+                            {item.userVerify ? (
+                              <button
+                                className="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
+                                onClick=""
+                              >
+                                verified
+                              </button>
+                            ) : (
+                              <button
+                                className="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs"
+                                onClick=""
+                                  
+                                
+                              >
+                                not verified
                               </button>
                             )}
                           </td>
