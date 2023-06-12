@@ -83,18 +83,20 @@ export default function CarList() {
                               </div>
                             </td>
                             <td className="py-3 px-6 text-center">
-                              {item.carVerify ? (
+                              {item.carVerify ==='verified' ? (
                                 <span
                                   className="bg-green-200 text-green-600 py-1 px-3 rounded-full text-xs"
                                  
                                 >
                                   verified
                                 </span>
-                              ) : (
+                              ) : item.carVerify ==='Rejected' ?(
                                 <span className="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">
-                                  Not verified
+                                  rejected
                                 </span>
-                              )}
+                              ): <span className="bg-red-200 text-red-600 py-1 px-3 rounded-full text-xs">
+                               not verified
+                            </span>}
                             </td>
                             <td className="py-3 px-6 text-center">
                               <div className="flex item-center justify-center">

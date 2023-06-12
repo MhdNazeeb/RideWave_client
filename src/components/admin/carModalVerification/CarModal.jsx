@@ -3,11 +3,10 @@ import { verifyCar } from "../../../axios/services/admin/admin";
 
 
 export default function CarModal({status,carid,setCarModal}) {
- 
-   
  async  function updateCar () {
      const res = await verifyCar(status,carid)
-     setCarModal(state => !state)
+      setCarModal(state => !state)
+     
 
   }
 
@@ -31,7 +30,7 @@ export default function CarModal({status,carid,setCarModal}) {
             {/*body*/}
             <div className="relative p-6 flex-auto">
               {<p className="my-4 text-slate-500 text-lg leading-relaxed">
-               {/* do you want to {driverStatus === 'verify' ? 'verify':'reject'} Driver */}
+               do you want to { status=== 'verified' ? 'verify':'reject'} Car
               </p>}
             </div>
             {/*footer*/}

@@ -80,7 +80,7 @@ export default function Header() {
   }
 
   return (
-    <header className="bg-gray-900">
+    <header className="bg-gray-900 ">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -182,10 +182,15 @@ export default function Header() {
           <Link to="" className="text-sm font-semibold leading-6 text-white">
             RIDE HISTORY
           </Link>
+          
 
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {driver ||client ? <button  className="text-sm font-semibold leading-6 text-white" onClick={logout}>
+        <Link to="/driver/driver_profile" className="text-sm font-semibold leading-6 text-white uppercase mx-5">
+            profile
+          </Link>
+
+          {driver || client ? <button  className="text-sm font-semibold leading-6 text-white" onClick={logout}>
             Log out <span aria-hidden="true">&rarr;</span>
           </button>:<Link to="/login" className="text-sm font-semibold leading-6 text-white">
             Log in <span aria-hidden="true">&rarr;</span>
@@ -264,9 +269,16 @@ export default function Header() {
                 >
                   Company
                 </Link>
+                <Link to="/driver/driver_profile"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Profile
+                </Link>
               </div>
               <div className="py-6">
+                
                 { driver|| client ? (
+                  
                   <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" onClick={logout}>
                     Logout
                   </button>

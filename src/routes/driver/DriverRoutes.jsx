@@ -4,6 +4,7 @@ import DriverSignupPage from '../../pages/driver/signup/DriverSignupPage';
 import Login from '../../pages/user/login/Login';
 import { useSelector } from 'react-redux';
 import CarRegisterPage from '../../pages/driver/carregisterpage/CarRegisterPage';
+import DriverProfilePage from '../../pages/user/userProfile/DriverProfilePage';
 
 
 
@@ -17,7 +18,7 @@ export default function DriverRoutes() {
       <Routes>
         <Route path='/signup' element={<DriverSignupPage/>}/>
         <Route path='/car_register' element={driver?<CarRegisterPage/>:<Navigate to='/login'/>}/>
-        
+        <Route path="/driver_profile" element={driver? <DriverProfilePage/>:<Navigate to='/login'/>} />
       </Routes>
     </>
   )

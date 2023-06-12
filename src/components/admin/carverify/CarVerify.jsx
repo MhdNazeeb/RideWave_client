@@ -17,7 +17,7 @@ export default function CarVerify() {
       console.log(res, "this is response");
       setCarData(res.data);
     });
-  }, []);
+  }, [carModal]);
 
   function handleVerify(carstatus,Id) {
     setStatus(carstatus)
@@ -144,16 +144,16 @@ export default function CarVerify() {
             ) : carData.carVerify === "verified" ? (
               <button
                 type="submit"
-                className="mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-8 py-3 text-base font-medium text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                className="mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                  verified ☑️
               </button>
             ) : (
               <button
                 type="submit"
-                className="mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled"
+                className="mt-3 flex w-full items-center justify-center rounded-md border border-transparent bg-red-800 px-8 py-3 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled"
               >
-                Rejected
+                Rejected 
               </button>
             )}
           </div>
