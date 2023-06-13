@@ -56,5 +56,40 @@ export const carRegistor = async(values)=>{
   console.log(error.message);
  }
 }
+export const editeProfile = async(data)=>{
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      // Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+ 
+  
+  const response = await axiosDriverInstance.patch("/profile", {data}, config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+ }
+}
+export const getProfile = async(data)=>{
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      // Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+ 
+  
+  const response = await axiosDriverInstance.get("/profile", {params:{data}}, config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+ }
+}
+
 
  
