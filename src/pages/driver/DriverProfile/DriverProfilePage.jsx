@@ -5,7 +5,7 @@ import DriverProfile from '../../../components/driver/Driverprofile/DriverProfil
 export default function DriverProfilePage ({driver}) {
   return (
     <div>
-      <Header/>
+      <Header/> 
       <DriverProfile driver={driver} />
       
     </div>

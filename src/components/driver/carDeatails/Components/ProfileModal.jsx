@@ -1,36 +1,25 @@
 import { useFormik } from "formik";
 import React from "react";
-import { driverProfile } from "../../../validations/profileValidation";
-import { editeProfile } from "../../../axios/services/driver/driverSignup";
-import { useSelector } from "react-redux";
+
 
 
 function ProfileModal({driver,setEditModal,driverData,setRefrsh }) {
-  const {token}= useSelector((state)=>state.driverReducer.driver)
+    function handleChange() {
 
-  async function onSubmit() {
-    const driverid = driver._id
-    const data ={
-      ...values,
-      driverid
-      
     }
-    setEditModal(false)
-    setRefrsh(state=>!state)
-    const res = await editeProfile(data,token)
-   
-
-  }
-  
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-  useFormik({
-    initialValues: {
-      name:driverData.name,
-      email:driverData.email,
-    },
-    validationSchema:driverProfile,
-    onSubmit,
-  });
+    const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+      useFormik({
+        initialValues: {
+          model: "",
+          year: "",
+          RegistrationNumber: "",
+          Seats: "",
+          Features: "",
+          Rate: "",
+        },
+        validationSchema: CarSchema,
+        onSubmit,
+      });
 
   return (
     <>

@@ -12,27 +12,5 @@ export const driverProfile = yup.object().shape({
 //   dob: yup.date().required('Required'),
 //   gender: yup.string().required('Required'),
   email: yup.string().email('Please enter a valid email').required('Required'),
-//   phone: yup
-//     .number('Phone number must be a 10 digit number')
-//     .positive()
-//     .integer()
-//     .test('len', 'Phone number should be a 10 digit number', val => /^\d{10}$/.test(val))
-//     .required('Required'),
-//   password: y
-//     .string()
-//     .min(5, 'password should contain 5-16 characters')
-//     .max(16, 'password should contain 5-16 characters')
-//     // .matches(passwordRule, 'Please create a stronger password')
-//     .required('Required'),
-//   cpassword: yup
-//     .string()
-//     .oneOf([yup.ref('password'), null], 'Password must match')
-//     .required('Required'),
-//   // image: yup.mixed()
-//   //   .nullable()
-//   //   .notRequired()
-//   //   // .test("fileSiz", "Uploaded file is too big.", 
-//   //   //     value => !value || (value && value.size <= 3048572))
-//   //   .test("FILE_FORMAT", "Uploaded file has unsupported format.", 
-//   //       value => !value || (value && ['image/jpeg','image/png','image/jpg'].includes(value.type)))
+    //  value => !value || (value && ['image/jpeg','image/png','image/jpg'].includes(value.type)))
 });

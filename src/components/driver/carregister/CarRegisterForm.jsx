@@ -3,22 +3,29 @@ import { CarSchema } from "../../../validations/carRegister";
 import { useFormik } from "formik";
 import { carRegistor } from "../../../axios/services/driver/driverSignup";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function CarRegisterForm() {
+  const {token ,driver} = useSelector((state)=>state.driverReducer.driver)
+     
   const [Carimage, setCarImage] = useState([]);
   async function onSubmit() {
+    const driverid = driver._id
     console.log('this is onsubmit');
     const data = {
       ...values,
       Carimage,
+      driverid
     };
-     const res = await carRegistor(data)
+     const res = await carRegistor(data,token)
       if(res.data.message === 'it  may take 24 houres to verify your car'){
         toast.success(res?.data?.message);
       }else if(res.data.message === 'something  wrong'){
         console.log('this is 500 ');
         toast.error(res?.data?.message);
       }else if(res.data.message === 'Registration number allready exists'){
+        toast.error(res?.data?.message);
+      }else if(res.data.message === 'this account has allready registerd'){
         toast.error(res?.data?.message);
       }
   }

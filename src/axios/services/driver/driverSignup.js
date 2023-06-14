@@ -38,13 +38,13 @@ export const driverLogin = async(values)=>{
   console.log(error.message);
  }
 }
-export const carRegistor = async(values)=>{
+export const carRegistor = async(values,token)=>{
   console.log(values,'this is vvalue');
  try {
   const config = {
     headers: {
       // Accept: "application/json",
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   };
@@ -56,12 +56,13 @@ export const carRegistor = async(values)=>{
   console.log(error.message);
  }
 }
-export const editeProfile = async(data)=>{
+export const editeProfile = async(data,token)=>{
+  console.log(token,'this asios');
  try {
   const config = {
     headers: {
       // Accept: "application/json",
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   };
@@ -73,21 +74,42 @@ export const editeProfile = async(data)=>{
   console.log(error.message);
  }
 }
-export const getProfile = async(data)=>{
+export const getProfile = async(data,token)=>{
+ 
  try {
   const config = {
     headers: {
       // Accept: "application/json",
-      // Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   };
  
   
-  const response = await axiosDriverInstance.get("/profile", {params:{data}}, config);
+  const response = await axiosDriverInstance.get(`/profile?data=${data}`,config,);
   return response;
  } catch (error) {
   console.log(error.message);
+
+ }
+}
+export const car = async(driverid,token)=>{
+
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+ 
+  
+  const response = await axiosDriverInstance.get(`/car?driverid=${driverid}`,config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
  }
 }
 
