@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Banner.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Product", href: "#" },
@@ -22,6 +22,9 @@ export default function Banner() {
   console.log(driver, "this isdriver");
   function carRegister() {
     navigte('/driver/car_register')
+  }
+  function handleStart() {
+    navigte('/map')
   }
 
   const user = userDetails?.user;
@@ -79,7 +82,8 @@ export default function Banner() {
               </div>
             ) : (
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                <button className=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                
+                <button className=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleStart}>
                 Get started{" "}
                 </button>
                 <button className=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">

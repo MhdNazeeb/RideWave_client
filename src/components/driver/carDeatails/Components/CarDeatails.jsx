@@ -3,37 +3,30 @@ import { useSelector } from "react-redux";
 import { car } from "../../../../axios/services/driver/driverSignup";
 import EditCarModal from "./editCarModal/EditCarModal";
 
-function carDeatails() {
+function CarDeatails() {
   const [carData, setCarData] = useState({});
 
   const { driver, token } = useSelector((state) => state.driverReducer.driver);
 
-  const [editmodal,setEditModal] = useState(false)
+  const [editmodal, setEditModal] = useState(false);
 
   const driverid = driver._id;
 
-
   useEffect(() => {
-
     car(driverid, token).then((res) => {
       
-      setCarData(res.data)
+      setCarData(res.data);
     });
-
-  },[]);
+  },[editmodal]);
   function handleClick() {
-    setEditModal(true)
+    console.log('trueeeeeeeeeeeeeeeeeeee');
+    setEditModal(true);
   }
- 
+
   return (
-  
     <div className="flex-wrap  h-fit w-full details bg-white drop-shadow-[95px_65px_5px_rgba(0,0,0,0.5)]">
-    {editmodal?<EditCarModal/>:""}
-      <img
-        src={carData.carimage}
-        alt=""
-        className="w-1/2 h-3/4"
-      />
+      {editmodal ? <EditCarModal  setEditModal={setEditModal} carData={carData}/> : ""}
+      <img src={carData.carimage} alt="" className="w-60 h-52" />
 
       <ul className=" bg-gray-200 opacity-90 text-gray-600 hover:text-gray-700 hover:shadow  rounded shadow-sm w-full p-10">
         <li className="flex justify-end py-3  ">
@@ -41,7 +34,7 @@ function carDeatails() {
             <button
               className="px-5 p-1  text-white bg-blue-600 rounded-lg"
               onClick={handleClick}
-              >
+            >
               Edit
             </button>
           </div>
@@ -69,4 +62,4 @@ function carDeatails() {
   );
 }
 
-export default carDeatails;
+export default CarDeatails;

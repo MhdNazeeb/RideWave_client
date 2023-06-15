@@ -112,6 +112,25 @@ export const car = async(driverid,token)=>{
 
  }
 }
+export const editCar = async(data,token)=>{
+    
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+ 
+  
+  const response = await axiosDriverInstance.patch(`/car`,data,config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
 
 
  

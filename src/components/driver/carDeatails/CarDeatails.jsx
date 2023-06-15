@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ProfileCard from "./Components/CarDeatails";
-import { useLocation } from "react-router-dom";
-function CarDeatails() {
+import CarDeatails from "./Components/CarDeatails";
+
+function CarDeatailscard() {
     
   return (
     <div className="bg-white car h-screen">
@@ -13,7 +13,7 @@ function CarDeatails() {
               <div className="flex justify-center h-full">
                 <div className="w-6/12 grid md:grid-cols-1 sm:grid-cols-1 gap-10 h-full items-center">
                  
-                  <ProfileCard />
+                  < CarDeatails/>
                 </div>
               </div>
               {/*  */}
@@ -25,4 +25,4 @@ function CarDeatails() {
   );
 }
 
-export default CarDeatails;
+export default CarDeatailscard;
