@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import { LocationContext } from "../../user/locationselector";
-
+import { LocationContext } from "../../../context/LocationContext";
+let accessToken=import.meta.env.VITE_MAPBOX_TOKEN
+console.log(accessToken,"acceess")
 const  LocationSelector = () => {
   const [inFocus, setInFocus] = useState("from");
   const { setPickup, setDropoff } = useContext(LocationContext);
@@ -15,12 +16,14 @@ const  LocationSelector = () => {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${
-          process.env.REACT_APP_MAPBOX_TOKEN
+          accessToken
         }`;
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
+           
             const currentLocation = data.features[0].place_name;
+            
             setPickUP(currentLocation);
             setPickup(currentLocation);
           });
@@ -37,7 +40,7 @@ const  LocationSelector = () => {
       return;
     }
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${
-      process.env.REACT_APP_MAPBOX_TOKEN
+      accessToken
     }&country=IN&region=KA,TN,KL&bbox=${bbox.join(",")}`;
     const response = await fetch(url);
     const data = await response.json();
@@ -58,16 +61,17 @@ const  LocationSelector = () => {
       return;
     }
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${
-      process.env.REACT_APP_MAPBOX_TOKEN
+      import.meta.env.VITE_MAPBOX_TOKEN
     }&country=IN&region=KA,TN,KL&bbox=${bbox.join(",")}`;
 
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data,"data")
+    
     setDropSuggestions(data.features.map((f) => f.place_name));
   };
 
   const handleDropoff = (suggestion) => {
+    console.log(suggestion,"kiran")
     setDropoff(suggestion);
     setDropOFF(suggestion);
     setDropSuggestions([]);

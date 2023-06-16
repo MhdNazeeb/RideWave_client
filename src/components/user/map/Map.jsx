@@ -1,21 +1,22 @@
-import React, {  useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { LocationContext } from "../../user/locationselector/LocationSelector";
+import { LocationContext } from "../../../context/LocationContext";
 
 
-
-mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const Map = () => {
-    const { pickupCoordinates, dropoffCoordinates } = useContext(LocationContext);
+  const { pickupCoordinates, dropoffCoordinates } = useContext(LocationContext);
+ console.log( pickupCoordinates, dropoffCoordinates,"llllllll")
  const getDirection = async (pickupCoordinates, dropoffCoordinates) => {
   const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${mapboxgl.accessToken}`;
   const result = await axios.get(url);
   console.log(result)
   return result;
 };
+
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -27,8 +28,9 @@ const Map = () => {
 
     map.on("load", async () => {
       const bounds = new mapboxgl.LngLatBounds();
-
+  
       if (pickupCoordinates && dropoffCoordinates) {
+        
         await getDirection(pickupCoordinates, dropoffCoordinates).then(
           (result) => {
             const routeLayer = {
@@ -66,7 +68,7 @@ const Map = () => {
       }
       addBoundsToMap(map, bounds);
     });
-  }, []);
+  }, [pickupCoordinates, dropoffCoordinates]);
 
   const addToMap = (map, coordinates) => {
     // eslint-disable-next-line no-unused-vars
