@@ -6,6 +6,7 @@ import SignUP from "../../components/user/signup/Signup";
 import Verification from "../../pages/verificationmail/verification";
 import { useSelector } from "react-redux";
 import MapPage from "../../pages/user/mapPage/MapPage";
+import CheckoutPage from "../../pages/checkoutPage/CheckoutPage";
 
 export default function UserRoutes() {
   const userDetails = useSelector((state) => state.userReducer.user);
@@ -27,6 +28,14 @@ export default function UserRoutes() {
         <Route
           path="/map"
           element={client ? <MapPage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/map"
+          element={client ? <MapPage/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/checkout"
+          element={client ? <CheckoutPage/> : <Navigate to="/login" />}
         />
       </Routes>
     </>

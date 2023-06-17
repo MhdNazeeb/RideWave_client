@@ -1,7 +1,7 @@
 import React from "react";
 import Map from "../../../components/user/map/Map";
 import LocationSelector from "../../../components/user/locationselector/LocationSelector";
-import RideConfirm from "../../../components/user/RideConfirm/RIdeConfirm";
+import RiderSelector from "../../../components/user/Rideselector/RideSelector";
 
 function MapPage() {
   return (
@@ -11,11 +11,13 @@ function MapPage() {
           <Map />
         </div>
         <div className="md:h-full  md:w-2\3 sm:w-[450px] md:ml-[9rem] md:py-[9rem] absolute inset-x-0 bottom-0 md:left-0 md:top-0 flex flex-col justify-end z-20">
-          <div className="flex flex-col h-fit  bg-white rounded-lg overflow-scroll no-scrollbar">
-            <div className="sticky top-0 w-full  opacity-100 z-10">
+          <div className="flex flex-col h-fit  opacity-100 z-10 bg-white rounded-lg overflow-scroll no-scrollbar">
+            <div className="">
               <LocationSelector />
             </div>
-            <RideConfirm />
+            <div className="mx-2">
+              <RiderSelector />
+            </div>
           </div>
         </div>
       </div>
