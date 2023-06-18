@@ -2,8 +2,15 @@ import React from "react";
 import Map from "../../../components/user/map/Map";
 import LocationSelector from "../../../components/user/locationselector/LocationSelector";
 import RiderSelector from "../../../components/user/Rideselector/RideSelector";
+import { LocationContext } from "../../../context/LocationContext";
+import { useEffect,useContext} from "react";
 
 function MapPage() {
+  const { setDropoffCoordinates } = useContext(LocationContext);
+  useEffect(() => {
+    setDropoffCoordinates([])
+  }, []);
+  
   return (
     <>
       <div className="h-screen w-screen flex flex-col text-black">

@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
 import { LocationContext } from "../../../context/LocationContext";
-import { selectTripContext } from "../../../context/TripContext";
 import { axiosClientInstance } from "../../../axios/instances/instance";
 import axios from "axios";
 import mapboxgl from "mapbox-gl";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addTrip } from "../../../redux/tripdetails";
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const RiderSelector = () => {
   const { pickupCoordinates, dropoffCoordinates } = useContext(LocationContext);
-    const { driver, selectDriver, setTripDetails } = useContext(selectTripContext);
+  const dispatch  = useDispatch()
   const [carlist, setCarlist] = useState([]);
   const [dropOff, setDropoff] = useState();
   const [distance, setDistance] = useState();
@@ -67,6 +68,9 @@ const RiderSelector = () => {
   };
 
   const handleClick = async (car) => {
+
+    const carDetails = carlist?.filter((item)=>car===item._id)[0]
+    console.log(carDetails,'this car detais');
     const response = await getLocationName(
       pickupCoordinates[0],
       pickupCoordinates[1]
@@ -76,17 +80,22 @@ const RiderSelector = () => {
       dropoffCoordinates[0],
       dropoffCoordinates[1]
     );
-    selectDriver(car);
-    setTripDetails({
-      pickup: response,
-      dropOff: response2,
-      driver: driver,
-      distance: distance,
-    });
+    dispatch(
+         addTrip({
+          pickup: response,
+          dropOff: response2,
+          driver: car,
+         distance: distance,
+         carDetails:carDetails
+
+      })
+    );
+     
     navigate('/checkout')
   };
 
   useEffect(() => {
+    
     setDropoff(dropoffCoordinates);
     const carList = async () => {
       const response = await getCarList(pickupCoordinates);
@@ -104,12 +113,14 @@ const RiderSelector = () => {
     };
 
     tripDetails();
+   
   }, [distance, dropoffCoordinates, pickupCoordinates]);
-
+ 
   return (
     <div className="h-fit flex flex-col w-full" >
       <div className="text-gray-500 text-center text-xs py-2 "></div>
-      {dropOff && carlist.length > 0
+     { console.log(dropOff,"fromdrop")}
+      {dropOff?.length && carlist.length > 0
         ? carlist.map((car) => {
             return (
               <div className="flex flex-col flex-1 overflow-scroll no-scrollbar" onClick={()=>handleClick(car._id)}>

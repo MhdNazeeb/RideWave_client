@@ -1,217 +1,218 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const Checkout = () => {
-  const countries = ["China", "Russia", "UK"];
-  const [menu, setMenu] = useState(false);
-  const [country, setCountry] = useState("United States");
+  const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
+  const { distance, driver, dropOff, pickup, carDetails } = tripDetails;
+  const Rate = carDetails?.Rate * distance
 
-  const changeText = (e) => {
-    setMenu(false);
-    setCountry(e.target.textContent);
-  };
 
   return (
-    <div className="flex justify-start items-center bg-gray-800">
-      <div className="py-16 px-4 md:px-6 2xl:px-0 flex justify-center items-center 2xl:mx-auto 2xl:container">
-        <div className="flex flex-col justify-start items-start w-full space-y-9">
-          <div className="flex justify-end flex-col items-start space-y-2">
-            <button className="flex flex-row items-center text-gray-600 hover:text-gray-500 space-x-1">
-              <svg
-                className="fill-stroke"
-                width="14"
-                height="14"
-                viewBox="0 0 14 14"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M2.91681 7H11.0835"
-                  stroke="currentColor"
-                  strokeWidth="0.666667"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M2.91681 7L5.25014 9.33333"
-                  stroke="currentColor"
-                  strokeWidth="0.666667"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M2.91681 7.00002L5.25014 4.66669"
-                  stroke="currentColor"
-                  strokeWidth="0.666667"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <p className="text-sm leading-none">Back</p>
-            </button>
-            <p className="text-3xl lg:text-4xl font-semibold leading-7 lg:leading-9 text-gray-800">
-              Checkout
-            </p>
-            <p className="text-base leading-normal sm:leading-4 text-gray-600">
-              Home {">"} Electronics {">"} Headphones {">"} Cart {">"} Checkout
-            </p>
-          </div>
-
-          <div className="flex flex-col xl:flex-row justify-center xl:justify-between space-y-6 xl:space-y-0 xl:space-x-6 w-full">
-            <div className="xl:w-3/5 flex flex-col sm:flex-row xl:flex-col justify-center items-centerb bg-gray-600 py-7 sm:py-0 xl:py-10 px-10 xl:w-full">
-              <div className="flex flex-col justify-start items-start w-full space-y-4">
-                <p className="text-xl md:text-2xl leading-normal text-gray-800">
-                  Logitech K251
-                </p>
-                <p className="text-base font-semibold leading-none text-gray-600">
-                  $520.00
-                </p>
-              </div>
-              <div className="mt-6 sm:mt-0 xl:my-10 xl:px-20 w-52 sm:w-96 xl:max-w-7xl">
-               
+    <div>
+      <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
+        <div className="px-4 pt-8">
+          <p className="text-xl font-medium">Order Summary</p>
+          {/* <p className="text-gray-400">Check your items. And select a suitable shipping method.</p> */}
+          <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+            <div className="flex flex-col rounded-lg bg-white sm:flex-row">
+              <img
+                className="m-2 h-24 w-28 rounded-md border object-cover object-center"
+                src={carDetails?.carimage}
+                alt
+              />
+              <div className="flex w-full flex-col px-4 py-4">
+                <span className="font-semibold">
+                  Modal: {carDetails?.model}{" "}
+                </span>
+                <span className="float-right">
+                  RG: {carDetails?.RegistrationNumber}
+                </span>
+                <p className="text-lg font-bold"> Rate: ₹{Rate}</p>
               </div>
             </div>
-
-            <div className="p-8 bg-gray-600 flex flex-col lg:w-full xl:w-3/5 ml-16">
-              <button className="border border-transparent hover:border-gray-300 bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex flex-row justify-center items-center space-x-2 py-4 rounded w-full">
-                <div>
-                  <svg
-                    className="fill-current"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M10.9099 4.27692C9.6499 4.27692 9.1174 4.87817 8.2399 4.87817C7.34021 4.87817 6.65396 4.28129 5.56208 4.28129C4.49333 4.28129 3.35365 4.93379 2.6299 6.04535C1.61365 7.61285 1.78615 10.565 3.43208 13.08C4.02083 13.9804 4.80708 14.99 5.83833 15.001H5.85708C6.75333 15.001 7.01958 14.4141 8.25302 14.4072H8.27177C9.48677 14.4072 9.73052 14.9975 10.623 14.9975H10.6418C11.673 14.9866 12.5015 13.8679 13.0902 12.971C13.514 12.326 13.6715 12.0022 13.9965 11.2725C11.6155 10.3688 11.233 6.99348 13.5877 5.69942C12.869 4.79942 11.859 4.27817 10.9068 4.27817L10.9099 4.27692Z"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M10.6338 1C9.88379 1.05094 9.00879 1.52844 8.49629 2.15188C8.03129 2.71688 7.64879 3.555 7.79879 4.36781H7.85879C8.65754 4.36781 9.47504 3.88688 9.95254 3.27063C10.4125 2.68406 10.7613 1.85281 10.6338 1V1Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-base leading-4">Pay</p>
-                </div>
-              </button>
-
-              <div className="flex flex-row justify-center items-center mt-6">
-                <hr className="border w-full" />
-                <p className="flex flex-shrink-0 px-4 text-base leading-4 text-gray-600">
-                  or pay with card
-                </p>
-                <hr className="border w-full" />
-              </div>
-
-              <div className="mt-8">
-                <input
-                  className="border border-gray-300 p-4 rounded w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                  type="email"
-                  placeholder="Email"
-                />
-              </div>
-
-              <label className="mt-8 text-base leading-4 text-gray-800">
-                Card details
-              </label>
-              <div className="mt-2 flex-col">
-                <div>
-                  <input
-                    className="border rounded-tl rounded-tr border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                    type="email"
-                    placeholder="0000 1234 6549 15151"
-                  />
-                </div>
-                <div className="flex-row flex">
-                  <input
-                    className="border rounded-bl border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                    type="email"
-                    placeholder="MM/YY"
-                  />
-                  <input
-                    className="border rounded-br border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                    type="email"
-                    placeholder="CVC"
-                  />
-                </div>
-              </div>
-
-              <label className="mt-8 text-base leading-4 text-gray-800">
-                Name on card
-              </label>
-              <div className="mt-2 flex-col">
-                <div>
-                  <input
-                    className="border rounded border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                    type="email"
-                    placeholder="Name on card"
-                  />
-                </div>
-              </div>
-
-              <label className="mt-8 text-base leading-4 text-gray-800">
-                Country or region
-              </label>
-              <div className="mt-2 flex-col">
-                <div className="relative">
-                  <button
-                    className="text-left border rounded-tr rounded-tl border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600 bg-white"
-                    type="email"
-                  >
-                    {country}
-                  </button>
-                  <svg
-                    onClick={() => setMenu(!menu)}
-                    className={
-                      "transform  cursor-pointer absolute top-4 right-4 " +
-                      (menu ? "rotate-180" : "")
-                    }
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M3.5 5.75L8 10.25L12.5 5.75"
-                      stroke="#27272A"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <div
-                    className={
-                      "mt-1 absolute z-10 w-full flex bg-gray-50 justify-start flex-col text-gray-600 " +
-                      (menu ? "block" : "hidden")
-                    }
-                  >
-                    {countries.map((country) => (
-                      <div
-                        key={country}
-                        className="cursor-pointer hover:bg-gray-800 hover:text-white px-4 py-2"
-                        onClick={changeText}
-                      >
-                        {country}
-                      </div>
-                    ))}
+            <div className="flex flex-col rounded-lg bg-white sm:flex-row">
+              <div className="flex w-full flex-col px-4 py-4">
+                <div className="flex">
+                  <div>
+                    <div className="m-3">
+                      <input
+                        type="text"
+                        className="h-10 w-20 rounded-lg"
+                        placeholder="Booked"
+                        readOnly
+                      />
+                    </div>
+                    <div className="m-3">
+                      <input
+                        type="text"
+                        className="h-10 w-20 rounded-lg"
+                        placeholder="Booked"
+                        readOnly
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="m-3">
+                      <input
+                        type="text"
+                        className="h-10 w-20 rounded-lg"
+                        placeholder="Booked"
+                        readOnly
+                      />
+                    </div>
+                    <div className="m-3">
+                      <input
+                        type="text"
+                        className="h-10 w-20 rounded-lg"
+                        placeholder="Booked"
+                        readOnly
+                      />
+                    </div>
                   </div>
                 </div>
-                <input
-                  className="border rounded-bl rounded-br border-gray-300 p-4 w-full text-base leading-4 placeholder-gray-600 text-gray-600"
-                  type="text"
-                  placeholder="ZIP"
-                />
-              </div>
 
-              <button className="mt-8 border border-transparent hover:border-gray-300 bg-gray-900 hover:bg-white text-white hover:text-gray-900 flex justify-center items-center py-4 rounded w-full">
-                <div>
-                  <p className="text-base leading-4">Pay $54652</p>
-                </div>
-              </button>
+                {/* <span className="font-semibold">
+                  Nike Air Max Pro 8888 - Super Light
+                </span> */}
+                {/* <span className="float-right text-gray-400">42EU - 8.5US</span>
+                <p className="mt-auto text-lg font-bold">$238.99</p> */}
+              </div>
             </div>
           </div>
+
+          <form className="mt-5 grid gap-6">
+            <div className="relative">
+              <input
+                className="peer hidden"
+                id="radio_1"
+                type="radio"
+                name="radio"
+                defaultChecked
+              />
+            </div>
+            <div className="relative">
+              <input
+                className="peer hidden"
+                id="radio_2"
+                type="radio"
+                name="radio"
+                defaultChecked
+              />
+            </div>
+          </form>
+        </div>
+        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+          <p className="text-xl font-medium">Payment Details</p>
+          {/* <p className="text-gray-400">Complete your order by providing your payment details.</p> */}
+          <div className>
+            <label
+              htmlFor="email"
+              className="mt-4 mb-2 block text-sm font-medium"
+            >
+              pickUp
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                name="email"
+                value={pickup}
+                className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+              />
+              <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path />
+                </svg>
+              </div>
+            </div>
+            <label
+              htmlFor="card-holder"
+              className="mt-4 mb-2 block text-sm font-medium"
+            >
+              DropOf
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={dropOff}
+                id="card-holder"
+                name="card-holder"
+                className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+              />
+              <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path />
+                </svg>
+              </div>
+            </div>
+            <label
+              htmlFor="card-no"
+              className="mt-4 mb-2 block text-sm font-medium"
+            >
+              Date Time
+            </label>
+            <div className="flex">
+              <div className="relative w-7/12 flex-shrink-0">
+                <input
+                  type="date"
+                  id="card-no"
+                  name="card-no"
+                  className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                  placeholder="xxxx-xxxx-xxxx-xxxx"
+                />
+                <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                  <svg
+                    className="h-4 w-4 text-gray-400"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={16}
+                    height={16}
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M11 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1z" />
+                    <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm13 2v5H1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm-1 9H2a1 1 0 0 1-1-1v-1h14v1a1 1 0 0 1-1 1z" />
+                  </svg>
+                </div>
+              </div>
+              <input
+                type="time"
+                name="credit-expiry"
+                className="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                placeholder="MM/YY"
+              />
+            </div>
+            {/* Total */}
+            <div className="mt-6 border-t border-b py-2">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-medium text-gray-900">Total</p>
+                <p className="font-semibold text-gray-900"> ₹{Rate}</p>
+              </div>
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-medium text-gray-900">Per Seat</p>
+                <p className="font-semibold text-gray-900">₹{Rate/4}</p>
+              </div>
+            </div>
+            <div className="mt-6 flex items-center justify-between">
+              <p className="text-sm font-medium text-gray-900">Total</p>
+              <p className="text-2xl font-semibold text-gray-900">$408.00</p>
+            </div>
+          </div>
+          <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
+            Place Order
+          </button>
         </div>
       </div>
     </div>
