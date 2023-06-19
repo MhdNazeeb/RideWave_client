@@ -49,3 +49,21 @@ export const userLogin = async (values) => {
     console.log(error.message, "error in signup client......");
   }
 };
+ export const rideBook = async (data,token) => {
+    console.log(data,token,'this is dataaaaaa');
+  try {
+
+    const config = {
+      headers: {
+        // Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+        
+    const response = await axiosClientInstance.post('book',data,config);
+    return response;
+  } catch (error) {
+    console.log(error.message, "error in signup client......");
+  }
+};
