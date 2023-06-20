@@ -80,7 +80,9 @@ const LocationSelector = () => {
   };
 
   const handleSetPickUP = (event) => {
+
     setPickUP(event.target.value);
+
   };
 
   const handleDropOFF = (event) => {

@@ -4,17 +4,22 @@ import { axiosClientInstance } from "../../../axios/instances/instance";
 import axios from "axios";
 import mapboxgl from "mapbox-gl";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addTrip } from "../../../redux/tripdetails";
+import { useDispatch, useSelector } from "react-redux";
+import { addTrip,location } from "../../../redux/tripdetails";
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const RiderSelector = () => {
-  const { pickupCoordinates, dropoffCoordinates } = useContext(LocationContext);
+  const { pickupCoordinates, dropoffCoordinates} = useContext(LocationContext);
+  const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
+  const {  pickup} = tripDetails;
+  let drop = tripDetails.dropOff
   const dispatch  = useDispatch()
   const [carlist, setCarlist] = useState([]);
   const [dropOff, setDropoff] = useState();
   const [distance, setDistance] = useState();
+
   const  navigate = useNavigate()
+ 
   const getDirection = async (pickupCoordinates, dropoffCoordinates) => {
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${mapboxgl.accessToken}`;
     const result = await axios.get(url);
@@ -43,7 +48,8 @@ const RiderSelector = () => {
 
   const getCarList = async (pickupCoordinates) => {
     try {
-      const response = await axiosClientInstance.get("/carlist");
+      console.log(tripDetails,"kirandrop")
+      const response = await axiosClientInstance.get("/carlist",{params:{pickup,drop:tripDetails.dropOff}});
       console.log(typeof (response.data[0].Rate, "number type"));
 
       setCarlist(response?.data);
@@ -67,7 +73,7 @@ const RiderSelector = () => {
     return distance;
   };
 
-  const handleClick = async (car) => {
+  const handleClick = async (car,driverId) => {
 
     const carDetails = carlist?.filter((item)=>car===item._id)[0]
     console.log(carDetails,'this car detais');
@@ -75,18 +81,22 @@ const RiderSelector = () => {
       pickupCoordinates[0],
       pickupCoordinates[1]
     );
+   
 
     const response2 = await getLocationName(
       dropoffCoordinates[0],
       dropoffCoordinates[1]
-    );
+    ); 
+   
+    
     dispatch(
          addTrip({
           pickup: response,
           dropOff: response2,
-          driver: car,
-         distance: distance,
-         carDetails:carDetails
+          car: car,
+          driver:driverId,
+          distance: distance,
+          carDetails:carDetails
 
       })
     );
@@ -99,6 +109,7 @@ const RiderSelector = () => {
     setDropoff(dropoffCoordinates);
     const carList = async () => {
       const response = await getCarList(pickupCoordinates);
+      
     };
     carList();
     const tripDetails = async () => {
@@ -113,6 +124,28 @@ const RiderSelector = () => {
     };
 
     tripDetails();
+  async  function LocationName() {
+    if(pickupCoordinates?.length&&dropoffCoordinates?.length){
+      const response = await getLocationName(
+        pickupCoordinates[0],
+        pickupCoordinates[1]
+      );
+     
+  
+      const response2 = await getLocationName(
+        dropoffCoordinates[0],
+        dropoffCoordinates[1]
+      ); 
+      console.log(response2,"kiranresponse")
+      dispatch(
+        location({
+         pickup: response,
+         dropOff: response2
+        }))
+    }
+    }
+    LocationName()
+    
    
   }, [distance, dropoffCoordinates, pickupCoordinates]);
  
@@ -123,7 +156,7 @@ const RiderSelector = () => {
       {dropOff?.length && carlist.length > 0
         ? carlist.map((car) => {
             return (
-              <div className="flex flex-col flex-1 overflow-scroll no-scrollbar" onClick={()=>handleClick(car._id)}>
+              <div className="flex flex-col flex-1 overflow-scroll no-scrollbar" onClick={()=>handleClick(car._id,car.userId)}>
                 <div className="flex p-3 m-2 items-center border-2 border-white hover:bg-slate-200 cursor-pointer z-0">
                   <img
                     src={car.carimage}

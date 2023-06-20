@@ -19,7 +19,6 @@ function ProfileModal({driver,setEditModal,driverData,setRefrsh }) {
     setRefrsh(state=>!state)
     const res = await editeProfile(data,token)
    
-
   }
   
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =

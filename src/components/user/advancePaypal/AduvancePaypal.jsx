@@ -5,20 +5,21 @@ import { useSelector } from "react-redux";
 const paypal = import.meta.env.VITE_PAYPAL_TOKEN;
 
 export default function AduvancePaypal({ values, tripDetails, Rate }) {
- 
-  const data = {
-    ...tripDetails,
-    ...values,
-      Rate,
-  };
-
   const perSeat = +Rate / 4;
   const userDetails = useSelector((state) => state.userReducer.user);
   const { token } = userDetails;
-   async function firstCheckout() {
-   
-    const res = await rideBook(data,token);
+  const userid = userDetails.user._id;
 
+  const data = {
+    ...tripDetails,
+    ...values,
+       Rate,
+       userid,
+  };
+
+  async function firstCheckout() {
+    const res = await rideBook(data, token);
+    console.log(res);
   }
 
   return (

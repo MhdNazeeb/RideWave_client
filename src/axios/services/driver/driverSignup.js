@@ -57,7 +57,7 @@ export const carRegistor = async(values,token)=>{
  }
 }
 export const editeProfile = async(data,token)=>{
-  console.log(token,'this asios');
+  console.log(token,'this axios');
  try {
   const config = {
     headers: {

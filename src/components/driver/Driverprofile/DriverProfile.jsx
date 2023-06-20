@@ -33,6 +33,7 @@ function DriverProfile({driver}) {
     
     getProfile(driver._id,token).then((res)=>{
      setdriverData(res.data)
+
     })
   },[refresh])
 
@@ -40,6 +41,7 @@ function DriverProfile({driver}) {
   return (
     
     <div className="bg-white">
+{          console.log(driverData,'ggggggggg')}
      { editModal? <ProfileModal driver={driver} driverData={driverData} setEditModal={setEditModal} setRefrsh={setRefrsh} />:''}
       <div className="">
         <div className=" car md:flex no-wrap h-screen  ">
@@ -62,7 +64,7 @@ function DriverProfile({driver}) {
                     <button className="px-5 p-1  text-white bg-blue-600 rounded-lg" onClick={()=>handleClick('edit')}>Edit</button>
                     </div>
                     <div className=" lg:px-3 sm:px-1">
-                    <button className="px-5 p-1  text-white bg-blue-600 rounded-lg" onClick={()=>handleClick('car')}>Car Deatails </button>
+                   {driverData.IsCar? <button className="px-5 p-1  text-white bg-blue-600 rounded-lg" onClick={()=>handleClick('car')}>Car Deatails </button>:""}
                     </div>
                     
                    

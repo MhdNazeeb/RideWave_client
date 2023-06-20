@@ -7,13 +7,11 @@ import { useFormik } from "formik";
 
 const Checkout = () => {
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
-  const { distance, driver, dropOff, pickup, carDetails } = tripDetails;
+  const { distance, dropOff, pickup, carDetails } = tripDetails;
   const Rate = carDetails?.Rate * distance;
   const currentDate = new Date().toISOString().split("T")[0];
 
-  function onSubmit() {
-    
-  }
+  function onSubmit() {}
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -193,7 +191,8 @@ const Checkout = () => {
                     min={currentDate}
                     className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                     placeholder="xxxx-xxxx-xxxx-xxxx"
-                  />{errors.date && touched.date && (
+                  />
+                  {errors.date && touched.date && (
                     <p className="text-red-700">{errors.date}</p>
                   )}
 
@@ -223,8 +222,8 @@ const Checkout = () => {
                   min={currentDate}
                 />
                 {errors.time && touched.time && (
-              <p className="text-red-700">{errors.time}</p>
-            )}
+                  <p className="text-red-700">{errors.time}</p>
+                )}
               </div>
 
               {/* Total */}
@@ -245,11 +244,20 @@ const Checkout = () => {
                 </p>
               </div>
             </div>
-            { values.date && values.time ?
-            <AduvancePaypal values={values} tripDetails={tripDetails} Rate={Rate}/>:<button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white" type="submit">
-            Confirm Ride
-          </button>}
-            
+            {values.date && values.time ? (
+              <AduvancePaypal
+                values={values}
+                tripDetails={tripDetails}
+                Rate={Rate}
+              />
+            ) : (
+              <button
+                className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
+                type="submit"
+              >
+                Confirm Ride
+              </button>
+            )}
           </div>
         </div>
       </form>

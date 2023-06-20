@@ -115,6 +115,7 @@ export const  getCarList = async () => {
  
      
      const response = await axiosAdminInstance.get("carlist",config);
+     console.log('this car list');
      return response;
    } catch (error) {
      console.log(error.message, "error in signup client......");

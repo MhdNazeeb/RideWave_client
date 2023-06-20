@@ -13,20 +13,18 @@ function CarDeatails() {
   const driverid = driver._id;
 
   useEffect(() => {
-    car(driverid, token).then((res) => {
-      
+    car(driverid, token).then((res) => { 
       setCarData(res.data);
     });
   },[editmodal]);
   function handleClick() {
-    console.log('trueeeeeeeeeeeeeeeeeeee');
     setEditModal(true);
   }
 
   return (
     <div className="flex-wrap  h-fit w-full details bg-white drop-shadow-[95px_65px_5px_rgba(0,0,0,0.5)]">
       {editmodal ? <EditCarModal  setEditModal={setEditModal} carData={carData}/> : ""}
-      <img src={carData.carimage} alt="" className="w-60 h-52" />
+      <img src={carData?.carimage} alt="" className="w-60 h-52" />
 
       <ul className=" bg-gray-200 opacity-90 text-gray-600 hover:text-gray-700 hover:shadow  rounded shadow-sm w-full p-10">
         <li className="flex justify-end py-3  ">
