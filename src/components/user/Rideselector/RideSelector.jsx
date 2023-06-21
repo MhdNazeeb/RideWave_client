@@ -48,8 +48,8 @@ const RiderSelector = () => {
 
   const getCarList = async (pickupCoordinates) => {
     try {
-      console.log(tripDetails,"kirandrop")
-      const response = await axiosClientInstance.get("/carlist",{params:{pickup,drop:tripDetails.dropOff}});
+      
+      const response = await axiosClientInstance.get("/carlist",{params:{pickup,drop:tripDetails.dropoff}});
       console.log(typeof (response.data[0].Rate, "number type"));
 
       setCarlist(response?.data);

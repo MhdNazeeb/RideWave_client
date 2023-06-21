@@ -41,7 +41,7 @@ function DriverProfile({driver}) {
   return (
     
     <div className="bg-white">
-{          console.log(driverData,'ggggggggg')}
+{          console.log(driverData,'this is driver data')}
      { editModal? <ProfileModal driver={driver} driverData={driverData} setEditModal={setEditModal} setRefrsh={setRefrsh} />:''}
       <div className="">
         <div className=" car md:flex no-wrap h-screen  ">
@@ -73,14 +73,14 @@ function DriverProfile({driver}) {
                   <li className="flex items-center py-3">
                     <span>Name</span>
                     <span className="ml-auto font-bold uppercase">
-                      {driverData.name}
+                      {driverData?._doc?.name}
                     </span>
                   </li>
                  
                   <li className="flex items-center py-3">
                     <span>Email</span>
                     <span className="ml-auto truncate">
-                      {driverData.email}
+                      {driverData?._doc?.email}
                     </span>
                   </li>
                   <li className="flex items-center py-3">

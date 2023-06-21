@@ -24,8 +24,8 @@ function ProfileModal({driver,setEditModal,driverData,setRefrsh }) {
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
   useFormik({
     initialValues: {
-      name:driverData.name,
-      email:driverData.email,
+      name:driverData?._doc?.name,
+      email:driverData?._doc?.email,
     },
     validationSchema:driverProfile,
     onSubmit,
