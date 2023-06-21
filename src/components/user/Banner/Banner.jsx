@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Banner.css";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+let accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const navigation = [
   { name: "Product", href: "#" },
@@ -11,20 +12,36 @@ const navigation = [
 ];
 
 export default function Banner() {
+  const [active, setActive] = useState(false);
   const userDetails = useSelector((state) => state.userReducer.user);
 
   const DriverDetails = useSelector((state) => state.driverReducer.driver);
 
-  const navigte = useNavigate()
+  const navigte = useNavigate();
 
   const driver = DriverDetails?.driver;
 
   console.log(driver, "this isdriver");
   function carRegister() {
-    navigte('/driver/car_register')
+    navigte("/driver/car_register");
   }
   function handleStart() {
-    navigte('/map')
+    navigte("/map");
+  }
+  function selectOffline() {
+    setActive((state) => !state);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            const currentLocation = data.features[0].place_name;
+             console.log(longitude,'this longitude');
+          });
+      });
+    }
   }
 
   const user = userDetails?.user;
@@ -65,32 +82,38 @@ export default function Banner() {
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
               fugiat aliqua.
             </p>
-            { driver ? (
+            {driver ? (
               <div className="mt-10 flex items-center justify-center gap-x-6">
-               
-                <a className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={carRegister}>
-                 
+                <a
+                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={carRegister}
+                >
                   register your car
                 </a>
-                
 
-
-                <a className="text-sm font-semibold leading-6 text-gray-900">
-                check availbale rides
-                  <span aria-hidden="true">→</span>
-                </a>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    defaultValue
+                    className="sr-only peer"
+                    onClick={selectOffline}
+                  />
+                  <div className="w-11 h-6 bg-black peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+                </label>
               </div>
             ) : (
               <div className="mt-10 flex items-center justify-center gap-x-6">
-                
-                <button className=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" onClick={handleStart}>
-                Get started{" "}
+                <button
+                  className=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  onClick={handleStart}
+                >
+                  Get started{" "}
                 </button>
                 <button className=" rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Learn more<span aria-hidden="true">→</span>
+                  Learn more<span aria-hidden="true">→</span>
                 </button>
               </div>
-            ) }
+            )}
           </div>
         </div>
         <div

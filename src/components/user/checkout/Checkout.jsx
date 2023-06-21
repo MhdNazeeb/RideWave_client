@@ -49,7 +49,7 @@ const Checkout = () => {
               <div className="flex flex-col rounded-lg bg-white sm:flex-row">
                 <div className="flex w-full flex-col px-4 py-4">
                   <div className="flex">
-                    <div>
+                    {/* <div>
                       <div className="m-3">
                         <input
                           type="text"
@@ -66,8 +66,8 @@ const Checkout = () => {
                           readOnly
                         />
                       </div>
-                    </div>
-                    <div>
+                    </div> */}
+                    {/* <div>
                       <div className="m-3">
                         <input
                           type="text"
@@ -84,7 +84,7 @@ const Checkout = () => {
                           readOnly
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* <span className="font-semibold">
@@ -233,14 +233,14 @@ const Checkout = () => {
                   <p className="font-semibold text-gray-900"> ₹{Rate}</p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-gray-900">Per Seat</p>
-                  <p className="font-semibold text-gray-900">₹{Rate / 4}</p>
+                  {/* <p className="text-sm font-medium text-gray-900">Per Seat</p> */}
+                  {/* <p className="font-semibold text-gray-900">₹{Rate / 4}</p> */}
                 </div>
               </div>
               <div className="mt-6 flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-900">Total</p>
                 <p className="text-2xl font-semibold text-gray-900">
-                  ₹{Rate / 4}
+                ₹{Rate}
                 </p>
               </div>
             </div>
