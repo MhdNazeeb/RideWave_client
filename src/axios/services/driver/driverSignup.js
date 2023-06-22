@@ -131,6 +131,44 @@ export const editCar = async(data,token)=>{
 
  }
 }
+export const DriverLocation = async(token,driverCoordinates,driverid,active)=>{
+    console.log(token,driverCoordinates,driverid ,'driver location');
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+ 
+  
+  const response = await axiosDriverInstance.post(`/location`,{driverCoordinates,driverid,active},config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
+export const carfind = async (driverid)=>{
+   
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      // Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+  
+  
+  const response = await axiosDriverInstance.get('/Carfound',{params:{driverid}},config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
 
 
  

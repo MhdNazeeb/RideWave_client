@@ -5,25 +5,68 @@ import axios from "axios";
 import mapboxgl from "mapbox-gl";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addTrip,location } from "../../../redux/tripdetails";
+import { addTrip, location } from "../../../redux/tripdetails";
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const RiderSelector = () => {
-  const { pickupCoordinates, dropoffCoordinates} = useContext(LocationContext);
+  const { pickupCoordinates, dropoffCoordinates } = useContext(LocationContext);
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
-  const {  pickup} = tripDetails;
-  let drop = tripDetails.dropOff
-  const dispatch  = useDispatch()
+  const dispatch = useDispatch();
   const [carlist, setCarlist] = useState([]);
   const [dropOff, setDropoff] = useState();
   const [distance, setDistance] = useState();
 
-  const  navigate = useNavigate()
+  const navigate = useNavigate();
+
+
+
+
+  useEffect(() => {
+    setDropoff(dropoffCoordinates);
+    const carList = async () => {
+      const response = await getCarList(pickupCoordinates);
+    };
+    carList();
+    const tripDetails = async () => {
+      const response = await getDirection(
+        pickupCoordinates,
+        dropoffCoordinates
+      );
+      const data = response?.data?.routes[0].distance;
+      let distance = Math.floor(data / 1000);
+      setDistance(distance);
+    };
+
+    tripDetails();
+    async function LocationName() {
+      if (pickupCoordinates?.length && dropoffCoordinates?.length) {
+        const response = await getLocationName(
+          pickupCoordinates[0],
+          pickupCoordinates[1]
+        );
+
+        const response2 = await getLocationName(
+          dropoffCoordinates[0],
+          dropoffCoordinates[1]
+        );
+        console.log(response2, "kiranresponse");
+        dispatch(
+          location({
+            pickup: response,
+            dropOff: response2,
+          })
+        );
+      }
+    }
+    LocationName();
+  }, [distance, dropoffCoordinates, pickupCoordinates]);
+
  
+
   const getDirection = async (pickupCoordinates, dropoffCoordinates) => {
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${mapboxgl.accessToken}`;
     const result = await axios.get(url);
-    console.log(result);
+
     return result;
   };
 
@@ -48,115 +91,90 @@ const RiderSelector = () => {
 
   const getCarList = async (pickupCoordinates) => {
     try {
-      
-      const response = await axiosClientInstance.get("/carlist",{params:{pickup,drop:tripDetails.dropoff}});
-      console.log(typeof (response.data[0].Rate, "number type"));
+      let ShowCars=[]
+      setCarlist([])
+      const response = await axiosClientInstance.get("/carlist");
+      const distance = await getDistance(pickupCoordinates, dropoffCoordinates);
 
-      setCarlist(response?.data);
-      const distance = await getAvaiableCar(
-        pickupCoordinates,
-        dropoffCoordinates
-      );
+      response?.data?.forEach((element) => {
+        let DriverLocation = element.location;
+        async function dis() {
+          const distance1 = await DriverDistatnce(
+            pickupCoordinates,
+            DriverLocation
+          );
+          if (distance1 < 20) {
+            ShowCars.push(element)
+            setCarlist(state => [...state,element])
+           
+          }
+        }
+        dis();
+        
+      });
+
+      
+      
     } catch (error) {
+      console.log(error.message,'eror in ca')
       return error;
     }
   };
 
-  const getAvaiableCar = async (pickupCoordinates, dropoffCoordinates) => {
-    console.log(carlist, "this carlist");
+  const DriverDistatnce = async (pickupCoordinates, DriverLocation) => {
+    const findDistance = await getDirection(pickupCoordinates, DriverLocation);
+    const distance = (findDistance.data.routes[0].distance / 1000).toFixed(0);
+    return distance;
+  };
+  const getDistance = async (pickupCoordinates, dropoffCoordinates) => {
     const findDistance = await getDirection(
       pickupCoordinates,
       dropoffCoordinates
     );
-    console.log(findDistance, "first distance");
     const distance = (findDistance.data.routes[0].distance / 1000).toFixed(0);
     return distance;
   };
 
-  const handleClick = async (car,driverId) => {
+  const handleClick = async (car, driverId) => {
+    const carDetails = carlist?.filter((item) => car === item._id)[0];
 
-    const carDetails = carlist?.filter((item)=>car===item._id)[0]
-    console.log(carDetails,'this car detais');
     const response = await getLocationName(
       pickupCoordinates[0],
       pickupCoordinates[1]
     );
-   
 
     const response2 = await getLocationName(
       dropoffCoordinates[0],
       dropoffCoordinates[1]
-    ); 
-   
-    
-    dispatch(
-         addTrip({
-          pickup: response,
-          dropOff: response2,
-          car: car,
-          driver:driverId,
-          distance: distance,
-          carDetails:carDetails
+    );
 
+    dispatch(
+      addTrip({
+        pickup: response,
+        dropOff: response2,
+        car: car,
+        driver: driverId,
+        distance: distance,
+        carDetails: carDetails,
       })
     );
-     
-    navigate('/checkout')
+
+    navigate("/checkout");
   };
-
-  useEffect(() => {
     
-    setDropoff(dropoffCoordinates);
-    const carList = async () => {
-      const response = await getCarList(pickupCoordinates);
-      
-    };
-    carList();
-    const tripDetails = async () => {
-      const response = await getDirection(
-        pickupCoordinates,
-        dropoffCoordinates
-      );
-      const data = response.data.routes[0].distance;
-      let distance = Math.floor(data / 1000);
-      console.log(distance, "this distance");
-      setDistance(distance);
-    };
-
-    tripDetails();
-  async  function LocationName() {
-    if(pickupCoordinates?.length&&dropoffCoordinates?.length){
-      const response = await getLocationName(
-        pickupCoordinates[0],
-        pickupCoordinates[1]
-      );
-     
-  
-      const response2 = await getLocationName(
-        dropoffCoordinates[0],
-        dropoffCoordinates[1]
-      ); 
-      console.log(response2,"kiranresponse")
-      dispatch(
-        location({
-         pickup: response,
-         dropOff: response2
-        }))
-    }
-    }
-    LocationName()
-    
-   
-  }, [distance, dropoffCoordinates, pickupCoordinates]);
- 
   return (
-    <div className="h-fit flex flex-col w-full" >
+    <div className="h-fit flex flex-col w-full">
       <div className="text-gray-500 text-center text-xs py-2 "></div>
-     { console.log(dropOff,"fromdrop")}
-      {dropOff?.length && carlist.length > 0
-        ? carlist.map((car) => {
+      {dropOff?.length > 0 && carlist?.length > 0
+        ? carlist?.filter((val, ind, arr) => {
+          return arr.findIndex((elem) => elem._id === val._id) === ind;
+        }).map((car) => {
+          
             return (
-              <div className="flex flex-col flex-1 overflow-scroll no-scrollbar" onClick={()=>handleClick(car._id,car.userId)}>
+              <div
+                className="flex flex-col flex-1 overflow-scroll no-scrollbar"
+                onClick={() => handleClick(car._id, car.userId)}
+              >
                 <div className="flex p-3 m-2 items-center border-2 border-white hover:bg-slate-200 cursor-pointer z-0">
                   <img
                     src={car.carimage}
@@ -166,16 +184,15 @@ const RiderSelector = () => {
                     className="h-14"
                   />
                   <div className="ml-2 flex-1">
-                    <div className="font-bold">{car.model}</div>
+                    <div className="font-bold">Vehicle : {car.model}</div>
                     {/* <div className="text-xs text-black font-mediumf"></div> */}
-                    <div className="text-xs text-black">km{distance}</div>
+                    <div className="text-xs text-black">Distance : {distance} km</div>
 
                     <div className="text-xs text-green-500">
-                      {car.userId.name}
+                      Driver : {car.userId.name}
                     </div>
                   </div>
-                    <div className="mr-[-0.8rem]">₹{+car?.Rate * distance}</div>
-                
+                  <div className="mr-[-0.8rem]">₹{+car?.Rate * distance}</div>
                 </div>
               </div>
             );

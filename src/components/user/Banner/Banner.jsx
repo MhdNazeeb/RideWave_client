@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Banner.css";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  DriverLocation,
+  carfind,
+} from "../../../axios/services/driver/driverSignup";
+import { toast } from "react-toastify";
+
 let accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const navigation = [
@@ -13,41 +19,58 @@ const navigation = [
 
 export default function Banner() {
   const [active, setActive] = useState(false);
+  
+  const [carFind,setCarFind]=useState({})
+
   const userDetails = useSelector((state) => state.userReducer.user);
 
-  const DriverDetails = useSelector((state) => state.driverReducer.driver);
+  const user = userDetails?.user;
 
+  const DriverDetails = useSelector((state) => state.driverReducer.driver);
+  const { token } = DriverDetails;
   const navigte = useNavigate();
 
   const driver = DriverDetails?.driver;
+  let driverid = driver?._id;
 
-  console.log(driver, "this isdriver");
   function carRegister() {
     navigte("/driver/car_register");
   }
   function handleStart() {
     navigte("/map");
   }
-  function selectOffline() {
+  function LocationStatus() {
     setActive((state) => !state);
+    let driverCoordinets = [];
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}`;
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            const currentLocation = data.features[0].place_name;
-             console.log(longitude,'this longitude');
-          });
+        driverCoordinets.push(longitude);
+        driverCoordinets.push(latitude);
+
+        async function driveLo() {
+          const res = await DriverLocation(
+            token,
+            driverCoordinets,
+            driverid,
+            !active
+          );
+          if (res?.data?.message === "Your location on") {
+            toast.success(res?.data?.message);
+          } else {
+            toast.error(res?.data?.message);
+          }
+        }
+        driveLo();
       });
     }
   }
-
-  const user = userDetails?.user;
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  useEffect(() => {
+    carfind(driverid).then((res) => {
+      setCarFind(res.data)
+    });
+  }, []);
   return (
     <div className="bg-gray-800 banner">
       <div className="relative isolate px-6 pt-14 lg:px-8">
@@ -55,6 +78,7 @@ export default function Banner() {
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
         >
+          {console.log(active, "this active")}
           <div />
         </div>
         <div className="mx-auto max-w-2xl  sm:py-48 lg:py-20">
@@ -91,15 +115,15 @@ export default function Banner() {
                   register your car
                 </a>
 
-                <label className="relative inline-flex items-center cursor-pointer">
+                {carFind?<label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     defaultValue
                     className="sr-only peer"
-                    onClick={selectOffline}
+                    onClick={LocationStatus}
                   />
                   <div className="w-11 h-6 bg-black peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
-                </label>
+                </label>:""}
               </div>
             ) : (
               <div className="mt-10 flex items-center justify-center gap-x-6">

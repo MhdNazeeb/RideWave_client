@@ -9,6 +9,7 @@ function MapPage() {
   const { setDropoffCoordinates } = useContext(LocationContext);
   useEffect(() => {
     setDropoffCoordinates([])
+    console.log('dropppppp')
   }, []);
   
   return (
@@ -22,7 +23,7 @@ function MapPage() {
             <div className="">
               <LocationSelector />
             </div>
-            <div className="mx-2">
+            <div className="mx-2 overflow-y-scroll">
               <RiderSelector />
             </div>
           </div>
