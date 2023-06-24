@@ -23,7 +23,6 @@ const tripDetails = createSlice({
         state.trip.time = action.payload.time
      },
      location :(state,action)=>{
-      
         state.trip.pickup=action.payload.pickup
         state.trip.dropoff=action.payload.dropOff
      },

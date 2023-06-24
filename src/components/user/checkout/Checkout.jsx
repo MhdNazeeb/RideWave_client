@@ -7,11 +7,14 @@ import { useFormik } from "formik";
 
 const Checkout = () => {
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
+  const [confrim,setconfrim]=useState(false)
   const { distance, dropOff, pickup, carDetails } = tripDetails;
   const Rate = carDetails?.Rate * distance;
   const currentDate = new Date().toISOString().split("T")[0];
-
   function onSubmit() {}
+  function  confirmClick() {
+    setconfrim(true)
+  }
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
@@ -48,50 +51,7 @@ const Checkout = () => {
               </div>
               <div className="flex flex-col rounded-lg bg-white sm:flex-row">
                 <div className="flex w-full flex-col px-4 py-4">
-                  <div className="flex">
-                    {/* <div>
-                      <div className="m-3">
-                        <input
-                          type="text"
-                          className="h-10 w-20 rounded-lg"
-                          placeholder="Booked"
-                          readOnly
-                        />
-                      </div>
-                      <div className="m-3">
-                        <input
-                          type="text"
-                          className="h-10 w-20 rounded-lg"
-                          placeholder="Booked"
-                          readOnly
-                        />
-                      </div>
-                    </div> */}
-                    {/* <div>
-                      <div className="m-3">
-                        <input
-                          type="text"
-                          className="h-10 w-20 rounded-lg"
-                          placeholder="Booked"
-                          readOnly
-                        />
-                      </div>
-                      <div className="m-3">
-                        <input
-                          type="text"
-                          className="h-10 w-20 rounded-lg"
-                          placeholder="Booked"
-                          readOnly
-                        />
-                      </div>
-                    </div> */}
-                  </div>
-
-                  {/* <span className="font-semibold">
-                  Nike Air Max Pro 8888 - Super Light
-                </span> */}
-                  {/* <span className="float-right text-gray-400">42EU - 8.5US</span>
-                <p className="mt-auto text-lg font-bold">$238.99</p> */}
+                  <div className="flex"></div>
                 </div>
               </div>
             </div>
@@ -121,9 +81,9 @@ const Checkout = () => {
             <div className>
               <label
                 htmlFor="email"
-                className="mt-4 mb-2 block text-sm font-medium"
+                className="mt-4 mb-2 block text-sm font-medium "
               >
-                pickUp
+                Pickup
               </label>
               <div className="relative">
                 <input
@@ -149,7 +109,7 @@ const Checkout = () => {
                 htmlFor="card-holder"
                 className="mt-4 mb-2 block text-sm font-medium"
               >
-                DropOf
+                Dropof
               </label>
               <div className="relative">
                 <input
@@ -210,7 +170,6 @@ const Checkout = () => {
                     </svg>
                   </div>
                 </div>
-
                 <input
                   type="time"
                   name="time"
@@ -239,12 +198,10 @@ const Checkout = () => {
               </div>
               <div className="mt-6 flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-900">Total</p>
-                <p className="text-2xl font-semibold text-gray-900">
-                ₹{Rate}
-                </p>
+                <p className="text-2xl font-semibold text-gray-900">₹{Rate}</p>
               </div>
             </div>
-            {values.date && values.time ? (
+            {confrim ? (
               <AduvancePaypal
                 values={values}
                 tripDetails={tripDetails}
@@ -254,7 +211,7 @@ const Checkout = () => {
               <button
                 className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
                 type="submit"
-              >
+                onClick={confirmClick}>
                 Confirm Ride
               </button>
             )}

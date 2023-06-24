@@ -48,8 +48,7 @@ const RiderSelector = () => {
         const response2 = await getLocationName(
           dropoffCoordinates[0],
           dropoffCoordinates[1]
-        );
-        console.log(response2, "kiranresponse");
+        );  
         dispatch(
           location({
             pickup: response,

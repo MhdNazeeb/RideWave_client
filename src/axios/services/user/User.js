@@ -50,7 +50,6 @@ export const userLogin = async (values) => {
   }
 };
  export const rideBook = async (data,token) => {
-    console.log(data,token,'this is dataaaaaa');
   try {
 
     const config = {
@@ -62,6 +61,23 @@ export const userLogin = async (values) => {
     };
         
     const response = await axiosClientInstance.post('book',data,config);
+    return response;
+  } catch (error) {
+    console.log(error.message, "error in signup client......");
+  }
+};
+ export const carFind = async (id,token) => {
+  try {
+    const config = {
+      headers: {
+        // Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params:{id}
+    };
+        
+    const response = await axiosClientInstance.get('car',config)
     return response;
   } catch (error) {
     console.log(error.message, "error in signup client......");

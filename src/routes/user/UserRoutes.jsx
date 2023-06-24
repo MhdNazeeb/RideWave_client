@@ -6,7 +6,10 @@ import SignUP from "../../components/user/signup/Signup";
 import Verification from "../../pages/verificationmail/verification";
 import { useSelector } from "react-redux";
 import MapPage from "../../pages/user/mapPage/MapPage";
-import CheckoutPage from "../../pages/checkoutPage/CheckoutPage";
+import CheckoutPage from "../../pages/user/checkoutPage/CheckoutPage";
+import SuccessPage from "../../pages/user/successpage/SuccessPage";
+import BookingDetailsPage from "../../pages/user/bookingDeatails/BookingDetailsPage";
+
 
 export default function UserRoutes() {
   const userDetails = useSelector((state) => state.userReducer.user);
@@ -37,7 +40,16 @@ export default function UserRoutes() {
           path="/checkout"
           element={client ? <CheckoutPage/> : <Navigate to="/login" />}
         />
-      </Routes>
+      
+        <Route
+          path="/success"
+          element={client ? <SuccessPage/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/details"
+          element={client ? <BookingDetailsPage/> : <Navigate to="/login" />}
+        />
+        </Routes>
     </>
   );
 }

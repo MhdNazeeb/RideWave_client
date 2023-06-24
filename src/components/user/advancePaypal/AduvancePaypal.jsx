@@ -1,25 +1,33 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
-import React from "react";
+import React, { useState } from "react";
 import { rideBook } from "../../../axios/services/user/User";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 const paypal = import.meta.env.VITE_PAYPAL_TOKEN;
 
 export default function AduvancePaypal({ values, tripDetails, Rate }) {
-  const perSeat = +Rate / 4;
   const userDetails = useSelector((state) => state.userReducer.user);
+  const navigate = useNavigate();
   const { token } = userDetails;
   const userid = userDetails.user._id;
 
   const data = {
     ...tripDetails,
     ...values,
-       Rate,
-       userid,
+    Rate,
+    userid,
   };
 
   async function firstCheckout() {
-    const res = await rideBook(data, token);
-    console.log(res);
+    await rideBook(data, token).then((res) => {
+      if (res?.data?.message) {
+        toast.error(res?.data?.message);
+      } else {
+        navigate("/success", { state: { data: res?.data } });
+      }
+    });
   }
 
   return (
@@ -37,7 +45,7 @@ export default function AduvancePaypal({ values, tripDetails, Rate }) {
               purchase_units: [
                 {
                   amount: {
-                    value: perSeat,
+                    value: Rate,
                   },
                 },
               ],
@@ -46,7 +54,6 @@ export default function AduvancePaypal({ values, tripDetails, Rate }) {
           onApprove={(data, actions) => {
             return actions.order.capture().then((response) => {
               firstCheckout();
-              console.log(response);
             });
           }}
         />
