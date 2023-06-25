@@ -27,7 +27,7 @@ export default function Banner() {
   const user = userDetails?.user;
 
   const DriverDetails = useSelector((state) => state.driverReducer.driver);
-  const { token } = DriverDetails;
+  const token  = DriverDetails?.token;
   const navigte = useNavigate();
 
   const driver = DriverDetails?.driver;

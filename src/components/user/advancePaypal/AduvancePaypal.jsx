@@ -1,37 +1,15 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import React, { useState } from "react";
-import { rideBook } from "../../../axios/services/user/User";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+
 
 const paypal = import.meta.env.VITE_PAYPAL_TOKEN;
 
-export default function AduvancePaypal({ values, tripDetails, Rate }) {
-  const userDetails = useSelector((state) => state.userReducer.user);
-  const navigate = useNavigate();
-  const { token } = userDetails;
-  const userid = userDetails.user._id;
-
-  const data = {
-    ...tripDetails,
-    ...values,
-    Rate,
-    userid,
-  };
-
-  async function firstCheckout() {
-    await rideBook(data, token).then((res) => {
-      if (res?.data?.message) {
-        toast.error(res?.data?.message);
-      } else {
-        navigate("/success", { state: { data: res?.data } });
-      }
-    });
-  }
-
+export default function AduvancePaypal({ values, tripDetails, Rate,setconfrim ,setLoader,firstCheckout}) {
   return (
     <>
+     
       <PayPalScriptProvider
         options={{
           "client-id": paypal,

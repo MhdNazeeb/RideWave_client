@@ -170,7 +170,7 @@ export default function Header() {
             
           </Popover>
 
-          <Link to="" className="text-sm font-semibold leading-6 text-white">
+          <Link to="/" className="text-sm font-semibold leading-6 text-white">
             HOME
           </Link>
           <Link to="" className="text-sm font-semibold leading-6 text-white">
@@ -179,16 +179,20 @@ export default function Header() {
           <Link to="" className="text-sm font-semibold leading-6 text-white">
             WALLET
           </Link>
-          <Link to="" className="text-sm font-semibold leading-6 text-white">
+          {driver?<Link to="" className="text-sm font-semibold leading-6 text-white">
             RIDE HISTORY
-          </Link>
+          </Link>:<Link to="/history" className="text-sm font-semibold leading-6 text-white">
+            RIDE HISTORY
+          </Link>}
           
 
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-        <Link to="/driver/driver_profile" className="text-sm font-semibold leading-6 text-white uppercase mx-5">
+        {driver?<Link to="/driver/driver_profile" className="text-sm font-semibold leading-6 text-white uppercase mx-5">
             profile
-          </Link>
+          </Link>:<Link to="/profile" className="text-sm font-semibold leading-6 text-white uppercase mx-5">
+            profile
+          </Link>}
 
           {driver || client ? <button  className="text-sm font-semibold leading-6 text-white" onClick={logout}>
             Log out <span aria-hidden="true">&rarr;</span>

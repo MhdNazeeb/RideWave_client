@@ -5,7 +5,6 @@ function Success() {
   const navigate = useNavigate()
   const location = useLocation()
   const data = location.state.data
-  console.log(data,'datas from sucess');
   function booking() {
     navigate('/details',{state:{data}})
   }

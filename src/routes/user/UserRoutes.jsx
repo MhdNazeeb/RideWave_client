@@ -9,6 +9,8 @@ import MapPage from "../../pages/user/mapPage/MapPage";
 import CheckoutPage from "../../pages/user/checkoutPage/CheckoutPage";
 import SuccessPage from "../../pages/user/successpage/SuccessPage";
 import BookingDetailsPage from "../../pages/user/bookingDeatails/BookingDetailsPage";
+import ProfilePage from "../../pages/user/userprofile/ProfilePage";
+import History from "../../pages/user/History/History";
 
 
 export default function UserRoutes() {
@@ -48,6 +50,14 @@ export default function UserRoutes() {
         <Route
           path="/details"
           element={client ? <BookingDetailsPage/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile"
+          element={client ? <ProfilePage/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/history"
+          element={client ? <History/> : <Navigate to="/login" />}
         />
         </Routes>
     </>

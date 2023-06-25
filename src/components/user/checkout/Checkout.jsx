@@ -4,29 +4,68 @@ import { useSelector } from "react-redux";
 import AduvancePaypal from "../advancePaypal/AduvancePaypal";
 import { userCheckout } from "../../../validations/checkoutValidation";
 import { useFormik } from "formik";
+import { rideBook } from "../../../axios/services/user/User";
+import { toast } from "react-toastify";
+import Loader from "../../common/Loader";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
+  const userDetails = useSelector((state) => state.userReducer.user);
   const [confrim,setconfrim]=useState(false)
+  const [loader, setLoader] = useState(false);
   const { distance, dropOff, pickup, carDetails } = tripDetails;
   const Rate = carDetails?.Rate * distance;
   const currentDate = new Date().toISOString().split("T")[0];
-  function onSubmit() {}
-  function  confirmClick() {
-    setconfrim(true)
-  }
+  const navigate = useNavigate();
+  const { token } = userDetails;
+  const userid = userDetails.user._id;
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        date: "",
-        time: "",
-      },
-      validationSchema: userCheckout,
-      onSubmit,
+  useFormik({
+    initialValues: {
+      date: "",
+      time: "",
+    },
+    validationSchema: userCheckout,
+    onSubmit,
+  });
+
+  const data = {
+    ...tripDetails,
+    ...values,
+    Rate,
+    userid,
+  };
+
+  function onSubmit() {
+    if (values) {
+      setconfrim(true)
+    }
+  }
+  async function firstCheckout() {
+    setconfrim(false)
+    setLoader(true);
+    await rideBook(data, token).then((res) => {
+     
+      if (res?.data?.message) {
+        toast.error(res?.data?.message);
+      } else {
+        navigate("/success", { state: { data: res?.data } });
+      }
+      setLoader(false);
     });
+  }
+ 
+
+ 
   return (
     <div>
+       {loader && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-25 backdrop-filter backdrop-blur z-50">
+        <Loader/>
+      </div>
+      )}
       <form className="mt-5 grid gap-6" onSubmit={handleSubmit}>
         <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
           <div className="px-4 pt-8">
@@ -206,12 +245,15 @@ const Checkout = () => {
                 values={values}
                 tripDetails={tripDetails}
                 Rate={Rate}
+                setconfrim={setconfrim}
+                setLoader={setLoader}
+                firstCheckout={firstCheckout}
               />
             ) : (
               <button
                 className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
                 type="submit"
-                onClick={confirmClick}>
+                >
                 Confirm Ride
               </button>
             )}

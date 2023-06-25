@@ -83,3 +83,59 @@ export const userLogin = async (values) => {
     console.log(error.message, "error in signup client......");
   }
 };
+ export const userPrfile = async (token,data) => {
+
+  try {
+    const config = {
+      headers: {
+        // Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    };
+        
+    const response = await axiosClientInstance.patch('user',data,config)
+    return response;
+  } catch (error) {
+    console.log(error.message, "error in signup client......");
+  }
+};
+ export const findUser = async (id,token) => {
+console.log(id,token ,'this is token');
+  try {
+    const config = {
+      headers: {
+        // Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params:{id}
+    };
+    
+        
+    const response = await axiosClientInstance.get('user',config)
+    return response;
+  } catch (error) {
+    console.log(error.message, "error in signup client......");
+  }
+};
+export const history = async (userid)=>{
+
+  try {
+   const config = {
+     headers: {
+       // Accept: "application/json",
+       // Authorization: `Bearer ${token}`,
+       "Content-Type": "application/json",
+     },
+     params:{userid}
+   };
+   
+   
+   const response = await axiosClientInstance.get('/history',config);
+   return response;
+  } catch (error) {
+   console.log(error.message);
+ 
+  }
+ }
