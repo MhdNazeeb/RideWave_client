@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsArrowLeftCircle, BsBorderWidth, BsChatDotsFill } from "react-icons/bs";
 import { HiUsers } from "react-icons/hi";
-import { IoIosNotifications } from "react-icons/io";
-import { BiFootball } from "react-icons/bi";
 import { AiFillCar } from "react-icons/ai";
 import { MdAnalytics, MdAdminPanelSettings, MdPhotoLibrary,  } from "react-icons/md";
 import { FiLogOut } from "react-icons/fi";
 import HamburgerButton from "../HamburgerMenuButton/HamburgerButton";
-import { FaCity } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { adminLogout } from "../../../../redux/adminSlice";
-// import icon from "../../../../Assets/ICON.jpg"
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -24,14 +20,14 @@ const Sidebar = () => {
 
     const Menus = [
         { title: "Dashboard", path: "", src: <MdAnalytics /> },
-        { title: "users", path: "/admin/userlist", src: <HiUsers /> },
+        { title: "Users", path: "/admin/userlist", src: <HiUsers /> },
         // {
         //     title: "Notification",
         //     path: "",
         //     src: <IoIosNotifications />,
         // },
-        { title: "drivers",  path:"/admin/driverlist", src: <HiUsers /> },
-        { title: "car approvel", path: "/admin/carlist", src: <AiFillCar /> },
+        { title: "Drivers",  path:"/admin/driverlist", src: <HiUsers /> },
+        { title: "Car approvel", path: "/admin/carlist", src: <AiFillCar /> },
        
         
         // {

@@ -19,15 +19,15 @@ const navigation = [
 
 export default function Banner() {
   const [active, setActive] = useState(false);
-  
-  const [carFind,setCarFind]=useState({})
+
+  const [carFind, setCarFind] = useState({});
 
   const userDetails = useSelector((state) => state.userReducer.user);
 
   const user = userDetails?.user;
 
   const DriverDetails = useSelector((state) => state.driverReducer.driver);
-  const token  = DriverDetails?.token;
+  const token = DriverDetails?.token;
   const navigte = useNavigate();
 
   const driver = DriverDetails?.driver;
@@ -68,7 +68,7 @@ export default function Banner() {
   }
   useEffect(() => {
     carfind(driverid).then((res) => {
-      setCarFind(res.data)
+      setCarFind(res.data);
     });
   }, []);
   return (
@@ -92,15 +92,27 @@ export default function Banner() {
             </div>
           </div>
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900  sm:text-6xl">
-              impression
-            </h1>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              make
-            </h1>
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              customers
-            </h1>
+            {driver?<div>
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-90 text-gray-900  sm:text-6xl">
+              Be your own  
+              </h1>
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-90 text-gray-900 sm:text-6xl">
+              boss behind
+              </h1>
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-90 text-gray-900 sm:text-6xl">
+              the wheel
+              </h1>
+            </div>:<div>
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-gray-900 sm:text-6xl">
+              Travel with 
+              </h1>
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-gray-900 sm:text-6xl">
+              confidence
+              </h1>
+               <h1 className="text-4xl font-bold tracking- text-opacity-70 text-gray-900 sm:text-6xl">
+               arrive with a smile
+              </h1> 
+            </div>}
             <p className="mt-6 text-lg leading-8 text-gray-600">
               Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
               lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
@@ -115,15 +127,19 @@ export default function Banner() {
                   register your car
                 </a>
 
-                {carFind?<label className="relative inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    defaultValue
-                    className="sr-only peer"
-                    onClick={LocationStatus}
-                  />
-                  <div className="w-11 h-6 bg-black peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
-                </label>:""}
+                {carFind ? (
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      defaultValue
+                      className="sr-only peer"
+                      onClick={LocationStatus}
+                    />
+                    <div className="w-11 h-6 bg-black peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600" />
+                  </label>
+                ) : (
+                  ""
+                )}
               </div>
             ) : (
               <div className="mt-10 flex items-center justify-center gap-x-6">

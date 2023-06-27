@@ -44,6 +44,9 @@ function RideHistory() {
                       AMOUNT
                     </th>
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      PAID
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       DETAILS
                     </th>
                   </tr>
@@ -80,12 +83,15 @@ function RideHistory() {
                           <p className="text-gray-900 whitespace-no-wrap">{data.payment.amount}</p>
                         </td>
                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                          <p className="text-gray-900 whitespace-no-wrap">{data.payment.aduvance}</p>
+                        </td>
+                        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                           <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
                             <span
                               aria-hidden
                               className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
                               onClick={()=>{
-                                navigate('/details',{state:{data:rides,id:rides._id}})
+                                navigate('/details',{state:{data:data}})
                              }}
                             />
                             <svg

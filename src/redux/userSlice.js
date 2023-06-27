@@ -9,10 +9,11 @@ const userSlice = createSlice({
     reducers: {
         ClientLogin: (state, action) => {
             state.user = action.payload;
+            
         },
         clientLogout:(state, action) => {
             state.user = {
-                token : '',
+                token :'',
                 user : null
             }
         }

@@ -1,22 +1,30 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-
 import { userLoginSchema } from "../../../validations/userLogin";
 import { userLogin } from "../../../axios/services/user/User";
 import { ClientLogin } from "../../../redux/userSlice";
 import { driverLogin } from "../../../axios/services/driver/driverSignup";
 import { driverLoginRedux } from "../../../redux/driverSlice";
+
 import "./UserLogin.css";
 import GoogleButton from "./GoogleButton";
 
-export default function Login() {
+export default function Login(state) {
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [login, setLogin] = useState("user");
+  const location = useLocation()
 
+  useEffect(() => {
+    const previousLocation = location;
+    console.log('Previous location:', previousLocation);
+  }, [location]);
+
+  console.log(state,"stateeeeeeeeeeeeeeeeeeeee")
   async function onSubmit() {
     if (login === "user") {
       const response = await userLogin(values);

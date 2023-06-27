@@ -173,9 +173,11 @@ export default function Header() {
           <Link to="/" className="text-sm font-semibold leading-6 text-white">
             HOME
           </Link>
-          <Link to="" className="text-sm font-semibold leading-6 text-white">
+         {driver? <Link to="/driver/rides" className="text-sm font-semibold leading-6 text-white">
             RIDE
-          </Link>
+          </Link>:<Link to="" className="text-sm font-semibold leading-6 text-white">
+            RIDE
+          </Link>}
           <Link to="" className="text-sm font-semibold leading-6 text-white">
             WALLET
           </Link>

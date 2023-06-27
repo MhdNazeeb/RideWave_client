@@ -169,6 +169,25 @@ export const carfind = async (driverid)=>{
 
  }
 }
+export const availableRides = async (driverid,token)=>{
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    params:{driverid}
+  };
+  
+ 
+  const response = await axiosDriverInstance.get('/ride',config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
 
 
 

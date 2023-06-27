@@ -2,8 +2,6 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import React, { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AduvancePaypal from "../advancePaypal/AduvancePaypal";
-import { userCheckout } from "../../../validations/checkoutValidation";
-import { useFormik } from "formik";
 import { rideBook } from "../../../axios/services/user/User";
 import { toast } from "react-toastify";
 import Loader from "../../common/Loader";
@@ -12,42 +10,33 @@ import { useNavigate } from "react-router-dom";
 const Checkout = () => {
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
   const userDetails = useSelector((state) => state.userReducer.user);
-  const [confrim,setconfrim]=useState(false)
+  const [confrim, setconfrim] = useState(false);
   const [loader, setLoader] = useState(false);
   const { distance, dropOff, pickup, carDetails } = tripDetails;
   const Rate = carDetails?.Rate * distance;
+  const rate = (Rate * 5) / 100;
   const currentDate = new Date().toISOString().split("T")[0];
   const navigate = useNavigate();
   const { token } = userDetails;
   const userid = userDetails.user._id;
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-  useFormik({
-    initialValues: {
-      date: "",
-      time: "",
-    },
-    validationSchema: userCheckout,
-    onSubmit,
-  });
 
   const data = {
     ...tripDetails,
-    ...values,
+    rate,
     Rate,
     userid,
   };
 
-  function onSubmit() {
-    if (values) {
-      setconfrim(true)
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    setconfrim(true)
   }
+
   async function firstCheckout() {
-    setconfrim(false)
+    setconfrim(false);
     setLoader(true);
     await rideBook(data, token).then((res) => {
-     
       if (res?.data?.message) {
         toast.error(res?.data?.message);
       } else {
@@ -56,15 +45,13 @@ const Checkout = () => {
       setLoader(false);
     });
   }
- 
 
- 
   return (
     <div>
-       {loader && (
+      {loader && (
         <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-25 backdrop-filter backdrop-blur z-50">
-        <Loader/>
-      </div>
+          <Loader />
+        </div>
       )}
       <form className="mt-5 grid gap-6" onSubmit={handleSubmit}>
         <div className="grid sm:px-10 lg:grid-cols-2 lg:px-20 xl:px-32">
@@ -172,7 +159,7 @@ const Checkout = () => {
                   </svg>
                 </div>
               </div>
-              <label
+              {/* <label
                 htmlFor="card-no"
                 className="mt-4 mb-2 block text-sm font-medium"
               >
@@ -222,7 +209,7 @@ const Checkout = () => {
                 {errors.time && touched.time && (
                   <p className="text-red-700">{errors.time}</p>
                 )}
-              </div>
+              </div> */}
 
               {/* Total */}
               <div className="mt-6 border-t border-b py-2">
@@ -237,14 +224,13 @@ const Checkout = () => {
               </div>
               <div className="mt-6 flex items-center justify-between">
                 <p className="text-sm font-medium text-gray-900">Total</p>
-                <p className="text-2xl font-semibold text-gray-900">₹{Rate}</p>
+                <p className="text-2xl font-semibold text-gray-900">₹{rate}</p>
               </div>
             </div>
             {confrim ? (
               <AduvancePaypal
-                values={values}
                 tripDetails={tripDetails}
-                Rate={Rate}
+                Rate={rate}
                 setconfrim={setconfrim}
                 setLoader={setLoader}
                 firstCheckout={firstCheckout}
@@ -252,8 +238,8 @@ const Checkout = () => {
             ) : (
               <button
                 className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
-                type="submit"
-                >
+                
+              >
                 Confirm Ride
               </button>
             )}

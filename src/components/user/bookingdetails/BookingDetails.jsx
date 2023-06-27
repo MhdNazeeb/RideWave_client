@@ -7,12 +7,12 @@ const BookingDetails = () => {
   const [cardata, setCardata] = useState({});
   const { token } = userDetails;
   const locations = useLocation();
-  const data = locations.state.data;
+  const data = locations.state.data
+  
+  
   console.log(data, "this is data");
   const {
     driver,
-    date,
-    time,
     verficationCode,
     location,
     payment,
@@ -57,7 +57,7 @@ const BookingDetails = () => {
                       alt="profile"
                     />
                   </div>
-                  <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
+                  <div className="border-b border-gray-200  items-start w-full pb-8 space-y-4 md:space-y-0">
                     <div className="w-full flex flex-col justify-start items-start space-y-8">
                       <h3 className="text-xl dark:text-white xl:text-2xl font-semibold leading-6 bg-black-800">
                         Driver: {driver?.name}
@@ -73,7 +73,7 @@ const BookingDetails = () => {
                             Dropoff:{location?.dropoff}
                           </span>
                         </p>
-                        <p className="text-sm dark:text-white leading-none bg-black-800">
+                        {/* <p className="text-sm dark:text-white leading-none bg-black-800">
                           <span className="dark:bg-black-400 bg-black-300">
                             Date: {"" + date}
                           </span>
@@ -82,12 +82,17 @@ const BookingDetails = () => {
                           <span className="dark:bg-black-400 bg-black-300">
                             Time: {time}
                           </span>
-                        </p>
+                        </p> */}
                       </div>
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
                       <p className="text-base dark:text-white xl:text-lg leading-6">
-                        Rs : {payment?.amount}
+                        Aduvance Amount: ₹{payment?.aduvance}
+                      </p>
+                    </div>
+                    <div className="flex justify-between space-x-8 items-start w-full">
+                      <p className="text-base dark:text-white xl:text-lg leading-6">
+                        Total amount:₹ {payment?.amount}
                       </p>
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
