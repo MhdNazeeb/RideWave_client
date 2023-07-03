@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { carFind } from "../../../axios/services/user/User";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHourglassStart } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+
 const BookingDetails = () => {
   const userDetails = useSelector((state) => state.userReducer.user);
   const [cardata, setCardata] = useState({});
   const { token } = userDetails;
   const locations = useLocation();
-  const data = locations.state.data
-  
-  
+  const data = locations.state.data;
   console.log(data, "this is data");
   const {
     driver,
@@ -17,6 +20,10 @@ const BookingDetails = () => {
     location,
     payment,
     bookingStatus,
+    StartedToDestination,
+    Reachedpickup,
+    ReachedDestination,
+    Arraivalstatus,
   } = data;
   const id = driver?._id;
   useEffect(() => {
@@ -30,7 +37,7 @@ const BookingDetails = () => {
   return (
     <>
       <div>
-        <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto pb-0 bg-gray-800 h-screen ">
+        <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto pb-0 bg-gray-200 h-screen ">
           <fieldset classname="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-regal-blue">
             <div classname="space-y-2 col-span-full lg:col-span-1">
               <p classname="font-extrabold text-lg text-real-orange">
@@ -109,117 +116,69 @@ const BookingDetails = () => {
               <h3 className="text-xl dark:text-white font-semibold leading-5 bg-black-800 mb-10">
                 Status
               </h3>
-              <ol className="relative bg-black-500 border-l border-gray-200 dark:border-gray-700 dark:bg-black-400">
-                <li className="mb-10 ml-6">
-                  <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
-                  <span
-                    className={
-                      !bookingStatus === "Pending"
-                        ? "absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900"
-                        : "absolute flex items-center justify-center w-8 h-8 bg-yellow-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900"
-                    }
-                  >
-                    {!bookingStatus === "Pending" ? (
-                      <svg
-                        aria-hidden="true"
-                        className="w-5 h-5 text-green-500 dark:text-green-400"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="0.875em"
-                        viewBox="0 0 384 512"
-                      >
-                        <path d="M0 32C0 14.3 14.3 0 32 0H64 320h32c17.7 0 32 14.3 32 32s-14.3 32-32 32V75c0 42.4-16.9 83.1-46.9 113.1L237.3 256l67.9 67.9c30 30 46.9 70.7 46.9 113.1v11c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 64 32c-17.7 0-32-14.3-32-32s14.3-32 32-32V437c0-42.4 16.9-83.1 46.9-113.1L146.7 256 78.9 188.1C48.9 158.1 32 117.4 32 75V64C14.3 64 0 49.7 0 32zM96 64V75c0 25.5 10.1 49.9 28.1 67.9L192 210.7l67.9-67.9c18-18 28.1-42.4 28.1-67.9V64H96zm0 384H288V437c0-25.5-10.1-49.9-28.1-67.9L192 301.3l-67.9 67.9c-18 18-28.1 42.4-28.1 67.9v11z" />
-                      </svg>
-                    )}
-                  </span>
-                  <h3 className="font-medium leading-tight">Reached Pickup</h3>
-                </li>
-                <li className="mb-10 ml-6">
-                  <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700" />
-                  <span
-                    className={
-                      !bookingStatus === "Pending"
-                        ? "absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900"
-                        : "absolute flex items-center justify-center w-8 h-8 bg-yellow-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900"
-                    }
-                  >
-                    {!bookingStatus === "Pending" ? (
-                      <svg
-                        aria-hidden="true"
-                        className="w-5 h-5 text-green-500 dark:text-green-400"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="0.875em"
-                        viewBox="0 0 384 512"
-                      >
-                        <path d="M0 32C0 14.3 14.3 0 32 0H64 320h32c17.7 0 32 14.3 32 32s-14.3 32-32 32V75c0 42.4-16.9 83.1-46.9 113.1L237.3 256l67.9 67.9c30 30 46.9 70.7 46.9 113.1v11c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 64 32c-17.7 0-32-14.3-32-32s14.3-32 32-32V437c0-42.4 16.9-83.1 46.9-113.1L146.7 256 78.9 188.1C48.9 158.1 32 117.4 32 75V64C14.3 64 0 49.7 0 32zM96 64V75c0 25.5 10.1 49.9 28.1 67.9L192 210.7l67.9-67.9c18-18 28.1-42.4 28.1-67.9V64H96zm0 384H288V437c0-25.5-10.1-49.9-28.1-67.9L192 301.3l-67.9 67.9c-18 18-28.1 42.4-28.1 67.9v11z" />
-                      </svg>
-                    )}
-                  </span>
-                  <h3 className="font-medium leading-tight">
-                    Started To Destination
-                  </h3>
-                </li>
-                <li className="mb-10 ml-6">
-                  <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700" />
-                  <span
-                    className={
-                      !bookingStatus === "Pending"
-                        ? "absolute flex items-center justify-center w-8 h-8 bg-green-200 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900"
-                        : "absolute flex items-center justify-center w-8 h-8 bg-yellow-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900"
-                    }
-                  >
-                    {!bookingStatus === "Pending" ? (
-                      <svg
-                        aria-hidden="true"
-                        className="w-5 h-5 text-green-500 dark:text-green-400"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="0.875em"
-                        viewBox="0 0 384 512"
-                      >
-                        <path d="M0 32C0 14.3 14.3 0 32 0H64 320h32c17.7 0 32 14.3 32 32s-14.3 32-32 32V75c0 42.4-16.9 83.1-46.9 113.1L237.3 256l67.9 67.9c30 30 46.9 70.7 46.9 113.1v11c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 64 32c-17.7 0-32-14.3-32-32s14.3-32 32-32V437c0-42.4 16.9-83.1 46.9-113.1L146.7 256 78.9 188.1C48.9 158.1 32 117.4 32 75V64C14.3 64 0 49.7 0 32zM96 64V75c0 25.5 10.1 49.9 28.1 67.9L192 210.7l67.9-67.9c18-18 28.1-42.4 28.1-67.9V64H96zm0 384H288V437c0-25.5-10.1-49.9-28.1-67.9L192 301.3l-67.9 67.9c-18 18-28.1 42.4-28.1 67.9v11z" />
-                      </svg>
-                    )}
-                  </span>
-                  <h3 className="font-medium leading-tight">
-                    Reached Destination
-                  </h3>
-                </li>
-              </ol>
+              {bookingStatus === "rejected" ? (
+                <h1 className="text-white bg-red-600 p-4 rounded-lg">
+                  rejected
+                </h1>
+              ) : (
+                <ol className="relative bg-black-500 border-l border-gray-200 dark:border-gray-700 dark:bg-black-400">
+                  <li className="mb-10 ml-6">
+                    <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
+                    <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
+                      {Arraivalstatus === "Pending" ? (
+                        <FontAwesomeIcon icon={faHourglassStart} spin />
+                      ) : Arraivalstatus === "way" ? (
+                        <FontAwesomeIcon icon={faArrowRight} />
+                      ) : (
+                        <FontAwesomeIcon icon={faCheck} bounce />
+                      )}
+                    </span>
+                    <h3 className="font-medium leading-tight">
+                      Arraival status
+                    </h3>
+                  </li>
+                  <li className="mb-10 ml-6">
+                    <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
+                    <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
+                      {Reachedpickup === "Pending" ? (
+                        <FontAwesomeIcon icon={faHourglassStart} spin />
+                      ) : (
+                        <FontAwesomeIcon icon={faCheck} bounce />
+                      )}
+                    </span>
+                    <h3 className="font-medium leading-tight">
+                      Reached pickup
+                    </h3>
+                  </li>
+                  <li className="mb-10 ml-6">
+                    <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
+                    <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
+                      {StartedToDestination === "Pending" ? (
+                        <FontAwesomeIcon icon={faHourglassStart} spin />
+                      ) : (
+                        <FontAwesomeIcon icon={faCheck} bounce />
+                      )}
+                    </span>
+                    <h3 className="font-medium leading-tight">
+                      Started To Destination
+                    </h3>
+                  </li>{" "}
+                  <li className="mb-10 ml-6">
+                    <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
+                    <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
+                      {ReachedDestination === "Pending" ? (
+                        <FontAwesomeIcon icon={faHourglassStart} spin />
+                      ) : (
+                        <FontAwesomeIcon icon={faCheck} bounce />
+                      )}
+                    </span>
+                    <h3 className="font-medium leading-tight">
+                      {" "}
+                      Reached Destination
+                    </h3>
+                  </li>
+                </ol>
+              )}
             </div>
           </div>
         </div>

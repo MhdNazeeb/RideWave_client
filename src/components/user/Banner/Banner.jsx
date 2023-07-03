@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import "./Banner.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   DriverLocation,
+  availableRides,
   carfind,
 } from "../../../axios/services/driver/driverSignup";
 import { toast } from "react-toastify";
+import { confirm } from "../../../redux/rideSlice";
 
 let accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -25,6 +27,7 @@ export default function Banner() {
   const userDetails = useSelector((state) => state.userReducer.user);
 
   const user = userDetails?.user;
+  const dispatch  = useDispatch()
 
   const DriverDetails = useSelector((state) => state.driverReducer.driver);
   const token = DriverDetails?.token;
@@ -71,6 +74,25 @@ export default function Banner() {
       setCarFind(res.data);
     });
   }, []);
+
+  useEffect(() => {
+    async function ride() {
+
+      const res = await availableRides(driverid, token);
+      console.log(res.data,'this is datta');
+      dispatch(confirm({
+        passenger:res.data.passenger,
+        location:res.data.location,
+        bookingStatus:res.data.bookingStatus,
+        id:res.data._id
+
+      }))
+    }
+    ride();
+    
+  }, []);
+
+
   return (
     <div className="bg-gray-800 banner">
       <div className="relative isolate px-6 pt-14 lg:px-8">

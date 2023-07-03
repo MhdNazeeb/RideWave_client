@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { LocationContext } from "../../../context/LocationContext";
 import RiderSelector from "../Rideselector/RideSelector";
+import { useDispatch, useSelector } from "react-redux";
+import { addPickup,addDropOff } from "../../../redux/tripdetails";
 let accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 console.log(accessToken, "acceess");
 const LocationSelector = () => {
@@ -10,7 +12,7 @@ const LocationSelector = () => {
   const [dropSuggestions, setDropSuggestions] = useState([]);
   const [pickUp, setPickUP] = useState();
   const [dropOFF, setDropOFF] = useState();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     // Get the current location of the user
     if (navigator.geolocation) {
@@ -48,9 +50,16 @@ const LocationSelector = () => {
   };
 
   const handlePickup = (suggestion) => {
+    
     setPickup(suggestion);
     setPickUP(suggestion);
+
     setSuggestions([]);
+    dispatch(
+      addPickup({
+        pickup:suggestion
+      })
+    );
   };
 
   //* DropOff Suggestions *//
@@ -73,10 +82,15 @@ const LocationSelector = () => {
   };
 
   const handleDropoff = (suggestion) => {
-    console.log(suggestion, "kiran");
     setDropoff(suggestion);
+    
     setDropOFF(suggestion);
     setDropSuggestions([]);
+    dispatch(
+      addDropOff({
+        dropOff:suggestion
+      })
+    );
   };
 
   const handleSetPickUP = (event) => {
@@ -136,7 +150,7 @@ const LocationSelector = () => {
           </div>
           <input
             className="my-2 rounded-2 p-22 outline-none border-none bg-transparent h-full w-full "
-            placeholder="Enter pickup loaction"
+            placeholder="Enter dropoff loaction"
             value={dropOFF}
             onChange={handleDropOFF}
             onFocus={() => setInFocus("to")}
@@ -172,7 +186,7 @@ const LocationSelector = () => {
               {dropSuggestions.map((dropSuggestion, index) => (
                 <li
                   key={index}
-                  onClick={() => handleDropoff(dropSuggestion)}
+                  onClick={() => {handleDropoff(dropSuggestion)}}
                   className="cursor-pointer hover:bg-gray-200 p-2 border-b border-gray-400"
                 >
                   {dropSuggestion}

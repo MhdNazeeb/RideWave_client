@@ -1,5 +1,9 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+
+
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -15,9 +19,12 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
 import { useDispatch, useSelector } from "react-redux";
-import { clientLogout } from "../../../redux/userSlice";
+import userSlice, { clientLogout } from "../../../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { driverLogout } from "../../../redux/driverSlice";
+import { rideCleanup } from "../../../redux/rideSlice";
+
+
 
 
 const products = [
@@ -58,25 +65,27 @@ const callsToAction = [
 ];
 
 function classNames(...classes) {
-
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const clientDetails = useSelector((state)=>state.userReducer.user)
- const DriverDetails = useSelector((state)=>state.driverReducer.driver)
+  const clientDetails = useSelector((state) => state.userReducer.user);
+  const DriverDetails = useSelector((state) => state.driverReducer.driver);
+  const  tripData = useSelector((state)=>state.rideReducer)
+  console.log(tripData,'trip data');
   const client = clientDetails?.user;
-  const driver = DriverDetails?.driver
-  console.log(driver,'this driver login');
-  const navigate=useNavigate()
-  const dispatch=useDispatch()
+  const driver = DriverDetails?.driver;
+  console.log(driver, "this driver login");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   function logout() {
-    console.log('logut')
-    dispatch(driverLogout())
-   dispatch(clientLogout())
-   navigate('/login')
+    console.log("logut");
+    dispatch(driverLogout());
+    dispatch(clientLogout());
+    dispatch(rideCleanup())
+    navigate("/login");
   }
 
   return (
@@ -167,40 +176,79 @@ export default function Header() {
                 </div>
               </Popover.Panel>
             </Transition>
-            
           </Popover>
 
           <Link to="/" className="text-sm font-semibold leading-6 text-white">
             HOME
           </Link>
-         {driver? <Link to="/driver/rides" className="text-sm font-semibold leading-6 text-white">
-            RIDE
-          </Link>:<Link to="" className="text-sm font-semibold leading-6 text-white">
-            RIDE
-          </Link>}
+          
+          {driver ? (
+            
+            <Link
+              to="/driver/rides"
+              className="text-sm font-semibold leading-6 text-white "
+            >
+             { console.log(tripData.name)}
+              {tripData.name!="" ?<FontAwesomeIcon className="pb-2" icon={faBell} beat />:""}
+             
+              
+              RIDE
+            </Link>
+            
+          ) : (
+            <Link to="" className="text-sm font-semibold leading-6 text-white">
+              RIDE
+            </Link>
+          )}
           <Link to="" className="text-sm font-semibold leading-6 text-white">
             WALLET
           </Link>
-          {driver?<Link to="" className="text-sm font-semibold leading-6 text-white">
-            RIDE HISTORY
-          </Link>:<Link to="/history" className="text-sm font-semibold leading-6 text-white">
-            RIDE HISTORY
-          </Link>}
-          
-
+          {driver ? (
+            <Link to="" className="text-sm font-semibold leading-6 text-white">
+              RIDE HISTORY
+            </Link>
+          ) : (
+            <Link
+              to="/history"
+              className="text-sm font-semibold leading-6 text-white"
+            >
+              RIDE HISTORY
+            </Link>
+          )}
         </Popover.Group>
+          
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-        {driver?<Link to="/driver/driver_profile" className="text-sm font-semibold leading-6 text-white uppercase mx-5">
-            profile
-          </Link>:<Link to="/profile" className="text-sm font-semibold leading-6 text-white uppercase mx-5">
-            profile
-          </Link>}
+          {driver ? (
+            <Link
+              to="/driver/driver_profile"
+              className="text-sm font-semibold leading-6 text-white uppercase mx-5"
+            >
+              profile
+            </Link>
+          ) : (
+            <Link
+              to="/profile"
+              className="text-sm font-semibold leading-6 text-white uppercase mx-5"
+            >
+              profile
+            </Link>
+          )}
 
-          {driver || client ? <button  className="text-sm font-semibold leading-6 text-white" onClick={logout}>
-            Log out <span aria-hidden="true">&rarr;</span>
-          </button>:<Link to="/login" className="text-sm font-semibold leading-6 text-white">
-            Log in <span aria-hidden="true">&rarr;</span>
-          </Link>}
+          {driver || client ? (
+            <button
+              className="text-sm font-semibold leading-6 text-white"
+              onClick={logout}
+            >
+              Log out <span aria-hidden="true">&rarr;</span>
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="text-sm font-semibold leading-6 text-white"
+            >
+              Log in <span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
         </div>
       </nav>
       <Dialog
@@ -232,10 +280,10 @@ export default function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                
+                  
+                    
+                      {/* <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                         Product
                         <ChevronDownIcon
                           className={classNames(
@@ -244,8 +292,8 @@ export default function Header() {
                           )}
                           aria-hidden="true"
                         />
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
+                      </Disclosure.Button> */}
+                      {/* <Disclosure.Panel className="mt-2 space-y-2">
                         {[...products, ...callsToAction].map((item) => (
                           <Disclosure.Button
                             key={item.name}
@@ -256,41 +304,72 @@ export default function Header() {
                             {item.name}
                           </Disclosure.Button>
                         ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-                <Link to=""
+                      </Disclosure.Panel> */}
+                    
+                  
+                
+              
+                {driver?<Link
+                  to="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Features
-                </Link>
-                <Link to=""
+                  Home
+                </Link>:<Link
+                  to="/"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Marketplace
-                </Link>
-                <Link to=""
+                  Home
+                </Link>}
+                {driver?<Link
+                  to="/driver/rides"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Company
-                </Link>
-                <Link to="/driver/driver_profile"
+                  <FontAwesomeIcon className="pb-2" icon={faBell} beat />
+                  Ride
+                </Link>:<Link
+                  to=""
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Profile
-                </Link>
+                  Ride
+                </Link>}
+                {driver?<Link
+                  to=""
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Wallet
+                </Link>:<Link
+                  to=""
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Wallet 
+                </Link>}
+                {driver?<Link
+                  to=""
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Ride History
+                </Link>:<Link
+                  to="/history"
+                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                >
+                  Ride History
+                </Link>}
+                
               </div>
               <div className="py-6">
-                
-                { driver|| client ? (
-                  
-                  <button className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" onClick={logout}>
+                {driver || client ? (
+                  <button
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={logout}
+                  >
                     Logout
                   </button>
                 ) : (
-                  <Link to="/login" className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                    Login 
+                  <Link
+                    to="/login"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Login
                   </Link>
                 )}
               </div>

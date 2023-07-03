@@ -1,5 +1,5 @@
-.confirm {
-    width: 125px;
+.ride {
+    width: 110px;
     height: 40px;
     border: 3px solid #315cfd;
     border-radius: 45px;
@@ -11,8 +11,8 @@
     font-family: 'Montserrat', sans-serif;
   }
   
-  .confirm:hover {
-    background:rgb(35, 155, 35);
+  .ride:hover {
+    background:#d72020;
     color: white;
     font-size: 1.5em;
   }

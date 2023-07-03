@@ -188,6 +188,66 @@ export const availableRides = async (driverid,token)=>{
 
  }
 }
+export const trip = async (tripid,driverid,status,token)=>{
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+   
+  };
+  
+ 
+  const response = await axiosDriverInstance.post('/ride',{tripid,driverid,status},config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
+export const getTrip = async (driverid,token)=>{
+
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      // Authorization: `Bearer ${token}`, 
+      "Content-Type": "application/json",
+    },
+    params:{driverid}
+   
+  };
+  
+ 
+  const response = await axiosDriverInstance.get('/trip',config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
+export const tripFind = async (tripid)=>{
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      // Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    params:{tripid}
+   
+  };
+  
+ 
+  const response = await axiosDriverInstance.get('/trip_status',config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
 
 
 

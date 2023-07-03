@@ -49,12 +49,8 @@ const RiderSelector = () => {
           dropoffCoordinates[0],
           dropoffCoordinates[1]
         );  
-        dispatch(
-          location({
-            pickup: response,
-            dropOff: response2,
-          })
-        );
+       
+        
       }
     }
     LocationName();
@@ -102,7 +98,7 @@ const RiderSelector = () => {
             pickupCoordinates,
             DriverLocation
           );
-          if (distance1 < 20) {
+          if (distance1 < 350) {
             ShowCars.push(element)
             setCarlist(state => [...state,element])
            
@@ -149,8 +145,8 @@ const RiderSelector = () => {
 
     dispatch(
       addTrip({
-        pickup: response,
-        dropOff: response2,
+        pickup:tripDetails.pickup,
+        dropOff:tripDetails.dropOff,
         car: car,
         driver: driverId,
         distance: distance,

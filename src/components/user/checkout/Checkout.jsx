@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
+  console.log(tripDetails,"lllllllllllllloveeeeeeeeeeee")
   const userDetails = useSelector((state) => state.userReducer.user);
   const [confrim, setconfrim] = useState(false);
   const [loader, setLoader] = useState(false);

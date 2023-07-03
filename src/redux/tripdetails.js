@@ -22,9 +22,12 @@ const tripDetails = createSlice({
         state.trip.date = action.payload.date
         state.trip.time = action.payload.time
      },
-     location :(state,action)=>{
-        state.trip.pickup=action.payload.pickup
-        state.trip.dropoff=action.payload.dropOff
+     addPickup :(state,action)=>{
+        
+        state.trip.pickup = action.payload.pickup
+     },
+     addDropOff :(state,action)=>{
+        state.trip.dropOff = action.payload.dropOff
      },
        cleanup:(state,action)=>{
         state.trip = {
@@ -40,5 +43,5 @@ const tripDetails = createSlice({
     }
 })
 
-export const { addTrip, cleanup,location } = tripDetails.actions;
+export const { addTrip, cleanup,location ,addPickup,addDropOff} = tripDetails.actions;
 export default tripDetails.reducer;

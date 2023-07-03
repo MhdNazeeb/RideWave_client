@@ -6,6 +6,7 @@ import userReducer from "./userSlice";
 import driverReducer from "./driverSlice";
 import adminReducer from "./adminSlice"
 import tripdetailsReducer from "./tripdetails";
+import rideReducer from './rideSlice'
 
 
 
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   userReducer,
   driverReducer,
   adminReducer,
-  tripdetailsReducer
+  tripdetailsReducer,
+  rideReducer
 
 });
 
