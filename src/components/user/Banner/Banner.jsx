@@ -75,22 +75,7 @@ export default function Banner() {
     });
   }, []);
 
-  useEffect(() => {
-    async function ride() {
-
-      const res = await availableRides(driverid, token);
-      console.log(res.data,'this is datta');
-      dispatch(confirm({
-        passenger:res.data.passenger,
-        location:res.data.location,
-        bookingStatus:res.data.bookingStatus,
-        id:res.data._id
-
-      }))
-    }
-    ride();
-    
-  }, []);
+ 
 
 
   return (

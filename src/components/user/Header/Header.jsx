@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+
 
 
 import {
@@ -84,7 +83,6 @@ export default function Header() {
     console.log("logut");
     dispatch(driverLogout());
     dispatch(clientLogout());
-    dispatch(rideCleanup())
     navigate("/login");
   }
 
@@ -188,8 +186,7 @@ export default function Header() {
               to="/driver/rides"
               className="text-sm font-semibold leading-6 text-white "
             >
-             { console.log(tripData.name)}
-              {tripData.name!="" ?<FontAwesomeIcon className="pb-2" icon={faBell} beat />:""}
+             
              
               
               RIDE
@@ -324,7 +321,7 @@ export default function Header() {
                   to="/driver/rides"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  <FontAwesomeIcon className="pb-2" icon={faBell} beat />
+                 
                   Ride
                 </Link>:<Link
                   to=""

@@ -98,7 +98,7 @@ const RiderSelector = () => {
             pickupCoordinates,
             DriverLocation
           );
-          if (distance1 < 350) {
+          if (distance1 < 20) {
             ShowCars.push(element)
             setCarlist(state => [...state,element])
            

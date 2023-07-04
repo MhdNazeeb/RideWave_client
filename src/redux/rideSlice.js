@@ -17,7 +17,7 @@ const rideDetails = createSlice({
         state.name = action.payload.passenger.name
         state.bookingStatus = action.payload.bookingStatus
         state.id = action.payload.id
-        console.log(action.payload.id,'this id')
+        
 
         
      },
@@ -26,6 +26,7 @@ const rideDetails = createSlice({
         state.dropoff =""
         state.name = ""
         state.bookingStatus = ""
+        state.id=""
        }
        
     }

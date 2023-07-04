@@ -3,16 +3,25 @@ import mapboxgl from "mapbox-gl";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { useSelector } from "react-redux";
+import { tripFind } from "../../../axios/services/driver/driverSignup";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
-const Map = () => {
+const Map = ({ tripid }) => {
   const [tripDuration, setTripDuration] = useState(null);
   const [tripInstructions, setTripInstructions] = useState([]);
-  const rideData = useSelector((state) => state.rideReducer);
-  const { dropoff, pickup } = rideData;
-  const pickupLocation = pickup;
-  const dropoffLocation = dropoff;
+  const [tripData, SetTripData] = useState({});
+  useEffect(() => {
+    (async function () {
+      const res = await tripFind(tripid);
+
+      SetTripData(res?.data);
+    })();
+  }, []);
+  console.log(tripData, "this that data");
+  let pickupLocation =tripData?.location?.pickup
+  let dropoffLocation =tripData?.location?.dropoff
+ 
 
   const getCoordinates = async (location) => {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${mapboxgl.accessToken}`;

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Map from "../map/Map";
-import RideDetails from "./Components/RideDetails";
+import RideDetails from "./Components/RideDetail";
+import RideDetail from "./Components/RideDetail";
 
-const RideMap = () => {
+const RideMap = ({tripid}) => {
   return (
     <>
       <div class="pl-10 pr-10 bg-gray-200 2xl:mx-auto">
@@ -12,8 +13,8 @@ const RideMap = () => {
           </h1>
           <p class="text-base dark:text-gray-300 font-medium leading-6 text-gray-600"></p>
         </div>
-        <RideDetails/>
-        <Map />
+        <RideDetail tripid={tripid} />
+        <Map tripid={tripid} />
       </div>
     </>
   );

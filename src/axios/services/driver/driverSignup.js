@@ -229,6 +229,7 @@ export const getTrip = async (driverid,token)=>{
  }
 }
 export const tripFind = async (tripid)=>{
+
  try {
   const config = {
     headers: {
@@ -242,6 +243,48 @@ export const tripFind = async (tripid)=>{
   
  
   const response = await axiosDriverInstance.get('/trip_status',config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
+export const StartedToDestination = async (tripid,otp,token)=>{
+      
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+   
+   
+  };
+  
+ 
+  const response = await axiosDriverInstance.post('/trip_status',{tripid,otp},config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
+export const tripCompleted = async (tripid,token)=>{
+      
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+   
+   
+  };
+  
+ 
+  const response = await axiosDriverInstance.post('/trip__status',{tripid},config);
   return response;
  } catch (error) {
   console.log(error.message);

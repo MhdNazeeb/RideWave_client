@@ -4,11 +4,8 @@ import { confirm, rideCleanup } from "../../../redux/rideSlice";
 import { trip } from "../../../axios/services/driver/driverSignup";
 import { useNavigate } from "react-router-dom";
 
-export default function ConfirmModal({ know, setmodal, setstatus }) {
+export default function ConfirmModal({ know, setmodal, setstatus,id }) {
   const drivers = useSelector((state) => state.driverReducer.driver);
-  const tripes = useSelector((state) => state.rideReducer);
-  
-  const { id } = tripes;
   const dispatch = useDispatch(); 
   const { driver, token } = drivers;
   const navigate = useNavigate()

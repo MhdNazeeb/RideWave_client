@@ -7,6 +7,7 @@ import DriverProfilePage from '../../pages/driver/DriverProfile/DriverProfilePag
 import CarDeatailsPage from '../../pages/driver/car_deatails/carDeatailsPage';
 import RidesPage from '../../pages/driver/Rides/RidesPage';
 import RidePage from '../../pages/driver/ridepage/RidePage';
+import Ride_DetailsPage from '../../pages/Ride_Details/Ride_DetailsPage';
 
 
 
@@ -27,6 +28,7 @@ export default function DriverRoutes() {
         <Route path='/car_deatails' element={driver? <CarDeatailsPage />:<Navigate to='/login'/>} />
         <Route path='/rides' element={driver? <RidesPage />:<Navigate to='/login'/>} />
         <Route path='/ride' element={driver? <RidePage/>:<Navigate to='/login'/>} />
+        <Route path='/rider_details' element={driver? <Ride_DetailsPage/>:<Navigate to='/login'/>} />
       </Routes>
     </>
   )

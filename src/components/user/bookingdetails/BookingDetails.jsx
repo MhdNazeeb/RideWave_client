@@ -125,31 +125,19 @@ const BookingDetails = () => {
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {Arraivalstatus === "Pending" ? (
+                      {Reachedpickup === "Pending" ? (
                         <FontAwesomeIcon icon={faHourglassStart} spin />
-                      ) : Arraivalstatus === "way" ? (
+                      ) : Reachedpickup === "way" ? (
                         <FontAwesomeIcon icon={faArrowRight} />
                       ) : (
                         <FontAwesomeIcon icon={faCheck} bounce />
                       )}
                     </span>
                     <h3 className="font-medium leading-tight">
-                      Arraival status
+                    Reached pickup
                     </h3>
                   </li>
-                  <li className="mb-10 ml-6">
-                    <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
-                    <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {Reachedpickup === "Pending" ? (
-                        <FontAwesomeIcon icon={faHourglassStart} spin />
-                      ) : (
-                        <FontAwesomeIcon icon={faCheck} bounce />
-                      )}
-                    </span>
-                    <h3 className="font-medium leading-tight">
-                      Reached pickup
-                    </h3>
-                  </li>
+                 
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
