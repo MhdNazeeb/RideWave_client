@@ -36,7 +36,7 @@ function RideDetail({ tripid }) {
     const res = await tripCompleted(tripid, token);
     if (res.data.message === "Ride completed") {
       toast.success(res?.data?.message);
-      setRe(!re)
+      setRe(!re) 
     }
   }
 

@@ -133,7 +133,7 @@ function RideDetails() {
                    {(rideDatas?.bookingStatus === 'confirmed') && (rideDatas?.Reachedpickup !== 'way' )&& (rideDatas?.Reachedpickup !== 'confirmed' )? <Ride setStartmodal={setStartmodal} />:(rideDatas?.bookingStatus === 'Pending')?<div className="flex flex-wrap justify-between pl-20">
                     <Button setmodal={setmodal}  setknow={setknow}/>
                     <Reject setmodal={setmodal}  setknow={setknow}/>
-                   </div>:(rideDatas?.bookingStatus === 'confirmed') ? <button className="bg-green-600 rounded-lg text-white px-2 py-2" onClick={()=>startdrive(tripid)}>start drive</button> :<div><button className="bg-red-600 rounded-lg text-white px-2 py-2 cursor-not-allowed">Rejected</button></div>}
+                   </div>:(rideDatas?.bookingStatus === 'confirmed' &&rideDatas?.ReachedDestination !== 'confirmed') ? <button className="bg-green-600 rounded-lg text-white px-2 py-2" onClick={()=>startdrive(tripid)}>start drive</button> :(rideDatas?.bookingStatus === 'rejected') ?<div><button className="bg-red-600 rounded-lg text-white px-2 py-2 cursor-not-allowed">Rejected</button></div>:rideDatas?.bookingStatus === 'Cancelled'?<button className="bg-red-600 rounded-lg text-white px-2 py-2">Cancelled</button>:<button className="bg-green-600 rounded-lg text-white px-2 py-2">Completed</button>}
                   </>
                 </div>
               </div>

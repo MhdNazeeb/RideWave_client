@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { carFind } from "../../../axios/services/user/User";
+import { cancelTrip, carFind } from "../../../axios/services/user/User";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassStart } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -10,10 +10,10 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 const BookingDetails = () => {
   const userDetails = useSelector((state) => state.userReducer.user);
   const [cardata, setCardata] = useState({});
+  const [bookingstatus,setbookingStatus]=useState()
   const { token } = userDetails;
   const locations = useLocation();
   const data = locations.state.data;
-  console.log(data, "this is data");
   const {
     driver,
     verficationCode,
@@ -27,12 +27,16 @@ const BookingDetails = () => {
   } = data;
   const id = driver?._id;
   useEffect(() => {
-    async function find() {
+    (async function () {
       const res = await carFind(id, token);
       setCardata(res?.data);
-    }
-    find();
+    })();
   }, []);
+    async function rideCancel() {
+      const res = await cancelTrip(data._id)
+      console.log(res?.data?.cancelUpdate?.bookingStatus,'cancelled');
+      setbookingStatus(res?.data?.cancelUpdate?.bookingStatus)
+     }
 
   return (
     <>
@@ -110,17 +114,24 @@ const BookingDetails = () => {
                   </div>
                 </div>
                 <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row items-start md:items-center space-y-4 md:space-x-6 xl:space-x-8 w-full" />
+               { bookingStatus === 'Pending' && Reachedpickup!== 'confirmed' && StartedToDestination !=="confirmed" && ReachedDestination !=="confirmed" && bookingStatus !== "Cancelled" ?<button className="bg-red-700 rounded-lg text-white px-2 py-2" onClick={rideCancel} >Cancel Ride</button>:""}
               </div>
             </div>
-            <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex rounded-3xl justify-between items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
+            
+            <div className="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 flex rounded-3xl  items-center md:items-start px-4 py-6 md:p-6 xl:p-8 flex-col">
               <h3 className="text-xl dark:text-white font-semibold leading-5 bg-black-800 mb-10">
                 Status
               </h3>
-              {bookingStatus === "rejected" ? (
-                <h1 className="text-white bg-red-600 p-4 rounded-lg">
+              {bookingStatus === "rejected"  ? (
+                <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
                   rejected
                 </h1>
-              ) : (
+               
+              ) :bookingstatus ?? bookingStatus === "Cancelled" ? (
+                <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
+                  canceled
+                </h1>
+              ): (
                 <ol className="relative bg-black-500 border-l border-gray-200 dark:border-gray-700 dark:bg-black-400">
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
@@ -167,6 +178,7 @@ const BookingDetails = () => {
                   </li>
                 </ol>
               )}
+              
             </div>
           </div>
         </div>

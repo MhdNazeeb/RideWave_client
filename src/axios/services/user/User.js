@@ -1,4 +1,5 @@
 import { axiosClientInstance } from "../../instances/instance";
+import { trip } from "../driver/driverSignup";
 
 export const userSignup = async (values) => {
   try {
@@ -133,6 +134,25 @@ export const history = async (userid)=>{
    
    
    const response = await axiosClientInstance.get('/history',config);
+   return response;
+  } catch (error) {
+   console.log(error.message);
+ 
+  }
+ }
+export const cancelTrip = async (tripid)=>{
+  try {
+   const config = {
+     headers: {
+       // Accept: "application/json",
+       // Authorization: `Bearer ${token}`,
+       "Content-Type": "application/json",
+     },
+     
+   };
+   
+   
+   const response = await axiosClientInstance.post('/cancel_ride',{tripid},config);
    return response;
   } catch (error) {
    console.log(error.message);

@@ -60,7 +60,7 @@ function Rides() {
                     </th>
                   </tr>
                 </thead>
-                {console.log(rides,'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')}
+               
                 {rides?.map((val) => {
 
                   return (
