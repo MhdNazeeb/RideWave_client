@@ -11,6 +11,7 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 const RiderSelector = () => {
   const { pickupCoordinates, dropoffCoordinates } = useContext(LocationContext);
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
+  console.log(tripDetails,"this is tridetails")
   const dispatch = useDispatch();
   const [carlist, setCarlist] = useState([]);
   const [dropOff, setDropoff] = useState();

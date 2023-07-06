@@ -159,3 +159,22 @@ export const cancelTrip = async (tripid)=>{
  
   }
  }
+export const tripFind = async (tripid)=>{
+  try {
+   const config = {
+     headers: {
+       // Accept: "application/json",
+       // Authorization: `Bearer ${token}`,
+       "Content-Type": "application/json",
+     },
+     params:{tripid}
+   };
+   
+   
+   const response = await axiosClientInstance.get('/trip',config);
+   return response;
+  } catch (error) {
+   console.log(error.message);
+ 
+  }
+ }
