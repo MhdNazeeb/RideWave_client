@@ -39,6 +39,7 @@ function RideDetail({ tripid }) {
       setRe(!re) 
     }
   }
+  
 
   return (
     <>

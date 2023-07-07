@@ -83,6 +83,7 @@ export default function Header() {
     console.log("logut");
     dispatch(driverLogout());
     dispatch(clientLogout());
+    localStorage.setItem('page',1)
     navigate("/login");
   }
 

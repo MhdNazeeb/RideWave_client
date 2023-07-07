@@ -6,13 +6,14 @@ import { array } from "yup";
 
 function RideHistory() {
   const [rides, setRides] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const page=localStorage.getItem('page')
+  const [currentPage, setCurrentPage] = useState(page ?? 1);
   const recordPerPage = 5;
   const lastindex = currentPage * recordPerPage;
   const firstindex = lastindex - recordPerPage;
   const records = rides.slice(firstindex, lastindex);
   const npage = Math.ceil(rides.length / recordPerPage);
-  const numbers = [...array(npage + 1).key()].slice(1);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
   const userDetails = useSelector((state) => state.userReducer.user);
   const userid = userDetails?.user?._id;
   const navigate = useNavigate();
@@ -24,6 +25,23 @@ function RideHistory() {
     }
     findRides();
   }, []);
+
+  function nextPage() {
+    if (currentPage !== npage) {
+      localStorage.setItem('page',currentPage+ 1)
+      setCurrentPage(currentPage + 1);
+    }
+  }
+  function prevPage() {
+    if (currentPage !== 1) {
+      localStorage.setItem('page', currentPage - 1)
+      setCurrentPage(currentPage - 1);
+    }
+  }
+  function changePage(id) {
+    localStorage.setItem('page', id)
+   setCurrentPage(id)
+  }
 
   return (
     <>
@@ -59,7 +77,7 @@ function RideHistory() {
                   </tr>
                 </thead>
                 <tbody>
-                  {rides?.map((data) => {
+                  {records?.map((data) => {
                     return (
                       <tr>
                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -126,20 +144,42 @@ function RideHistory() {
                   })}
                 </tbody>
               </table>
-              {/* <div className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-          <span className="text-xs xs:text-sm text-gray-900">
-            Showing 1 to 4 of 50 Entries
-          </span>
-          <div className="inline-flex mt-2 xs:mt-0">
-            <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
-              Prev
-            </button>
-            
-            <button className="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
-              Next
-            </button>
-          </div>
-        </div> */}
+              <nav aria-label="Page navigation example" className="mt-4">
+                <ul className="inline-flex -space-x-px">
+                  <li>
+                    <a
+                      className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                      onClick={prevPage}
+                    >
+                      Prev
+                    </a>
+                  </li>
+                  {numbers.map((item, i) => {
+                    return (
+                      <li key={i}>
+                        <a
+                          onClick={() => changePage(item)}
+                          className={
+                            currentPage == item
+                              ? "px-3 py-2 leading-tight text-gray-500 bg-blue-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                              : "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                          }
+                        >
+                          {item}
+                        </a>
+                      </li>
+                    );
+                  })}
+                  <li>
+                    <a
+                      className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                      onClick={nextPage}
+                    >
+                      next
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

@@ -12,6 +12,17 @@ function Rides() {
   let driverid = driver?._id;
   const token = DriverDetails?.token;
   const [loader, setLoader] = useState(false);
+  const page=localStorage.getItem('page')
+  const [currentPage, setCurrentPage] = useState(page ?? 1);
+  const recordPerPage = 5;
+  const lastindex = currentPage * recordPerPage;
+  const firstindex = lastindex - recordPerPage;
+  const records = rides.slice(firstindex, lastindex);
+  const npage = Math.ceil(rides.length / recordPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
+
+
+  
 
   useEffect(() => {
     async function ride() {
@@ -22,6 +33,22 @@ function Rides() {
     }
     ride();
   }, []);
+  function nextPage() {
+    if (currentPage !== npage) {
+      localStorage.setItem('page',currentPage+ 1)
+      setCurrentPage(currentPage + 1);
+    }
+  }
+  function prevPage() {
+    if (currentPage !== 1) {
+      localStorage.setItem('page', currentPage - 1)
+      setCurrentPage(currentPage - 1);
+    }
+  }
+  function changePage(id) {
+    localStorage.setItem('page', id)
+   setCurrentPage(id)
+  }
 
   return (
     <>
@@ -61,7 +88,7 @@ function Rides() {
                   </tr>
                 </thead>
                
-                {rides?.map((val) => {
+                {records?.map((val) => {
 
                   return (
                     <tbody>
@@ -118,6 +145,42 @@ function Rides() {
                   );
                 })}
               </table>
+              <nav aria-label="Page navigation example" className="mt-4">
+                <ul className="inline-flex -space-x-px">
+                  <li>
+                    <a
+                      className="px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                      onClick={prevPage}
+                    >
+                      Prev
+                    </a>
+                  </li>
+                  {numbers?.map((item, i) => {
+                    return (
+                      <li key={i}>
+                        <a
+                          onClick={() => changePage(item)}
+                          className={
+                            currentPage == item
+                              ? "px-3 py-2 leading-tight text-gray-500 bg-blue-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                              : "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                          }
+                        >
+                          {item}
+                        </a>
+                      </li>
+                    );
+                  })}
+                  <li>
+                    <a
+                      className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                      onClick={nextPage}
+                    >
+                      next
+                    </a>
+                  </li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

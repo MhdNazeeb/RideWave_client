@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassStart } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import PaypalFull from "../Paypal/AduvancePaypal";
 
 const BookingDetails = () => {
   const userDetails = useSelector((state) => state.userReducer.user);
@@ -195,13 +196,14 @@ const BookingDetails = () => {
                   </li>
                 </ol>
               )}
+            <PaypalFull/>
             </div>
           </div>
         </div>
         <div className="m-5 w-90 w-full"></div>
       </div>
     </>
-  );
+  )
 };
 
 export default BookingDetails;
