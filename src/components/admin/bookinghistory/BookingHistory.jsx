@@ -4,7 +4,7 @@ import { history } from "../../../axios/services/user/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import { array } from "yup";
 
-function RideHistory() {
+function BookingHistory() {
   const [rides, setRides] = useState([]);
   const page=localStorage.getItem('page')
   const [currentPage, setCurrentPage] = useState(page ?? 1);
@@ -86,11 +86,7 @@ function RideHistory() {
                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 w-10 h-10">
-                              {/* <img
-                                className="w-full h-full rounded-full"
-                                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                alt
-                              /> */}
+                             
                             </div>
                             <div className="flex justify-start">
                               <p className="text-gray-900 whitespace-no-wrap">
@@ -125,13 +121,13 @@ function RideHistory() {
                           </p>
                         </td>
                         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {data.bookingStatus!=='rejected'? <p className="text-gray-900 whitespace-no-wrap">
+                         {data.bookingStatus!=='rejected'? <p className="text-gray-900 whitespace-no-wrap">
                             
                             { data.payment.status !== true ? data.payment.aduvance:data.payment.amount}
                               
                           </p>:<p className="text-gray-900 whitespace-no-wrap">
                             
-                            {0}
+                            { 0}
                               
                           </p>}
                         </td>
@@ -140,9 +136,10 @@ function RideHistory() {
                             <span
                               aria-hidden
                               className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                              onClick={() => {
-                                navigate("/details", { state: { data: data } });
+                              onClick={()=>{
+                                navigate('/admin/booking_details',{state:{data:data._id}})
                               }}
+                            
                             />
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -202,4 +199,4 @@ function RideHistory() {
   );
 }
 
-export default RideHistory;
+export default BookingHistory;

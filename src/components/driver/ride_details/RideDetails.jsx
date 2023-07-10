@@ -97,12 +97,12 @@ function RideDetails() {
                           Customer: {rideDatas?.passenger?.name}
                         </h3>
                         <div className="flex justify-start items-start flex-col space-y-2">
-                          <pre className="text-sm dark:text-white break-words leading-none bg-black-800">
+                          <p className="flex text-sm text-left break-words font-semibold leading-none bg-black-800">
                             <span className="dark:bg-black-400 bg-black-300">
                               Pickup:{rideDatas?.location?.pickup}
                             </span>
-                          </pre>
-                          <p className="text-sm dark:text-white leading-none bg-black-800">
+                          </p>
+                          <p className="flex text-sm text-left break-words font-semibold leading-none bg-black-800">
                             <span className="dark:bg-black-400 bg-black-300">
                               Dropoff:{rideDatas?.location?.dropoff}
                             </span>

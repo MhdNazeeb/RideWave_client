@@ -1,11 +1,13 @@
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import React, { useState } from "react";
+import { fullAmounTrip } from "../../../axios/services/user/User";
 
 
 
 const paypal = import.meta.env.VITE_PAYPAL_TOKEN;
 
-export default function PaypalFull() {
+export default function FullAmountPaypal({tripid,pay,token,fullAmount}) {
+
   return (
     <>
      
@@ -22,7 +24,7 @@ export default function PaypalFull() {
               purchase_units: [
                 {
                   amount: {
-                    value: 12,
+                    value: pay,
                   },
                 },
               ],
@@ -30,8 +32,10 @@ export default function PaypalFull() {
           }}
           onApprove={(data, actions) => {
             return actions.order.capture().then((response) => {
+              fullAmount()
             });
           }}
+
         />
       </PayPalScriptProvider>
       

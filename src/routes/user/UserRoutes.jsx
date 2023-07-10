@@ -11,6 +11,7 @@ import SuccessPage from "../../pages/user/successpage/SuccessPage";
 import BookingDetailsPage from "../../pages/user/bookingDeatails/BookingDetailsPage";
 import ProfilePage from "../../pages/user/userprofile/ProfilePage";
 import History from "../../pages/user/History/History";
+import LastSuccessPage from "../../pages/user/lastsuccesspage/LastSuccessPage";
 
 
 export default function UserRoutes() {
@@ -58,6 +59,10 @@ export default function UserRoutes() {
         <Route
           path="/history"
           element={client ? <History/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/last_success"
+          element={client ? <LastSuccessPage/> : <Navigate to="/login" />}
         />
         </Routes>
     </>

@@ -1,65 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import ReactPaginate from "react-paginate";
-import {
-  cancelTrip,
-  carFind,
-  fullAmounTrip,
-  tripFind,
-} from "../../../axios/services/user/User";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHourglassStart } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import PaypalFull from "../Paypal/FullAmountPaypal";
 import Loader from "../../common/Loader";
+import { useSelector } from "react-redux";
+import { tripFind } from "../../../axios/services/admin/admin";
 
 const BookingDetails = () => {
-  const userDetails = useSelector((state) => state.userReducer.user);
-  const  navigate =useNavigate()
+  const adminDetails = useSelector((state) => state.adminReducer.admin);
+  const { token } = adminDetails;
   const [cardata, setCardata] = useState({});
-  const [bookingstatus, setbookingStatus] = useState();
   const [Payment, setPayment] = useState(false);
   const [loader, setLoader] = useState(false);
-  const { token } = userDetails;
-  const locations = useLocation();
-  const data = locations.state.data;
-  const {
-    driver,
-    verficationCode,
-    location,
-    payment,
-    bookingStatus,
-    StartedToDestination,
-    Reachedpickup,
-    ReachedDestination,
-  } = data;
-  const tripid = data._id;
-  const id = driver?._id;
+  const location = useLocation();
+  const id = location.state.data;
   useEffect(() => {
     (async function () {
-      const res = await carFind(id, token);
-      setCardata(res?.data);
       setLoader(true);
-      const response = await tripFind(data._id);
-      setPayment(response?.data?.payment?.status);
-      setbookingStatus(response?.data?.bookingStatus);
+      const res = await tripFind(token, id);
       setLoader(false);
+      setCardata(res?.data);
     })();
   }, []);
-  async function rideCancel() {
-    const res = await cancelTrip(data._id);
-    setbookingStatus(res?.data?.cancelUpdate?.bookingStatus);
-  }
-  const pay = payment?.amount - payment?.aduvance;
-  async function fullAmount() {
-    setLoader(true)
-    const res = await fullAmounTrip(tripid, pay, token);
-    navigate('/last_success')
-    setLoader(false)
-
-  }
 
   return (
     <>
@@ -69,7 +35,7 @@ const BookingDetails = () => {
         </div>
       )}
       <div>
-        <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto pb-0 bg-gray-200 h-screen ">
+        <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto pb-0 bg-gray-200 h-screen">
           <fieldset classname="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-regal-blue">
             <div classname="space-y-2 col-span-full lg:col-span-1">
               <p classname="font-extrabold text-lg text-real-orange">
@@ -84,70 +50,42 @@ const BookingDetails = () => {
                   Ride Details
                 </p>
                 <div className="mt-4 md:mt-6 flex flex-col md:flex-row justify-start items-start md:items-center md:space-x-6 xl:space-x-8 w-full">
-                  <div className="pb-4 md:pb-8 w-full md:w-40">
-                    <img
-                      className="w-full hidden md:block"
-                      src={cardata?.carimage}
-                      alt="profile"
-                    />
-                    <img
-                      className="w-full md:hidden"
-                      src={cardata?.carimage}
-                      alt="profile"
-                    />
-                  </div>
                   <div className="border-b border-gray-200  items-start w-full pb-8 space-y-4 md:space-y-0">
                     <div className="w-full flex flex-col justify-start items-start space-y-8">
                       <h3 className="text-2xl dark:text-white font-semibold bg-black-800">
-                        Driver: {driver?.name}
+                        Driver:{cardata?.driver?.name}
                       </h3>
                       <div className="flex justify-start items-start flex-col space-y-2">
                         <p className=" flex text-sm text-left break-words font-semibold leading-none bg-black-800">
-                          Pickup:&nbsp;
-                          <span className="dark:bg-black-400">
-                            {location?.pickup}
-                          </span>
+                          Pickup: {cardata?.location?.pickup}
+                          <span className="dark:bg-black-400"></span>
                         </p>
                         <p className="text-sm dark:text-white leading-none font-semibold bg-black-800">
                           <span className="dark:bg-black-400 bg-black-300">
-                            Dropoff:&nbsp;{location?.dropoff}
+                            Dropoff:{cardata?.location?.dropoff}
                           </span>
                         </p>
-
+                       
                       </div>
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
                       <p className="text-base dark:text-white font-semibold leading-6">
-                        Aduvance Amount: ₹{payment?.aduvance}
+                        Aduvance Amount: ₹ {cardata?.payment?.aduvance}
                       </p>
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
                       <p className="text-base dark:text-white font-semibold leading-6">
-                        Total amount:₹ {payment?.amount}
+                        Total amount:₹{cardata?.payment?.amount}
                       </p>
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
                       <p className="text-base dark:text-white font-semibold leading-6">
-                        verification Code : {verficationCode}
+                        verification Code : {cardata?.verficationCode}
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row items-start md:items-center space-y-4 md:space-x-6 xl:space-x-8 w-full" />
-                {bookingStatus === "Pending" &&
-                Reachedpickup !== "confirmed" &&
-                StartedToDestination !== "confirmed" &&
-                ReachedDestination !== "confirmed" &&
-                bookingstatus !== "Cancelled" ? (
-                  <button
-                    className="bg-red-700 rounded-lg text-white px-2 py-2"
-                    onClick={rideCancel}
-                  >
-                    Cancel Ride
-                  </button>
-                ) : (
-                  ""
-                )}
               </div>
             </div>
 
@@ -155,11 +93,11 @@ const BookingDetails = () => {
               <h3 className="text-xl dark:text-white font-semibold leading-5 bg-black-800 mb-10">
                 Status
               </h3>
-              {bookingStatus === "rejected" ? (
+              {cardata?.bookingStatus === "rejected" ? (
                 <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
                   rejected
                 </h1>
-              ) : bookingstatus === "Cancelled" ? (
+              ) : cardata?.bookingStatus === "Cancelled" ? (
                 <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
                   Cancelled
                 </h1>
@@ -168,9 +106,9 @@ const BookingDetails = () => {
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {Reachedpickup === "Pending" ? (
+                      {cardata?.Reachedpickup === "Pending" ? (
                         <FontAwesomeIcon icon={faHourglassStart} spin />
-                      ) : Reachedpickup === "way" ? (
+                      ) : cardata?.Reachedpickup === "way" ? (
                         <FontAwesomeIcon icon={faArrowRight} />
                       ) : (
                         <FontAwesomeIcon icon={faCheck} bounce />
@@ -183,7 +121,7 @@ const BookingDetails = () => {
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {StartedToDestination === "Pending" ? (
+                      {cardata?.StartedToDestination === "Pending" ? (
                         <FontAwesomeIcon icon={faHourglassStart} spin />
                       ) : (
                         <FontAwesomeIcon icon={faCheck} bounce />
@@ -196,7 +134,7 @@ const BookingDetails = () => {
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {ReachedDestination === "Pending" ? (
+                      {cardata?.ReachedDestination === "Pending" ? (
                         <FontAwesomeIcon icon={faHourglassStart} spin />
                       ) : (
                         <FontAwesomeIcon icon={faCheck} bounce />
@@ -208,20 +146,6 @@ const BookingDetails = () => {
                     </h3>
                   </li>
                 </ol>
-              )}
-
-              {bookingStatus === "confirmed" &&
-              Reachedpickup === "confirmed" &&
-              ReachedDestination === "confirmed" &&
-              Payment !== true ? (
-                <PaypalFull
-                  tripid={tripid}
-                  pay={pay}
-                  token={token}
-                  fullAmount={fullAmount}
-                />
-              ) : (
-                ""
               )}
             </div>
           </div>

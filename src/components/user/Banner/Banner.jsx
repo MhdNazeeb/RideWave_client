@@ -79,7 +79,7 @@ export default function Banner() {
 
 
   return (
-    <div className="bg-gray-800 banner">
+    <div className="bg-gray-800 h-screen banner">
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div
           className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -100,23 +100,23 @@ export default function Banner() {
           </div>
           <div className="text-center">
             {driver?<div>
-              <h1 className="text-4xl font-bold tracking-tight text-opacity-90 text-gray-900  sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-red-100sm:text-6x1">
               Be your own  
               </h1>
-              <h1 className="text-4xl font-bold tracking-tight text-opacity-90 text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-red-100sm:text-6x1">
               boss behind
               </h1>
-              <h1 className="text-4xl font-bold tracking-tight text-opacity-90 text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-red-100sm:text-6x1">
               the wheel
               </h1>
             </div>:<div>
-              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl  font-bold tracking-tight text-opacity-70 text-red-100sm:text-6xl">
               Travel with 
               </h1>
-              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-gray-900 sm:text-6xl">
+              <h1 className="text-4xl font-bold tracking-tight text-opacity-70 text-red-100sm:text-6x1">
               confidence
               </h1>
-               <h1 className="text-4xl font-bold tracking- text-opacity-70 text-gray-900 sm:text-6xl">
+               <h1 className="text-4xl pl-8 font-bold tracking-tight text-opacity-70 text-red-100sm:text-6x1">
                arrive with a smile
               </h1> 
             </div>}

@@ -8,6 +8,8 @@ import DriverListPage from "../../pages/admin/driverlist/DriverListPage";
 import DriverVerifyPage from "../../pages/admin/driververifypage/DriverVerifyPage";
 import CarListPage from "../../pages/admin/carlist/CarListPage";
 import CarVerifyPage from "../../pages/admin/carvrify/CarVerifyPage";
+import Booking from "../../pages/admin/Booking/Booking";
+import BookingDetailspage from "../../pages/admin/bookingDetails/BookingDetailspage";
 
 
 export default function AdminRoutes() {
@@ -25,6 +27,8 @@ export default function AdminRoutes() {
         <Route path="/driver_verify"element={admin ? <DriverVerifyPage/> : <Navigate to='/admin'/>}/>
         <Route path="/carlist"element={admin ? <CarListPage/> : <Navigate to='/admin'/>}/>
         <Route path="/car_verify"element={admin ? <CarVerifyPage/> : <Navigate to='/admin'/>}/>
+        <Route path="/Ride_history"element={admin ? <Booking/> : <Navigate to='/admin'/>}/>
+        <Route path="/booking_details"element={admin ? <BookingDetailspage/> : <Navigate to='/admin'/>}/>
       </Routes>
     </div>
   );

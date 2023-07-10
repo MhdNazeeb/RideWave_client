@@ -178,3 +178,22 @@ export const tripFind = async (tripid)=>{
  
   }
  }
+export const fullAmounTrip = async (tripid,pay,token)=>{
+  try {
+   const config = {
+     headers: {
+       // Accept: "application/json",
+       Authorization: `Bearer ${token}`,
+       "Content-Type": "application/json",
+     },
+ 
+   };
+   
+   
+   const response = await axiosClientInstance.post('/payment',{tripid,pay},config);
+   return response;
+  } catch (error) {
+   console.log(error.message);
+ 
+  }
+ }

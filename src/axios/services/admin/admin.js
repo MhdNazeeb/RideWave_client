@@ -173,3 +173,21 @@ export const  getCar = async (id) => {
     console.log(error.message, "error in signup client......");
   }
 };
+ export const  tripFind = async (token,id) => {
+  try {
+    const config = {
+      headers: {
+        // Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params:{id}
+    };
+
+    
+    const response = await axiosAdminInstance.get("trip_find",config);
+    return response;
+  } catch (error) {
+    console.log(error.message, "error in signup client......");
+  }
+};

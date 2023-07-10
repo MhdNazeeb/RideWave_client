@@ -46,8 +46,8 @@ export default function Signin() {
     });
 
   return (
-    <div className="login relative flex flex-col justify-center min-h-screen overflow-hidden">
-      <div className="w-full p-6 m-auto bg-gray-800 rounded-md shadow-xl lg:max-w-xl">
+    <div className="bg-gray-800 relative flex flex-col justify-center min-h-screen overflow-hidden">
+      <div className="w-full p-6 m-auto bg-gray-900 rounded-md shadow-xl lg:max-w-xl">
         <div className="flex justify-around">
           <div className="bg-violet-900 rounded-lg w-1/2 p-5 text-2xl font-semibold text-center  text-white uppercase cursor-pointer">
             login admin

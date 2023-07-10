@@ -40,7 +40,7 @@ const Sidebar = () => {
         //     path: "",
         //     src: <BsChatDotsFill />,
         // },
-        { title: "Bookings", path: "", src: <BsBorderWidth /> },
+        { title: "Bookings", path: "/admin/Ride_history", src: <BsBorderWidth /> },
        
         // { title: "driver approvel", path: "", src: <FaCity /> },
         
