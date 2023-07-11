@@ -291,6 +291,27 @@ export const tripCompleted = async (tripid,token)=>{
 
  }
 }
+export const riport = async (token,driverid)=>{
+      
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+   params:{driverid}
+   
+  };
+  
+ 
+  const response = await axiosDriverInstance.get('/riport',config);
+  return response;
+ } catch (error) {
+  console.log(error.message);
+
+ }
+}
 
 
 

@@ -8,6 +8,8 @@ import CarDeatailsPage from '../../pages/driver/car_deatails/carDeatailsPage';
 import RidesPage from '../../pages/driver/Rides/RidesPage';
 import RidePage from '../../pages/driver/ridepage/RidePage';
 import Ride_DetailsPage from '../../pages/Ride_Details/Ride_DetailsPage';
+import Earnings from '../../components/driver/earnings/Earnings';
+import EarningsPage from '../../pages/driver/earningpage/EarningsPage';
 
 
 
@@ -29,6 +31,7 @@ export default function DriverRoutes() {
         <Route path='/rides' element={driver? <RidesPage />:<Navigate to='/login'/>} />
         <Route path='/ride' element={driver? <RidePage/>:<Navigate to='/login'/>} />
         <Route path='/rider_details' element={driver? <Ride_DetailsPage/>:<Navigate to='/login'/>} />
+        <Route path='/earnings' element={driver? <EarningsPage/>:<Navigate to='/login'/>} />
       </Routes>
     </>
   )

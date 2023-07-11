@@ -186,11 +186,9 @@ export default function Header() {
           ) : (
           ""
           )}
-          <Link to="" className="text-sm font-semibold leading-6 text-white">
-            WALLET
-          </Link>
+        
           {driver ? (
-             <Link to="" className="text-sm font-semibold leading-6 text-white">
+             <Link to="/driver/earnings" className="text-sm font-semibold leading-6 text-white">
              EARNINGS
            </Link>
           ) : (
