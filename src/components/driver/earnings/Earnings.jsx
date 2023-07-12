@@ -22,7 +22,13 @@ function Earnings() {
         setLoader(true)
         const res = await riport(token,driverid)
         setLoader(false)
-        setData(res?.data)
+        if(res){
+          console.log(res?.data?.monthlyRport[0]?.totalAmount,'ffffffffffffddddddddddddddddddddddddddd');
+          setData(res?.data)
+        }else{
+          console.log('ffffffffffff');
+        }
+       
          
     })();
   },[]);
@@ -35,10 +41,12 @@ function Earnings() {
         </div>
       )}
       <div className="flex flex-wrap justify-between gap-10 mt-10 px-10 ">
+       
         <RideCard total={data?.totalride}  />
         <CompletedRide completed={data?.completedRide} />
-        <Cards monthlyRport={monthlyRport?.totalAmount}/>
+        <Cards monthlyRport={data?.monthlyRport ? data?.monthlyRport[0]?.totalAmount:0}/>
         <WalletCard wallet={data?.driverwallet?.currentBalance} />
+        
       </div>
         <div className="flex flex-wrap w-full h-full px-5 border-opacity-0  ">
         <div className="md:w-1/2 w-full mt-8 mb-8">

@@ -99,7 +99,8 @@ const RiderSelector = () => {
             pickupCoordinates,
             DriverLocation
           );
-          if (distance1 < 20) {
+          
+          if (distance1 < 250) {
             ShowCars.push(element)
             setCarlist(state => [...state,element])
            
@@ -108,7 +109,7 @@ const RiderSelector = () => {
         dis();
         
       });
-
+        
       
       
     } catch (error) {
@@ -159,7 +160,9 @@ const RiderSelector = () => {
   };
     
   return (
+    
     <div className="h-fit flex flex-col w-full">
+      {console.log(carlist,'this car11')}
       <div className="text-gray-500 text-center text-xs py-2 "></div>
       {dropOff?.length > 0 && carlist?.length > 0
         ? carlist?.filter((val, ind, arr) => {
