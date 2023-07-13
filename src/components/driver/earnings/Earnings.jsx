@@ -23,16 +23,14 @@ function Earnings() {
         const res = await riport(token,driverid)
         setLoader(false)
         if(res){
-          console.log(res?.data?.monthlyRport[0]?.totalAmount,'ffffffffffffddddddddddddddddddddddddddd');
+          console.log(res.data,'data')
           setData(res?.data)
         }else{
-          console.log('ffffffffffff');
+          
         }
-       
-         
+  
     })();
   },[]);
-  console.log(data,'this is data');
   return (
     <div>
          {loader && (
@@ -44,16 +42,16 @@ function Earnings() {
        
         <RideCard total={data?.totalride}  />
         <CompletedRide completed={data?.completedRide} />
-        <Cards monthlyRport={data?.monthlyRport ? data?.monthlyRport[0]?.totalAmount:0}/>
+        <Cards monthlyRport={data?.montherning}/>
         <WalletCard wallet={data?.driverwallet?.currentBalance} />
         
       </div>
         <div className="flex flex-wrap w-full h-full px-5 border-opacity-0  ">
         <div className="md:w-1/2 w-full mt-8 mb-8">
-          <GraphComponents />
+          <GraphComponents count={data?.monthcount} earnings={data?.monthgraph} monthname={data?.monthname} />
         </div>
         <div className="flex items-center justify-center md:w-1/2 w-full h-full md:h-80 mt-8 mb-8">
-          <PieChart />
+          <PieChart cancelled={data?.cancelled} rejected={data?.cancelled} completed={data?.completedRide} />
         </div>
       </div>
     </div>

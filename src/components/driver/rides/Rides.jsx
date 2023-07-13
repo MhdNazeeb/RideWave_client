@@ -153,7 +153,12 @@ function Rides() {
                   );
                 })}
               </table>
-              <nav aria-label="Page navigation example" className="mt-4">
+             
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center mt-3">
+        <nav aria-label="Page navigation example" className="mt-4">
                 <ul className="inline-flex -space-x-px">
                   <li>
                     <a
@@ -189,8 +194,6 @@ function Rides() {
                   </li>
                 </ul>
               </nav>
-            </div>
-          </div>
         </div>
       </div>
     </>

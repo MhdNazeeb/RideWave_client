@@ -158,7 +158,12 @@ function RideHistory() {
                   })}
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example" className="mt-4">
+            </div>
+          </div>
+        </div>
+        {/* pagination */}
+        <div className="flex justify-center items-center mt-3 w-full">
+        <nav aria-label="Page navigation example" className="mt-4">
                 <ul className="inline-flex -space-x-px">
                   <li>
                     <a
@@ -194,9 +199,8 @@ function RideHistory() {
                   </li>
                 </ul>
               </nav>
-            </div>
-          </div>
         </div>
+        {/* pagination */}
       </div>
     </>
   );

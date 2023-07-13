@@ -10,6 +10,8 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
+export function GraphComponents({count,earnings,monthname}) {
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -19,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
+ const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -27,29 +29,29 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Bar Chart',
+      text: 'Monthly Earnings',
     },
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = monthname;
+console.log(count,'count')
 
-export const data = {
+ const data = {
   labels,
   datasets: [
+    // {
+    //   label: 'Trips',
+    //   data: count?.map((val)=> val*100),
+    //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    // },
     {
-      label: 'Dataset 1',
-      data: [40,60,70,100,400],
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: [40,60,70,100,400],
+      label: 'Earnings',
+      data: earnings,
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
   ],
 };
 
-export function GraphComponents() {
   return <Bar options={options} data={data} />;
 }

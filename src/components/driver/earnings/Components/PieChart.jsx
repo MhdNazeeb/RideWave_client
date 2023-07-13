@@ -2,14 +2,16 @@ import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
+export function PieChart({cancelled,rejected,completed}) {
+  console.log(cancelled,rejected,completed,'GGGGGGGGGGGGGGGGGGGGGGG');
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-export const data = {
-  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+ const data = {
+  labels: ['rejected', 'cancceld', 'completed',],
+  // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
     {
       label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
+      data: [cancelled,rejected,completed,],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
@@ -31,6 +33,5 @@ export const data = {
   ],
 };
 
-export function PieChart() {
   return <Pie data={data} />;
 }

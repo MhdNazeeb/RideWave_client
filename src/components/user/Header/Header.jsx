@@ -199,6 +199,9 @@ export default function Header() {
               RIDE HISTORY
             </Link>
           )}
+           { client ? <Link to="" className="text-sm font-semibold leading-6 text-white">
+             WALLET
+           </Link>:""}
         </Popover.Group>
 
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -310,31 +313,11 @@ export default function Header() {
                     Ride
                   </Link>
                 ) : (
-                  <Link
-                    to=""
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Ride
-                  </Link>
+                 ""
                 )}
                 {driver ? (
                   <Link
-                    to=""
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Wallet
-                  </Link>
-                ) : (
-                  <Link
-                    to=""
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Wallet
-                  </Link>
-                )}
-                {driver ? (
-                  <Link
-                    to=""
+                    to="history"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Ride History
@@ -345,6 +328,16 @@ export default function Header() {
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Ride History
+                  </Link>
+                )}
+                {driver ? (
+                ""
+                ) : (
+                  <Link
+                    to=""
+                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    wallet
                   </Link>
                 )}
               </div>
