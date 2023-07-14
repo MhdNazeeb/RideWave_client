@@ -1,5 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import {AiOutlineLogout } from 'react-icons/ai';
+import {CgProfile } from 'react-icons/cg';
 
 import {
   ArrowPathIcon,
@@ -210,24 +212,32 @@ export default function Header() {
               to="/driver/driver_profile"
               className="text-sm font-semibold leading-6 text-white uppercase mx-5"
             >
-              profile
+              
+              <CgProfile className="w-7 h-7" />
+             
             </Link>
           ) : (
             <Link
               to="/profile"
               className="text-sm font-semibold leading-6 text-white uppercase mx-5"
             >
-              profile
+             
+
+              <CgProfile className="w-7 h-7" />
+            
+              
+              
             </Link>
           )}
 
           {driver || client ? (
             <button
-              className="text-sm font-semibold leading-6 text-white"
-              onClick={logout}
-            >
-              Log out <span aria-hidden="true">&rarr;</span>
-            </button>
+            className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
+            onClick={logout}
+            title="logout"
+          >
+            <AiOutlineLogout/>
+          </button>
           ) : (
             <Link
               to="/login"
@@ -341,13 +351,15 @@ export default function Header() {
                   </Link>
                 )}
               </div>
+              
               <div className="py-6">
                 {driver || client ? (
                   <button
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className=" -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 "
                     onClick={logout}
+                    title="logout"
                   >
-                    Logout
+                   logout
                   </button>
                 ) : (
                   <Link

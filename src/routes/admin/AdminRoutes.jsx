@@ -29,6 +29,7 @@ export default function AdminRoutes() {
         <Route path="/car_verify"element={admin ? <CarVerifyPage/> : <Navigate to='/admin'/>}/>
         <Route path="/Ride_history"element={admin ? <Booking/> : <Navigate to='/admin'/>}/>
         <Route path="/booking_details"element={admin ? <BookingDetailspage/> : <Navigate to='/admin'/>}/>
+        <Route path="/dashboard"element={admin ? <DashBoard/> : <Navigate to='/admin'/>}/>
       </Routes>
     </div>
   );

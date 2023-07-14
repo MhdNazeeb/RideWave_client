@@ -47,7 +47,7 @@ function Earnings() {
         
       </div>
         <div className="flex flex-wrap w-full h-full px-5 border-opacity-0  ">
-        <div className="md:w-1/2 w-full mt-8 mb-8">
+        <div className="md:w-1/2 h-80 w-full mt-8 mb-8">
           <GraphComponents count={data?.monthcount} earnings={data?.monthgraph} monthname={data?.monthname} />
         </div>
         <div className="flex items-center justify-center md:w-1/2 w-full h-full md:h-80 mt-8 mb-8">

@@ -191,3 +191,35 @@ export const  getCar = async (id) => {
     console.log(error.message, "error in signup client......");
   }
 };
+
+export const findTrip = async (token)=>{
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await axiosAdminInstance.get("find_trip",config);
+    return response;
+ } catch (error) {
+  console.log(error.message, "error in signup client......");
+ }
+}
+export const adminReport = async (token,adminid)=>{
+ try {
+  const config = {
+    headers: {
+      // Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    params:{adminid}
+  };
+  const response = await axiosAdminInstance.get("admin_report",config);
+    return response;
+ } catch (error) {
+  console.log(error.message, "error in signup client......");
+ }
+}

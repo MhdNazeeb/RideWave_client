@@ -19,7 +19,7 @@ const Sidebar = () => {
 
 
     const Menus = [
-        { title: "Dashboard", path: "", src: <MdAnalytics /> },
+        { title: "Dashboard", path: "/admin/dashboard", src: <MdAnalytics /> },
         { title: "Users", path: "/admin/userlist", src: <HiUsers /> },
         // {
         //     title: "Notification",

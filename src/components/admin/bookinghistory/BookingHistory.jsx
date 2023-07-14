@@ -1,8 +1,8 @@
 import React, { useEffect, useId, useState } from "react";
 import { useSelector } from "react-redux";
-import { history } from "../../../axios/services/user/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import { array } from "yup";
+import { findTrip } from "../../../axios/services/admin/admin";
 
 function BookingHistory() {
   const [rides, setRides] = useState([]);
@@ -14,16 +14,15 @@ function BookingHistory() {
   const records = rides.slice(firstindex, lastindex);
   const npage = Math.ceil(rides.length / recordPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
-  const userDetails = useSelector((state) => state.userReducer.user);
-  const userid = userDetails?.user?._id;
+  
   const navigate = useNavigate();
-
+  const adminDetails = useSelector((state) => state.adminReducer.admin);
+  const { token } = adminDetails;
   useEffect(() => {
-    async function findRides() {
-      const res = await history(userid);
-      setRides(res?.data);
-    }
-    findRides();
+    ( async function(){
+      const res = await findTrip(token)
+      setRides(res?.data)
+    })()
   }, []);
 
   function nextPage() {
