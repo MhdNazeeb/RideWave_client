@@ -10,6 +10,7 @@ import CarListPage from "../../pages/admin/carlist/CarListPage";
 import CarVerifyPage from "../../pages/admin/carvrify/CarVerifyPage";
 import Booking from "../../pages/admin/Booking/Booking";
 import BookingDetailspage from "../../pages/admin/bookingDetails/BookingDetailspage";
+import PageNotFoundPage from "../../pages/common/pagenotfoundpage/PageNotFoundPage";
 
 
 export default function AdminRoutes() {
@@ -30,6 +31,7 @@ export default function AdminRoutes() {
         <Route path="/Ride_history"element={admin ? <Booking/> : <Navigate to='/admin'/>}/>
         <Route path="/booking_details"element={admin ? <BookingDetailspage/> : <Navigate to='/admin'/>}/>
         <Route path="/dashboard"element={admin ? <DashBoard/> : <Navigate to='/admin'/>}/>
+        <Route path="/*"element={admin ? <PageNotFoundPage home={'adminhome'}/> : <Navigate to='/admin'/>}/>
       </Routes>
     </div>
   );

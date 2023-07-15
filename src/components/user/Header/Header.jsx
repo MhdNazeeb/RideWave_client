@@ -1,7 +1,8 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
-import {AiOutlineLogout } from 'react-icons/ai';
-import {CgProfile } from 'react-icons/cg';
+import { AiOutlineLogout } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { BsFillChatLeftDotsFill } from "react-icons/bs";
 
 import {
   ArrowPathIcon,
@@ -93,11 +94,7 @@ export default function Header() {
         <div className="flex lg:flex-1">
           <Link to="" className="-m-1.5 p-1.5">
             {/* <span className="sr-only text-white">Your Company</span> */}
-            <img
-              className="h-8 w-auto"
-              src=""
-              alt=""
-            />
+            <img className="h-8 w-auto" src="" alt="" />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -186,13 +183,16 @@ export default function Header() {
               RIDE
             </Link>
           ) : (
-          ""
+            ""
           )}
-        
+
           {driver ? (
-             <Link to="/driver/earnings" className="text-sm font-semibold leading-6 text-white">
-             EARNINGS
-           </Link>
+            <Link
+              to="/driver/earnings"
+              className="text-sm font-semibold leading-6 text-white"
+            >
+              EARNINGS
+            </Link>
           ) : (
             <Link
               to="/history"
@@ -201,43 +201,53 @@ export default function Header() {
               RIDE HISTORY
             </Link>
           )}
-           { client ? <Link to="" className="text-sm font-semibold leading-6 text-white">
-             WALLET
-           </Link>:""}
+          {client ? (
+            <Link to="" className="text-sm font-semibold leading-6 text-white">
+              WALLET
+            </Link>
+          ) : (
+            ""
+          )}
         </Popover.Group>
-
+       
+       
+       
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        { client ?  <button
+              className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
+              
+            >
+              <BsFillChatLeftDotsFill />
+            </button>: <button
+              className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
+            
+            >
+              <BsFillChatLeftDotsFill />
+            </button>}
           {driver ? (
             <Link
               to="/driver/driver_profile"
               className="text-sm font-semibold leading-6 text-white uppercase mx-5"
             >
-              
               <CgProfile className="w-7 h-7" />
-             
             </Link>
           ) : (
             <Link
               to="/profile"
               className="text-sm font-semibold leading-6 text-white uppercase mx-5"
             >
-             
-
               <CgProfile className="w-7 h-7" />
-            
-              
-              
             </Link>
           )}
-
+         
           {driver || client ? (
             <button
-            className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
-            onClick={logout}
-            title="logout"
-          >
-            <AiOutlineLogout/>
-          </button>
+              className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
+              onClick={logout}
+              title="logout"
+            >
+              <AiOutlineLogout />
+            </button>
           ) : (
             <Link
               to="/login"
@@ -323,7 +333,7 @@ export default function Header() {
                     Ride
                   </Link>
                 ) : (
-                 ""
+                  ""
                 )}
                 {driver ? (
                   <Link
@@ -341,7 +351,7 @@ export default function Header() {
                   </Link>
                 )}
                 {driver ? (
-                ""
+                  ""
                 ) : (
                   <Link
                     to=""
@@ -351,7 +361,7 @@ export default function Header() {
                   </Link>
                 )}
               </div>
-              
+
               <div className="py-6">
                 {driver || client ? (
                   <button
@@ -359,7 +369,7 @@ export default function Header() {
                     onClick={logout}
                     title="logout"
                   >
-                   logout
+                    logout
                   </button>
                 ) : (
                   <Link

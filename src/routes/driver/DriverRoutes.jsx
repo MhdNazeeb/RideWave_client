@@ -10,6 +10,7 @@ import RidePage from '../../pages/driver/ridepage/RidePage';
 import Ride_DetailsPage from '../../pages/Ride_Details/Ride_DetailsPage';
 import Earnings from '../../components/driver/earnings/Earnings';
 import EarningsPage from '../../pages/driver/earningpage/EarningsPage';
+import PageNotFoundPage from '../../pages/common/pagenotfoundpage/PageNotFoundPage';
 
 
 
@@ -32,6 +33,7 @@ export default function DriverRoutes() {
         <Route path='/ride' element={driver? <RidePage/>:<Navigate to='/login'/>} />
         <Route path='/rider_details' element={driver? <Ride_DetailsPage/>:<Navigate to='/login'/>} />
         <Route path='/earnings' element={driver? <EarningsPage/>:<Navigate to='/login'/>} />
+        <Route path='/*' element={driver? <PageNotFoundPage home={'driverhome'}/>:<Navigate to='/login'/>} />
       </Routes>
     </>
   )

@@ -22,7 +22,7 @@ function CarDeatails() {
   }
 
   return (
-    <div className="flex-wrap  h-fit w-full details bg-white drop-shadow-[95px_65px_5px_rgba(0,0,0,0.5)]">
+    <div className="flex-wrap  h-fit w-full details bg-white  drop-shadow-[6px_8px_6px_rgba(1,1,0,0.5)]">
       {editmodal ? <EditCarModal  setEditModal={setEditModal} carData={carData}/> : ""}
       <img src={carData?.carimage} alt="" className="w-60 h-52" />
 
