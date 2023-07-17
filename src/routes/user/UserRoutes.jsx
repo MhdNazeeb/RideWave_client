@@ -13,6 +13,7 @@ import ProfilePage from "../../pages/user/userprofile/ProfilePage";
 import History from "../../pages/user/History/History";
 import LastSuccessPage from "../../pages/user/lastsuccesspage/LastSuccessPage";
 import PageNotFoundPage from "../../pages/common/pagenotfoundpage/PageNotFoundPage";
+import ChatPage from "../../pages/common/chatpage/ChatPage";
 
 
 export default function UserRoutes() {
@@ -64,6 +65,10 @@ export default function UserRoutes() {
         <Route
           path="/last_success"
           element={client ? <LastSuccessPage/> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/chat"
+          element={client ? <ChatPage/> : <Navigate to="/login" />}
         />
        
         <Route

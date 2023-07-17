@@ -1,181 +1,137 @@
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import { driverProfile } from "../../../validations/profileValidation";
-
-const EditProfile = () => {
-
-  const [license,setLicense] = useState([])
-  const [driverData,setDriverData] = useState({})
-  const location = useLocation()
-   const  driver = location.state.driver
-   let driverid = driver._id
-  async  function onSubmit() {
-    
-      const data = {
-        driverid,
-        license,
-       ... values,
-       
-      }
-      console.log(values,'valuesss')
-      // console.log(data)
-      // const res = await editeProfile(data)
-  }
-
-   useEffect(()=>{
-      getProfile(driverid).then((res)=>{
-        console.log(res?.data,'data response')
-        setDriverData(res?.data)
-        
-      })
-   },[])
-
-   console.log(driverData,'driver data')
-
-   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
-    useFormik({
-      initialValues: {
-        name:driver.name ,
-        email:driver.email,
-      },
-      validationSchema:driverProfile,
-      onSubmit,
-    });
-  return (
-    <section className="bg-gray-800 w-full ">
-      <div className="container py-5 ">
-       
-         <form onSubmit={handleSubmit}>
-          <div className="flex md:justify-center md:items-center sm:justify-center sm:items-center w-full">
-        <div className="w-10\12 flex flex-wrap   ">
-          <div className="w-1/3 mr-4">
-            <div className="mb-1">
-              <div className="flex items-center justify-center flex-col">
-                <img
-                  src={driverData.license}
-                  alt="avatar"
-                  className="rounded-circle border-2"
-                  style={{ width: "150px" }}
-                />
-                <div className="pt-6">
-                <div className="ml-6 order-solid">
-                <input  className="w-17 h-9 ml-3"
-                 type="file"
-                 id="file"
-                 name="image"
-                 onChange={handleImage}
-                 required
-                 accept="image/*"
-                 autoComplete="off"
-                 />
-                 {errors.image && touched.image && (
-                  <p className="text-red-600">{errors.image}</p>
-                )}
-                </div>
-                </div>
-                
-                
-              </div>
-            </div>
-            <div className="mb-4 flex-wrap justify-center">
-              {/* <button
-                className=" text-white p-2"
-                onClick={() => setOption((state) => !state)}
-              >
-                Options
-              </button> */}
-
-              
-               
-             
-            </div>
-          </div>
-
-          <div className="w-1/2 border-3 shadow-sm">
-            <div className="mb-4">
-              <div className="flex">
-                <div className="w-1/3">
-                  <p className="mb-2 ml-2 text-white">Full Name</p>
-                  
-                </div>
-                <div className="w-2/3">
-                  <input  
-                   className="text-black bg-white"
-                   name="name"
-                   type="text"
-                   value={values.name}
-                   onChange={handleChange}
-                   onBlur={handleBlur}
-                  />
-                  {errors.name && touched.name && (
-                  <p className="text-red-600">{errors.name}</p>
-                )}
-                  
-                </div>
-              </div>
-              <hr className="my-2" />
-              <div className="flex">
-                <div className="w-1/3">
-                  <p className="mb-2 ml-2 text-white">Email</p>
-                </div>
-                <div className="w-2/3">
-                  <input className="text-white ml-4 bg-gray-800"
-                    name="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  
-                  />
-                  {errors.email && touched.email && (
-                  <p className="text-red-600">{errors.email}</p>
-                )}
-                  
-                </div>
-              </div>
-              {/* <hr className="my-2" />
-              <div className="flex">
-                <div className="w-1/3">
-                  <p className="mb-2 ml-2 text-white">Phone</p>
-                </div>
-                <div className="w-2/3">
-                  <p className="text-white ml-4">097 234-5678</p>
-                </div>
-              </div>
-              <hr className="my-2" />
-              <div className="flex">
-                <div className="w-1/3">
-                  <p className="mb-2 ml-2 text-white">Mobile</p>
-                </div>
-                <div className="w-2/3">
-                  <p className="text-white ml-4">098 765-4321</p>
-                </div>
-              </div>
-              <hr className="my-2" />
-              <div className="flex">
-                <div className="w-1/3">
-                  <p className="mb-2 ml-2 text-white">Address</p>
-                </div>
-                <div className="w-2/3">
-                  <p className="text-white ml-4">Bay Area, San Francisco, CA</p>
-                </div>
-              </div> */}
-            </div>
-
-            <div className="flex"></div>
-            <div className="className=pb-3 pl-2">
-              <button className="bg-red-800 text-white w-20 p-1 shadow-xl" type="submit">
-                submit
-              </button>
-            </div>
-            
-          </div>
-        </div>
-        </div>
-        </form>
+{/* component */}
+{/* This is an example component */}
+<div className="container mx-auto shadow-lg rounded-lg">
+  {/* headaer */}
+  <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2">
+    <div className="font-semibold text-2xl">GoingChat</div>
+    <div className="w-1/2">
+      <input type="text" name id placeholder="search IRL" className="rounded-2xl bg-gray-100 py-3 px-5 w-full" />
+    </div>
+    <div className="h-12 w-12 p-2 bg-yellow-500 rounded-full text-white font-semibold flex items-center justify-center">
+      RA
+    </div>
+  </div>
+  {/* end header */}
+  {/* Chatting */}
+  <div className="flex flex-row justify-between bg-white">
+    {/* chat list */}
+    <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto">
+      {/* search compt */}
+      <div className="border-b-2 py-4 px-2">
+        <input type="text" placeholder="search chatting" className="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full" />
       </div>
-    </section>
-  );
-};
-
-export default EditProfile
+      {/* end search compt */}
+      {/* user list */}
+      <div className="flex flex-row py-4 px-2 justify-center items-center border-b-2">
+        <div className="w-1/4">
+          <img src="https://source.unsplash.com/_7LbC5J-jw4/600x600" className="object-cover h-12 w-12 rounded-full" alt />
+        </div>
+        <div className="w-full">
+          <div className="text-lg font-semibold">Luis1994</div>
+          <span className="text-gray-500">Pick me at 9:00 Am</span>
+        </div>
+      </div>
+      <div className="flex flex-row py-4 px-2 items-center border-b-2">
+        <div className="w-1/4">
+          <img src="https://source.unsplash.com/otT2199XwI8/600x600" className="object-cover h-12 w-12 rounded-full" alt />
+        </div>
+        <div className="w-full">
+          <div className="text-lg font-semibold">Everest Trip 2021</div>
+          <span className="text-gray-500">Hi Sam, Welcome</span>
+        </div>
+      </div>
+      <div className="flex flex-row py-4 px-2 items-center border-b-2 border-l-4 border-blue-400">
+        <div className="w-1/4">
+          <img src="https://source.unsplash.com/L2cxSuKWbpo/600x600" className="object-cover h-12 w-12 rounded-full" alt />
+        </div>
+        <div className="w-full">
+          <div className="text-lg font-semibold">MERN Stack</div>
+          <span className="text-gray-500">Lusi : Thanks Everyone</span>
+        </div>
+      </div>
+      <div className="flex flex-row py-4 px-2 items-center border-b-2">
+        <div className="w-1/4">
+          <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" className="object-cover h-12 w-12 rounded-full" alt />
+        </div>
+        <div className="w-full">
+          <div className="text-lg font-semibold">Javascript Indonesia</div>
+          <span className="text-gray-500">Evan : some one can fix this</span>
+        </div>
+      </div>
+      <div className="flex flex-row py-4 px-2 items-center border-b-2">
+        <div className="w-1/4">
+          <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" className="object-cover h-12 w-12 rounded-full" alt />
+        </div>
+        <div className="w-full">
+          <div className="text-lg font-semibold">Javascript Indonesia</div>
+          <span className="text-gray-500">Evan : some one can fix this</span>
+        </div>
+      </div>
+      <div className="flex flex-row py-4 px-2 items-center border-b-2">
+        <div className="w-1/4">
+          <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" className="object-cover h-12 w-12 rounded-full" alt />
+        </div>
+        <div className="w-full">
+          <div className="text-lg font-semibold">Javascript Indonesia</div>
+          <span className="text-gray-500">Evan : some one can fix this</span>
+        </div>
+      </div>
+      {/* end user list */}
+    </div>
+    {/* end chat list */}
+    {/* message */}
+    <div className="w-full px-5 flex flex-col justify-between">
+      <div className="flex flex-col mt-5">
+        <div className="flex justify-end mb-4">
+          <div className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+            Welcome to group everyone !
+          </div>
+          <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" className="object-cover h-8 w-8 rounded-full" alt />
+        </div>
+        <div className="flex justify-start mb-4">
+          <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" className="object-cover h-8 w-8 rounded-full" alt />
+          <div className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
+            at praesentium, aut ullam delectus odio error sit rem. Architecto
+            nulla doloribus laborum illo rem enim dolor odio saepe,
+            consequatur quas?
+          </div>
+        </div>
+        <div className="flex justify-end mb-4">
+          <div>
+            <div className="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Magnam, repudiandae.
+            </div>
+            <div className="mt-4 mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Debitis, reiciendis!
+            </div>
+          </div>
+          <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" className="object-cover h-8 w-8 rounded-full" alt />
+        </div>
+        <div className="flex justify-start mb-4">
+          <img src="https://source.unsplash.com/vpOeXr5wmR4/600x600" className="object-cover h-8 w-8 rounded-full" alt />
+          <div className="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white">
+            happy holiday guys!
+          </div>
+        </div>
+      </div>
+      <div className="py-5">
+        <input className="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text" placeholder="type your message here..." />
+      </div>
+    </div>
+    {/* end message */}
+    <div className="w-2/5 border-l-2 px-5">
+      <div className="flex flex-col">
+        <div className="font-semibold text-xl py-4">Mern Stack Group</div>
+        <img src="https://source.unsplash.com/L2cxSuKWbpo/600x600" className="object-cover rounded-xl h-64" alt />
+        <div className="font-semibold py-4">Created 22 Sep 2021</div>
+        <div className="font-light">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
+          perspiciatis!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

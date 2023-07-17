@@ -217,12 +217,16 @@ export default function Header() {
               className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
               
             >
-              <BsFillChatLeftDotsFill />
+             <BsFillChatLeftDotsFill onClick={()=>{
+              navigate('/chat')
+             }} />
             </button>: <button
               className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
             
             >
-              <BsFillChatLeftDotsFill />
+              <BsFillChatLeftDotsFill onClick={()=>{
+                navigate('/driver/chat')
+              }}/>
             </button>}
           {driver ? (
             <Link
