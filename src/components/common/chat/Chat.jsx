@@ -6,25 +6,40 @@ import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 
 export default function Chat() {
-  const { user } = useSelector((state) => state.userReducer.user);
-  const { driver } = useSelector((state) => state.driverReducer.driver);
+  const { user } = useSelector((state) => state?.userReducer?.user);
+  const { driver } = useSelector((state) => state?.driverReducer?.driver);
 
   const [chats, setChat] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState("");
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [sendMessage, setSendMessage] = useState(null);
+  const [receiveMessage, setReceiveMessage] = useState(null);
   let id = user?._id ?? driver?._id;
   const socket = useRef();
+
+  // send message to the socket server
+  useEffect(() => {
+    if (sendMessage !== null) {
+      socket.current.emit("send-message", sendMessage);
+    }
+  }, [sendMessage]);
+
+  // receive message from socket
+
   useEffect(() => {
     socket.current = io("http://localhost:8800");
     socket.current.emit("new-user-add", id);
     socket.current.on("get-users", (users) => {
-     
       setOnlineUsers(users);
-      
     });
   }, [user, driver]);
-  
+
+  useEffect(() => {
+    socket.current.on("receive-message", (data) => {
+      setReceiveMessage(data);
+    });
+  }, []);
 
   useEffect(() => {
     const getchats = async () => {
@@ -38,13 +53,17 @@ export default function Chat() {
     getchats();
   }, [user, driver]);
 
-  // fetching data for messages
+  function checkOnlineStatus(chat) {
+    const chatMember = chat.members.find((member) => member !== id);
+    const online = onlineUsers.find((user) => user.userId === chatMember);
+    return online ? true : false;
+  }
 
   return (
     <div className="container mx-auto shadow-lg rounded-lg">
       {/* headaer */}
       <div className="px-5 py-5 flex justify-between items-center bg-white border-b-2">
-        <div className="font-semibold text-2xl">GoingChat</div>
+        <div className="font-semibold text-2xl ">GoingChat</div>
         {/* <div className="w-1/2">
       <input type="text" name id placeholder="search IRL" className="rounded-2xl bg-gray-100 py-3 px-5 w-full" />
     </div> */}
@@ -70,7 +89,11 @@ export default function Chat() {
 
           {chats.map((chat) => (
             <div onClick={() => setCurrentChat(chat)}>
-              <Message data={chat} currentUserId={user?._id ?? driver?._id} />
+              <Message
+                data={chat}
+                currentUserId={user?._id ?? driver?._id}
+                online={checkOnlineStatus(chat)}
+              />
             </div>
           ))}
 
@@ -78,11 +101,13 @@ export default function Chat() {
         </div>
         {/* end chat list */}
         {/* message */}
-        <div className="w-full px-5 flex flex-col justify-between">
-          <div className="flex flex-col mt-5">
+        <div className="w-full px-5 flex flex-col justify-between h-screen overflow-y-auto no-scrollbar">
+          <div className="flex flex-col mt-5 ">
             <Conversation
               chat={currentChat}
               currentUser={user?._id ?? driver?._id}
+              setSendMessage={setSendMessage}
+              receiveMessage={receiveMessage}
             />
           </div>
         </div>

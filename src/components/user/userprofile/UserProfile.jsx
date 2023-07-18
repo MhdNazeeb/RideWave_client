@@ -54,7 +54,7 @@ console.log(userData,'this is  userData');
               </div>
 
               <div className="flex justify-center details  ">
-                <ul className="w-full p-5 bg-white opacity-90 text-gray-600 hover:text-gray-700 hover:shadow drop-shadow-[6px_8px_6px_rgba(1,1,0,0.5)] rounded shadow-sm md:w-1/3 md:p-10">
+                <ul className="w-full p-5 m-24 bg-white opacity-90 text-gray-600 hover:text-gray-700 hover:shadow drop-shadow-[6px_8px_6px_rgba(1,1,0,0.5)] rounded shadow-sm md:w-1/3 md:p-10">
                   <li className="flex justify-end py-3 ">
                     <div>
                     <button className="px-5 p-1  text-white bg-blue-600 rounded-lg"

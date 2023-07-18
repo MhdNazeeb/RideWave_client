@@ -3,6 +3,8 @@ import { availableRides } from "../../../axios/services/driver/driverSignup";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../common/Loader";
+import { BiMessageRounded } from 'react-icons/Bi';
+import { createNewChat } from "../../../axios/services/chat/chat";
 
 function Rides() {
   const [rides, setRides] = useState([]);
@@ -50,6 +52,20 @@ function Rides() {
    setCurrentPage(id)
   }
 
+   // create conversation
+   async function chatCreate(driverid,userid) {
+    try {
+      const data = await createNewChat(driverid,userid)
+      if(data){
+        navigate('/driver/chat')
+      }
+      
+    } catch (error) {
+      console.log(error.message);
+    }
+    
+  }
+
   return (
     <>
     {loader && (
@@ -88,9 +104,12 @@ function Rides() {
                     <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       DETAILS
                     </th>
+                    <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      Chat
+                    </th>
                   </tr>
                 </thead>
-               
+              {console.log(records,'recordes')}
                 {records?.map((val) => {
 
                   return (
@@ -148,6 +167,14 @@ function Rides() {
                             </svg>
                           </span>
                         </td>
+                        <div>
+                        
+                        <BiMessageRounded
+                        className="w-18 h-20 mx-8 my-8"
+                        onClick={()=>chatCreate(val.driver,val.passenger._id)}
+                        />
+                        
+                        </div>
                       </tr>
                     </tbody>
                   );

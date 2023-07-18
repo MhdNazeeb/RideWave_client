@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "../../../axios/services/chat/chat";
 
-function Message({ currentUserId, data }) {
+function Message({ currentUserId, data,online }) {
   const [userData, setUserData] = useState(null);
   useEffect(()=>{
     const userId = data.members.find((id)=>id!==currentUserId)
@@ -32,7 +32,7 @@ function Message({ currentUserId, data }) {
         </div>
         <div className="w-full">
           <div className="text-lg font-semibold">{userData?.name}</div>
-          <span className="text-gray-500">online</span>
+          <span className="text-gray-500 text-sm ">{ online ? "online":"offline"}</span>
         </div>
       </div>
     </>

@@ -1,14 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { getUser } from "../../../axios/services/chat/chat";
-import { getMessages } from "../../../axios/services/messsage/Messages";
+import {
+  addMessage,
+  getMessages,
+} from "../../../axios/services/messsage/Messages";
 import { format } from "timeago.js";
 import InputEmoji from "react-input-emoji";
-import { BsFillSendCheckFill } from 'react-icons/bs';
+import { BsFillSendCheckFill } from "react-icons/bs";
 
-function Conversation({ chat, currentUser }) {
+
+function Conversation({ chat, currentUser, setSendMessage, receiveMessage }) {
   const [userData, setUserData] = useState(null);
-  const [messages, setMessage] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const scrollRef = useRef()
+
+  const messagesContainerRef = useRef();
+
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
+      setMessages([...messages, receiveMessage]);
+    }
+  }, [receiveMessage]);
 
   // feching data for header
   useEffect(() => {
@@ -22,7 +41,7 @@ function Conversation({ chat, currentUser }) {
       }
     };
     if (chat !== null) getUserData();
-  }, [chat, currentUser]);
+  }, [chat, currentUser,messages]);
 
   // fetching data for messages
   useEffect(() => {
@@ -31,25 +50,58 @@ function Conversation({ chat, currentUser }) {
       try {
         const { data } = await getMessages(chat._id);
         console.log(data, "this is data");
-        setMessage(data);
+        setMessages(data);
       } catch (error) {
         console.log(error.Message);
       }
     };
     if (chat !== null) fetchingMessages();
-  }, [chat]);
+  }, [chat,messages]);
 
   const handleChange = (newMessage) => {
     setNewMessage(newMessage);
   };
-  console.log(messages,'this is delete message');
-  console.log(chat,'this  is chat');
+
+  async function handleSend(e) {
+    e.preventDefault();
+
+    const message = {
+      senderId: currentUser,
+      text: newMessage,
+      chatId: chat._id,
+    };
+
+    // send message to data base
+
+    try {
+      const { data } = await addMessage(message);
+      
+      setNewMessage([...messages, data]);
+      setNewMessage("");
+    } catch (error) {
+      console.log(error.message);
+    }
+
+    // send message to socket server
+
+    const receiverId = chat.members.find((id) => id !== currentUser);
+    setSendMessage({ ...message, receiverId });
+  }
+
   return (
     <>
       {chat !== null ? (
         <>
-            {messages.map((message) => (
-          <div className={message.senderId === currentUser ? "flex justify-end mb-4 mt-36":"flex justify-start mb-4"}>
+          {messages.map((message) => (
+            <div 
+            
+              className={
+                message.senderId === currentUser
+                  ? "flex justify-end mt-4"
+                  : "flex justify-start mb-7"
+              }
+              ref={messagesContainerRef}
+            >
               <div
                 className={
                   message.senderId === currentUser
@@ -58,28 +110,42 @@ function Conversation({ chat, currentUser }) {
                 }
               >
                 <span>{message.text}</span>
-                <span className="flex flex-row ml-6 font-size: 0.75rem;line-height: 1rem ">
-                  {format(message.createdAt)}
-                </span>
+                <span className="flex flex-row ml-6 font-size: 0.75rem;line-height: 1rem "></span>
+                <span className="text-xs">{format(message.createdAt)}</span>
               </div>
-            
-            <img
-              src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
-              className="object-cover h-8 w-8 rounded-full"
+
+             {  message.senderId === currentUser ?<img
+                src="https://source.unsplash.com/vpOeXr5wmR4/600x600"
+                className="object-cover h-8 w-8 rounded-full"
+                alt
+              />:
+              <img
+              src="../img/user.png"
+              className="object-cover h-5 w-5 rounded-full"
               alt
             />
-          </div>
+              }
+            </div>
           ))}
-          <div className="pt-9 flex">
-            <InputEmoji value={newMessage} onChange={handleChange} />
+          <div className="flex">
+            <InputEmoji value={newMessage} onChange={handleChange}
+         
+             
+            
+            />
 
             <BsFillSendCheckFill
-            className="w-8 h-10 text-blue-500"
+              className="w-8 h-10 text-blue-500"
+              onClick={handleSend}
+             
             />
           </div>
         </>
       ) : (
-        <div className="flex justify-between">Tap To Start</div>
+        <div className="flex justify-between">
+          <img src="../img/4112338.jpg" alt="user" />
+        
+        </div>
       )}
       {/* <div className="flex justify-start mb-4">
         <img
