@@ -19,6 +19,7 @@ const BookingDetails = () => {
   const userDetails = useSelector((state) => state.userReducer.user);
   const  navigate =useNavigate()
   const [cardata, setCardata] = useState({});
+  const [tripData, setTripData] = useState({});
   const [bookingstatus, setbookingStatus] = useState();
   const [Payment, setPayment] = useState(false);
   const [loader, setLoader] = useState(false);
@@ -43,6 +44,7 @@ const BookingDetails = () => {
       setCardata(res?.data);
       setLoader(true);
       const response = await tripFind(data._id);
+      setTripData(response?.data)
       setPayment(response?.data?.payment?.status);
       setbookingStatus(response?.data?.bookingStatus);
       setLoader(false);
@@ -69,6 +71,7 @@ const BookingDetails = () => {
         </div>
       )}
       <div>
+        {console.log(tripData,'this trip data')}
         <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto pb-0 bg-gray-200 h-screen ">
           <fieldset classname="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-regal-blue">
             <div classname="space-y-2 col-span-full lg:col-span-1">
@@ -128,6 +131,16 @@ const BookingDetails = () => {
                     </div>
                     <div className="flex justify-between space-x-8 items-start w-full">
                       <p className="text-base dark:text-white font-semibold leading-6">
+                        pickuptime : {tripData?.pickuptime ? tripData?.pickuptime : 'pendnig' }
+                      </p>
+                    </div>
+                    <div className="flex justify-between space-x-8 items-start w-full">
+                      <p className="text-base dark:text-white font-semibold leading-6">
+                         dropOff time : {tripData?.dropofftime ? tripData?.dropofftime : 'pendnig'}
+                      </p>
+                    </div>
+                    <div className="flex justify-between space-x-8 items-start w-full">
+                      <p className="text-base dark:text-white font-semibold leading-6">
                         verification Code : {verficationCode}
                       </p>
                     </div>
@@ -155,11 +168,11 @@ const BookingDetails = () => {
               <h3 className="text-xl dark:text-white font-semibold leading-5 bg-black-800 mb-10">
                 Status
               </h3>
-              {bookingStatus === "rejected" ? (
+              {tripData?.bookingStatus === "rejected" ? (
                 <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
                   rejected
                 </h1>
-              ) : bookingstatus === "Cancelled" ? (
+              ) :tripData?.bookingStatus === "Cancelled" ? (
                 <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
                   Cancelled
                 </h1>
@@ -168,9 +181,9 @@ const BookingDetails = () => {
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {Reachedpickup === "Pending" ? (
+                      {tripData?.Reachedpickup === "Pending" ? (
                         <FontAwesomeIcon icon={faHourglassStart} spin />
-                      ) : Reachedpickup === "way" ? (
+                      ) : tripData?.Reachedpickup === "way" ? (
                         <FontAwesomeIcon icon={faArrowRight} />
                       ) : (
                         <FontAwesomeIcon icon={faCheck} bounce />
@@ -183,7 +196,7 @@ const BookingDetails = () => {
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {StartedToDestination === "Pending" ? (
+                      {tripData?.StartedToDestination === "Pending" ? (
                         <FontAwesomeIcon icon={faHourglassStart} spin />
                       ) : (
                         <FontAwesomeIcon icon={faCheck} bounce />
@@ -196,7 +209,7 @@ const BookingDetails = () => {
                   <li className="mb-10 ml-6">
                     <span className="absolute flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-gray-700 " />
                     <span className="absolute flex items-center justify-center w-8 h-8  rounded-full -left-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green">
-                      {ReachedDestination === "Pending" ? (
+                      {tripData?.ReachedDestination === "Pending" ? (
                         <FontAwesomeIcon icon={faHourglassStart} spin />
                       ) : (
                         <FontAwesomeIcon icon={faCheck} bounce />
@@ -210,9 +223,9 @@ const BookingDetails = () => {
                 </ol>
               )}
 
-              {bookingStatus === "confirmed" &&
-              Reachedpickup === "confirmed" &&
-              ReachedDestination === "confirmed" &&
+              {tripData?.bookingStatus === "confirmed" &&
+              tripData?.Reachedpickup === "confirmed" &&
+              tripData?.ReachedDestination === "confirmed" &&
               Payment !== true ? (
                 <PaypalFull
                   tripid={tripid}

@@ -6,12 +6,12 @@ export function PieChart({cancelled,rejected,completed}) {
   console.log(cancelled,rejected,completed,'GGGGGGGGGGGGGGGGGGGGGGG');
 ChartJS.register(ArcElement, Tooltip, Legend);
  const data = {
-  labels: ['rejected', 'cancceld', 'completed',],
+  labels: ['cancceld', 'completed', 'rejected',],
   // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
     {
       label: '# of Votes',
-      data: [cancelled,rejected,completed,],
+      data: [cancelled,completed,rejected,],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',

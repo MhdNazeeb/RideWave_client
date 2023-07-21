@@ -77,13 +77,13 @@ export default function Chat() {
         {/* chat list */}
         <div className="flex flex-col w-2/5 border-r-2 overflow-y-auto">
           {/* search compt */}
-          <div className="border-b-2 py-4 px-2">
+          {/* <div className="border-b-2 py-4 px-2">
             <input
               type="text"
               placeholder="search chatting"
               className="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
             />
-          </div>
+          </div> */}
           {/* end search compt */}
           {/* user list */}
 

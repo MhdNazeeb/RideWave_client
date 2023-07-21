@@ -63,7 +63,7 @@ function RideDetails() {
       {rideDatas !== null? (
         
         <div>
-           {console.log(rideDatas,'this dtaaa')}
+           {console.log(rideDatas,'this dtaaa111111111111')}
           <div className="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto pb-0 bg-gray-200 h-screen ">
             <fieldset classname="grid grid-cols-4 gap-6 p-6 rounded-md shadow-sm bg-regal-blue">
               <div classname="space-y-2 col-span-full lg:col-span-1">
@@ -105,6 +105,16 @@ function RideDetails() {
                           <p className="flex text-sm text-left break-words font-semibold leading-none bg-black-800">
                             <span className="dark:bg-black-400 bg-black-300">
                               Dropoff:{rideDatas?.location?.dropoff}
+                            </span>
+                          </p>
+                          <p className="flex text-sm text-left break-words font-semibold leading-none bg-black-800">
+                            <span className="dark:bg-black-400 bg-black-300">
+                            Total amount:₹ :{rideDatas?.payment?.amount}
+                            </span>
+                          </p>
+                          <p className="flex text-sm text-left break-words font-semibold leading-none bg-black-800">
+                            <span className="dark:bg-black-400 bg-black-300">
+                            Paid: ₹ :{rideDatas?.payment?.aduvance}
                             </span>
                           </p>
                           <p className="text-sm dark:text-white leading-none bg-black-800">

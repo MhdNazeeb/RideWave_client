@@ -51,7 +51,7 @@ function Earnings() {
           <GraphComponents count={data?.monthcount} earnings={data?.monthgraph} monthname={data?.monthname} />
         </div>
         <div className="flex items-center justify-center md:w-1/2 w-full h-full md:h-80 mt-8 mb-8">
-          <PieChart cancelled={data?.cancelled} rejected={data?.cancelled} completed={data?.completedRide} />
+          <PieChart cancelled={data?.cancelled} rejected={data?.rejected} completed={data?.completedRide} />
         </div>
       </div>
     </div>

@@ -11,16 +11,13 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 const RiderSelector = () => {
   const { pickupCoordinates, dropoffCoordinates } = useContext(LocationContext);
   const tripDetails = useSelector((state) => state.tripdetailsReducer.trip);
-  console.log(tripDetails,"this is tridetails")
+  console.log(tripDetails, "this is tridetails");
   const dispatch = useDispatch();
   const [carlist, setCarlist] = useState([]);
   const [dropOff, setDropoff] = useState();
   const [distance, setDistance] = useState();
 
   const navigate = useNavigate();
-
-
-
 
   useEffect(() => {
     setDropoff(dropoffCoordinates);
@@ -49,15 +46,11 @@ const RiderSelector = () => {
         const response2 = await getLocationName(
           dropoffCoordinates[0],
           dropoffCoordinates[1]
-        );  
-       
-        
+        );
       }
     }
     LocationName();
   }, [distance, dropoffCoordinates, pickupCoordinates]);
-
- 
 
   const getDirection = async (pickupCoordinates, dropoffCoordinates) => {
     const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${pickupCoordinates[0]},${pickupCoordinates[1]};${dropoffCoordinates[0]},${dropoffCoordinates[1]}?alternatives=true&geometries=geojson&language=en&overview=simplified&steps=true&access_token=${mapboxgl.accessToken}`;
@@ -87,8 +80,8 @@ const RiderSelector = () => {
 
   const getCarList = async (pickupCoordinates) => {
     try {
-      let ShowCars=[]
-      setCarlist([])
+      let ShowCars = [];
+      setCarlist([]);
       const response = await axiosClientInstance.get("/carlist");
       const distance = await getDistance(pickupCoordinates, dropoffCoordinates);
 
@@ -99,21 +92,16 @@ const RiderSelector = () => {
             pickupCoordinates,
             DriverLocation
           );
-          
+
           if (distance1 < 250) {
-            ShowCars.push(element)
-            setCarlist(state => [...state,element])
-           
+            ShowCars.push(element);
+            setCarlist((state) => [...state, element]);
           }
         }
         dis();
-        
       });
-        
-      
-      
     } catch (error) {
-      console.log(error.message,'eror in ca')
+      console.log(error.message, "eror in ca");
       return error;
     }
   };
@@ -147,8 +135,8 @@ const RiderSelector = () => {
 
     dispatch(
       addTrip({
-        pickup:tripDetails.pickup,
-        dropOff:tripDetails.dropOff,
+        pickup: tripDetails.pickup,
+        dropOff: tripDetails.dropOff,
         car: car,
         driver: driverId,
         distance: distance,
@@ -158,44 +146,46 @@ const RiderSelector = () => {
 
     navigate("/checkout");
   };
-    
+
   return (
-    
     <div className="h-fit flex flex-col w-full">
-      {console.log(carlist,'this car11')}
+      {console.log(carlist, "this car11")}
       <div className="text-gray-500 text-center text-xs py-2 "></div>
       {dropOff?.length > 0 && carlist?.length > 0
-        ? carlist?.filter((val, ind, arr) => {
-          return arr.findIndex((elem) => elem._id === val._id) === ind;
-        }).map((car) => {
-          
-            return (
-              <div
-                className="flex flex-col flex-1 overflow-scroll no-scrollbar"
-                onClick={() => handleClick(car._id, car.userId)}
-              >
-                <div className="flex p-3 m-2 items-center border-2 border-white hover:bg-slate-200 cursor-pointer z-0">
-                  <img
-                    src={car.carimage}
-                    alt="carimage"
-                    height="50"
-                    width="50"
-                    className="h-14"
-                  />
-                  <div className="ml-2 flex-1">
-                    <div className="font-bold">Vehicle : {car.model}</div>
-                    {/* <div className="text-xs text-black font-mediumf"></div> */}
-                    <div className="text-xs text-black">Distance : {distance} km</div>
+        ? carlist
+            ?.filter((val, ind, arr) => {
+              return arr.findIndex((elem) => elem._id === val._id) === ind;
+            })
+            .map((car) => {
+              return (
+                <div
+                  className="flex flex-col flex-1 overflow-scroll no-scrollbar"
+                  onClick={() => handleClick(car._id, car.userId)}
+                >
+                  <div className="flex p-3 m-2 items-center border-2 border-white hover:bg-slate-200 cursor-pointer z-0">
+                    <img
+                      src={car.carimage}
+                      alt="carimage"
+                      height="50"
+                      width="50"
+                      className="h-14"
+                    />
+                    <div className="ml-2 flex-1">
+                      <div className="font-bold">Vehicle : {car.model}</div>
+                      {/* <div className="text-xs text-black font-mediumf"></div> */}
+                      <div className="text-xs text-black">
+                        Distance : {distance} km
+                      </div>
 
-                    <div className="text-xs text-green-500">
-                      Driver : {car.userId.name}
+                      <div className="text-xs text-green-500">
+                        Driver : {car.userId.name}
+                      </div>
                     </div>
+                    <div className="mr-[-0.8rem]">₹{+car?.Rate * distance}</div>
                   </div>
-                  <div className="mr-[-0.8rem]">₹{+car?.Rate * distance}</div>
                 </div>
-              </div>
-            );
-          })
+              );
+            })
         : ""}
     </div>
   );

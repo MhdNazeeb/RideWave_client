@@ -5,7 +5,6 @@ import { Doughnut } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export function Doughnutreport({rejected,cancelled,Pending}) {
-  console.log(rejected,cancelled,Pending,'gggggggggggggggg');
   const data = {
   labels: ['Rejected', 'Cancelled', 'Pending',],
   datasets: [

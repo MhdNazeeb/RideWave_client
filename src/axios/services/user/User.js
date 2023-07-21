@@ -197,3 +197,24 @@ export const fullAmounTrip = async (tripid,pay,token)=>{
  
   }
  }
+export const filttering = async (status)=>{
+  
+  try {
+   const config = {
+     headers: {
+       // Accept: "application/json",
+      //  Authorization: `Bearer ${token}`,
+       "Content-Type": "application/json",
+     },
+     params:{status}
+ 
+   };
+   
+   
+   const response = await axiosClientInstance.get('/filtter',config);
+   return response;
+  } catch (error) {
+   console.log(error.message);
+ 
+  }
+ }
