@@ -147,11 +147,11 @@ const BookingDetails = () => {
                   </div>
                 </div>
                 <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row items-start md:items-center space-y-4 md:space-x-6 xl:space-x-8 w-full" />
-                {bookingStatus === "Pending" &&
-                Reachedpickup !== "confirmed" &&
-                StartedToDestination !== "confirmed" &&
-                ReachedDestination !== "confirmed" &&
-                bookingstatus !== "Cancelled" ? (
+                {tripData?.bookingStatus === "Pending" &&
+               tripData?.Reachedpickup !== "confirmed" &&
+               tripData?.StartedToDestination !== "confirmed" &&
+               tripData?.ReachedDestination !== "confirmed" &&
+               tripData?.bookingstatus !== "Cancelled" ? (
                   <button
                     className="bg-red-700 rounded-lg text-white px-2 py-2"
                     onClick={rideCancel}

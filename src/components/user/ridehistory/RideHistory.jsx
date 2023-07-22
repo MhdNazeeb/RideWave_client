@@ -1,28 +1,33 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { filttering, history } from "../../../axios/services/user/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import { array } from "yup";
 import { BiMessageRounded } from "react-icons/Bi";
 import { createNewChat } from "../../../axios/services/chat/chat";
+import Loader from "../../common/Loader";
 
 function RideHistory() {
   const [rides, setRides] = useState([]);
+  const [loader, setLoader] = useState(false);
   const page = localStorage.getItem("page");
   const [currentPage, setCurrentPage] = useState(page ?? 1);
   const recordPerPage = 5;
   const lastindex = currentPage * recordPerPage;
   const firstindex = lastindex - recordPerPage;
-  const records = rides.slice(firstindex, lastindex);
-  const npage = Math.ceil(rides.length / recordPerPage);
+  const records = rides?.slice(firstindex, lastindex);
+  const npage = Math.ceil(rides?.length / recordPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
   const userDetails = useSelector((state) => state.userReducer.user);
   const userid = userDetails?.user?._id;
   const navigate = useNavigate();
+  const ref = useRef();
 
   useEffect(() => {
     async function findRides() {
+      setLoader(true);
       const res = await history(userid);
+      setLoader(false);
       setRides(res?.data);
     }
     findRides();
@@ -56,13 +61,45 @@ function RideHistory() {
     }
   }
   const filtter = async (event) => {
-    const status = event.target.value;
-    const res = await filttering(status);
-    setRides(res?.data)
+    let status;
+    event.preventDefault();
+
+    status = event.target.value;
+
+    if (
+      status === "Rejected" ||
+      status === "Pending" ||
+      status === "Cancelled" ||
+      status === "confirmed" ||
+      status === "All"
+    ) {
+      setLoader(true);
+      const res = await filttering(status);
+      setLoader(false);
+      setRides(res?.data);
+    } 
   };
+
+  const doSomeMagic =  function (fn,d) {
+    let timer
+    return function () {
+      clearTimeout(timer)
+      timer = setTimeout(async()=>{
+        const res = await fn(ref.current.value);
+        setRides(res?.data);
+      },d)
+    }
+  }
+
+  const betterFunction = doSomeMagic(filttering,1000)
 
   return (
     <>
+      {loader && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-25 backdrop-filter backdrop-blur z-50">
+          <Loader />
+        </div>
+      )}
       <div className="bg-white p-8 rounded-md w-full">
         <div>
           <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -98,12 +135,15 @@ function RideHistory() {
                         <input
                           type="search"
                           id="default-search"
+                          ref={ref}
+                          onChange={betterFunction}
                           className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Search"
                           required
                         />
                         <button
                           type="submit"
+                          
                           className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
                           Search
@@ -116,7 +156,7 @@ function RideHistory() {
                       <select
                         className="rounded-lg"
                         name="filtter"
-                        onClick={filtter}
+                        onChange={filtter}
                         id=""
                       >
                         filtter
@@ -130,7 +170,7 @@ function RideHistory() {
                           Pending
                         </option>
                         <option className="rounded-lg" value="Rejected">
-                          Rijected
+                          Rejected
                         </option>
                         <option className="rounded-lg" value="All">
                           All
