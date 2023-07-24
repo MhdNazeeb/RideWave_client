@@ -202,32 +202,32 @@ export default function Header() {
             </Link>
           )}
           {client ? (
-            <Link to="" className="text-sm font-semibold leading-6 text-white">
+            <Link to="/wallet" className="text-sm font-semibold leading-6 text-white">
               WALLET
             </Link>
           ) : (
             ""
           )}
         </Popover.Group>
-       
-       
-       
+
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-        { client ?  <button
-              className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
-              
-            >
-             <BsFillChatLeftDotsFill onClick={()=>{
-              navigate('/chat')
-             }} />
-            </button>: <button
-              className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
-            
-            >
-              <BsFillChatLeftDotsFill onClick={()=>{
-                navigate('/driver/chat')
-              }}/>
-            </button>}
+          {client ? (
+            <button className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white">
+              <BsFillChatLeftDotsFill
+                onClick={() => {
+                  navigate("/chat");
+                }}
+              />
+            </button>
+          ) : (
+            <button className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white">
+              <BsFillChatLeftDotsFill
+                onClick={() => {
+                  navigate("/driver/chat");
+                }}
+              />
+            </button>
+          )}
           {driver ? (
             <Link
               to="/driver/driver_profile"
@@ -243,7 +243,7 @@ export default function Header() {
               <CgProfile className="w-7 h-7" />
             </Link>
           )}
-         
+
           {driver || client ? (
             <button
               className=" hover:tooltip  text-sm  font-semibold leading-6 border  ring-offset-2 p-1 rounded-lg text-white"
@@ -341,10 +341,10 @@ export default function Header() {
                 )}
                 {driver ? (
                   <Link
-                    to="history"
+                    to="/driver/earnings"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
-                    Ride History
+                    EARNINGS
                   </Link>
                 ) : (
                   <Link
@@ -358,31 +358,73 @@ export default function Header() {
                   ""
                 ) : (
                   <Link
-                    to=""
+                    to="/wallet"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     wallet
                   </Link>
                 )}
               </div>
-
-              <div className="py-6">
-                {driver || client ? (
+              <div>
+                {client ? (
                   <button
-                    className=" -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 "
-                    onClick={logout}
-                    title="logout"
+                    className=" hover:tooltip  block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 "
+                          
                   >
-                    logout
+                    <BsFillChatLeftDotsFill className="mr-5"
+                      onClick={() => {
+                        navigate("/chat");
+                      }}
+                    />
                   </button>
                 ) : (
-                  <Link
-                    to="/login"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  <button
+                    className=" hover:tooltip  block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 "
+                    
                   >
-                    Login
-                  </Link>
+                    <BsFillChatLeftDotsFill className="mr-5"
+                      onClick={() => {
+                        navigate("/driver/chat");
+                      }}
+                    />
+                  </button>
                 )}
+                <div >
+                  {driver ? (
+                    <Link
+                      to="/driver/driver_profile"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      <CgProfile className="w-5 h-4 ml-2" />
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/profile"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      <CgProfile className="w-5 h-4 ml-2" />
+                    </Link>
+                  )}
+                </div>
+
+                <div className="py-2">
+                  {driver || client ? (
+                    <button
+                      className=" hover:tooltip  block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 "
+                      onClick={logout}
+                      title="logout"
+                    >
+                      <AiOutlineLogout  className="mr-5"/>
+                    </button>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Log in
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>

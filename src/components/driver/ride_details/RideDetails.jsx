@@ -114,7 +114,7 @@ function RideDetails() {
                           </p>
                           <p className="flex text-sm text-left break-words font-semibold leading-none bg-black-800">
                             <span className="dark:bg-black-400 bg-black-300">
-                            Paid: ₹ :{rideDatas?.payment?.aduvance}
+                            aduvance amount ₹ :{rideDatas?.payment?.aduvance}
                             </span>
                           </p>
                           <p className="text-sm dark:text-white leading-none bg-black-800">

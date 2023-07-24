@@ -14,6 +14,7 @@ import History from "../../pages/user/History/History";
 import LastSuccessPage from "../../pages/user/lastsuccesspage/LastSuccessPage";
 import PageNotFoundPage from "../../pages/common/pagenotfoundpage/PageNotFoundPage";
 import ChatPage from "../../pages/common/chatpage/ChatPage";
+import WalletPage from "../../pages/user/wallet/WalletPage";
 
 
 export default function UserRoutes() {
@@ -70,12 +71,17 @@ export default function UserRoutes() {
           path="/chat"
           element={client ? <ChatPage/> : <Navigate to="/login" />}
         />
+        <Route
+          path="/wallet"
+          element={client ? <WalletPage/> : <Navigate to="/login" />}
+        />
        
         <Route
           path="/*"
           element={client ? <PageNotFoundPage home={'userhome'}/> : <Navigate to="/login" />}
         />
          </Routes>
+       
       
     </>
   );

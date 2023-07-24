@@ -218,3 +218,24 @@ export const filttering = async (status)=>{
  
   }
  }
+export const walletFinding = async (token,userid)=>{
+  
+  try {
+   const config = {
+     headers: {
+       // Accept: "application/json",
+       Authorization: `Bearer ${token}`,
+       "Content-Type": "application/json",
+     },
+     params:{userid}
+ 
+   };
+   
+   
+   const response = await axiosClientInstance.get('/wallet',config);
+   return response;
+  } catch (error) {
+   console.log(error.message);
+ 
+  }
+ }

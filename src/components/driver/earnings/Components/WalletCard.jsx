@@ -15,12 +15,6 @@ function WalletCard({wallet}) {
          <h1 className="mt-0.5 text-5xl text-center font-medium text-gray-800">
          ₹ {wallet}
          </h1>
-    
-
-       <div className="mt-4 flex flex-wrap gap-1">
-        
-
-       </div>
      </div>
       </article>
     </div>
