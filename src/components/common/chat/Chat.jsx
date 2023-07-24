@@ -28,7 +28,7 @@ export default function Chat() {
   // receive message from socket
 
   useEffect(() => {
-    socket.current = io("http://localhost:8800");
+    socket.current = io("https://ridewave-socket.onrender.com");
     socket.current.emit("new-user-add", id);
     socket.current.on("get-users", (users) => {
       setOnlineUsers(users);
