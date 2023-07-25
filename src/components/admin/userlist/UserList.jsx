@@ -4,7 +4,6 @@ import UserModal from "../usermodalverification/UserModal";
 
 
 <<<<<<< HEAD
-export default function Userlist() {
 =======
 export default function UserList() {
 >>>>>>> 3e7426a829355d3949359c8ae60763aac56bcbb2
