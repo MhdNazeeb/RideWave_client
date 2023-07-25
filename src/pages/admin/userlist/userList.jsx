@@ -1,5 +1,5 @@
 import React from "react";
-import Userlist from "../../../components/admin/userlist/userlist";
+import Userlist from "../../../components/admin/userlist/Userlist";
 import Layout from "../../../components/admin/SideBarComponents/components/Layout";
 
 function UserList() {
