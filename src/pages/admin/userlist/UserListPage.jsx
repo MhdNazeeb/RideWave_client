@@ -1,17 +1,17 @@
 import React from "react";
-import Userlist from "../../../components/admin/userlist/Userlist";
+import UserList from "../../../components/admin/userlist/UserList";
 import Layout from "../../../components/admin/SideBarComponents/components/Layout";
 
-function UserList() {
+function UserListPage() {
   console.log("this  user  list");
   return (
     <>
        <Layout>
-       <Userlist />
+       <UserList />
        </Layout>
       
     </>
   );
 }
 
-export default UserList;
+export default UserListPage;
