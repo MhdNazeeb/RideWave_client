@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TotalRide from "../TotalRide";
 import TotalDetails from "./TotalDetails";
-import CompletdRide from "./completdRide";
+import CompletdRide from "./CompletdRide";
 import AdminWallet from "./AdminWallet";
 import { LineChart } from "./LineChart";
 import { Doughnutreport } from "./Doughnutreport";
