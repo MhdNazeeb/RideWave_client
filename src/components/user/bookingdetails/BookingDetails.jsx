@@ -159,6 +159,7 @@ const BookingDetails = () => {
                     Cancel Ride
                   </button>
                 ) : (
+                
                   ""
                 )}
               </div>
