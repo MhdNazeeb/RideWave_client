@@ -152,6 +152,7 @@ const BookingDetails = () => {
                bookingstatus !== "confirmed" &&
                bookingstatus !== "confirmed" &&
                bookingstatus !== "Cancelled" ? (
+                
                   <button
                     className="bg-red-700 rounded-lg text-white px-2 py-2"
                     onClick={rideCancel}
