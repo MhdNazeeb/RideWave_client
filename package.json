@@ -16,7 +16,10 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
+<<<<<<< HEAD
     "@material-tailwind/react": "^2.0.7",
+=======
+>>>>>>> 0c343cd64d1eb0348ebb88f9f9c51aafc5b8d9dd
     "@paypal/react-paypal-js": "^8.0.0",
     "@react-icons/all-files": "^4.1.0",
     "@react-oauth/google": "^0.11.0",
