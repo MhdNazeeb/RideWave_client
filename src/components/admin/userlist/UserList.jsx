@@ -3,7 +3,7 @@ import { getUsers } from "../../../axios/services/admin/admin";
 import UserModal from "../usermodalverification/UserModal";
 
 
-export default function userlist() {
+export default function Userlist() {
   const [userData, setUserData] = useState([]);
   const [blockStatus, setBlockStatus] = useState(false);
   const [usermodal, setUserModal] = useState(false);
