@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Map from "../map/Map";
-import RideDetails from "./Components/RideDetail";
 import RideDetail from "./Components/RideDetail";
 
 const RideMap = ({tripid}) => {

@@ -3,7 +3,8 @@ import { useSelector } from "react-redux";
 import { filttering, history } from "../../../axios/services/user/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import { array } from "yup";
-import { BiMessageRounded } from "react-icons/Bi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { createNewChat } from "../../../axios/services/chat/chat";
 import Loader from "../../common/Loader";
 
@@ -289,12 +290,14 @@ function RideHistory() {
                           </span>
                         </td>
                         <div>
-                          <BiMessageRounded
-                            className="w-18 h-20 mx-8 my-8"
+                          
+                          <FontAwesomeIcon icon={faMessage}
+                          className="w-5 h-5 mx-8 my-8" 
                             onClick={() =>
                               chatCreate(data.driver._id, data.passenger)
                             }
                           />
+                          
                         </div>
                       </tr>
                     );
