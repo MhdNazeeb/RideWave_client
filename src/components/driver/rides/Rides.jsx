@@ -3,7 +3,8 @@ import { availableRides } from "../../../axios/services/driver/driverSignup";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../common/Loader";
-import { BiMessageRounded } from 'react-icons/Bi';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { createNewChat } from "../../../axios/services/chat/chat";
 
 function Rides() {
@@ -169,10 +170,12 @@ function Rides() {
                         </td>
                         <div>
                         
-                        <BiMessageRounded
-                        className="w-18 h-20 mx-8 my-8"
-                        onClick={()=>chatCreate(val.driver,val.passenger._id)}
-                        />
+                        <FontAwesomeIcon icon={faMessage}
+                          className="w-5 h-5 mx-8 my-8" 
+                            onClick={() =>
+                              chatCreate(data.driver._id, data.passenger)
+                            }
+                          />
                         
                         </div>
                       </tr>
