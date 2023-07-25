@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "../../pages/user/home/Home";
 import Login from "../../pages/user/login/Login";
 import SignUP from "../../components/user/signup/Signup";
-import Verification from "../../pages/verificationmail/verification";
+import Verification from "../../pages/verificationmail/Verification";
 import { useSelector } from "react-redux";
 import MapPage from "../../pages/user/mapPage/MapPage";
 import CheckoutPage from "../../pages/user/checkoutPage/CheckoutPage";
