@@ -135,8 +135,8 @@ const RiderSelector = () => {
 
     dispatch(
       addTrip({
-        pickup: tripDetails.pickup,
-        dropOff: tripDetails.dropOff,
+        pickup: tripDetails?.pickup,
+        dropOff: tripDetails?.dropOff,
         car: car,
         driver: driverId,
         distance: distance,

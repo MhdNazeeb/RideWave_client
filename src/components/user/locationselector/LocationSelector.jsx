@@ -26,6 +26,11 @@ const LocationSelector = () => {
 
             setPickUP(currentLocation);
             setPickup(currentLocation);
+            dispatch(
+              addPickup({
+                pickup:currentLocation
+              })
+            );
           });
       });
     }
