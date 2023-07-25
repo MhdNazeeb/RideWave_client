@@ -147,11 +147,11 @@ const BookingDetails = () => {
                   </div>
                 </div>
                 <div className="mt-6 md:mt-0 flex justify-start flex-col md:flex-row items-start md:items-center space-y-4 md:space-x-6 xl:space-x-8 w-full" />
-                {tripData?.bookingStatus === "Pending" &&
-               tripData?.Reachedpickup !== "confirmed" &&
-               tripData?.StartedToDestination !== "confirmed" &&
-               tripData?.ReachedDestination !== "confirmed" &&
-               tripData?.bookingstatus !== "Cancelled" ? (
+                {bookingstatus === "Pending" &&
+               bookingstatus !== "confirmed" &&
+               bookingstatus !== "confirmed" &&
+               bookingstatus !== "confirmed" &&
+               bookingstatus !== "Cancelled" ? (
                   <button
                     className="bg-red-700 rounded-lg text-white px-2 py-2"
                     onClick={rideCancel}
@@ -172,7 +172,7 @@ const BookingDetails = () => {
                 <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
                   rejected
                 </h1>
-              ) :tripData?.bookingStatus === "Cancelled" ? (
+              ) :bookingstatus === "Cancelled" ? (
                 <h1 className="text-white bg-red-600 px-5 py-3 uppercase font-semibold rounded-lg">
                   Cancelled
                 </h1>
