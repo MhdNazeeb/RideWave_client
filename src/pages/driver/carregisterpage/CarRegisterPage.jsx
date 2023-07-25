@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '../../../components/user/Header/Header'
-import CarRegisterForm from '../../../components/driver/carregister/Carregisterform'
-import Footer from '../../../components/user/footer/footer'
+import CarRegisterForm from '../../../components/driver/carregister/CarRegisterForm'
+import Footer from '../../../components/user/footer/Footer'
 
 function CarRegisterPage() {
   return (
