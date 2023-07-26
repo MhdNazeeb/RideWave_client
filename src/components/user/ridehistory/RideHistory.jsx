@@ -277,7 +277,7 @@ function RideHistory() {
                               aria-hidden
                               className="absolute inset-0 bg-green-200 opacity-50 rounded-full"
                               onClick={() => {
-                                navigate("/details", { state: { data: data } });
+                                navigate("/details?noslash=true", { state: { data: data } });
                               }}
                             />
                             <svg
