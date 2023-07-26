@@ -52,7 +52,7 @@ export default function UserRoutes() {
           element={client ? <SuccessPage/> : <Navigate to="/login" />}
         />
         <Route
-          path="/details"
+          path="details"
           element={client ? <BookingDetailsPage/> : <Navigate to="/login" />}
         />
         <Route
