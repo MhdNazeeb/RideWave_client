@@ -36,7 +36,7 @@ const BookingDetails = () => {
     Reachedpickup,
     ReachedDestination,
   } = data;
-  const tripid = data._id;
+  const tripid = data?._id;
   const id = driver?._id;
   useEffect(() => {
     (async function () {
