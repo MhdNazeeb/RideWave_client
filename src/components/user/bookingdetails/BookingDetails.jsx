@@ -25,7 +25,7 @@ const BookingDetails = () => {
   const [loader, setLoader] = useState(false);
   const { token } = userDetails;
   const locations = useLocation();
-  const data = locations.state.data;
+  const data = locations?.state?.data;
   const {
     driver,
     verficationCode,
