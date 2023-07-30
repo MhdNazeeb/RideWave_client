@@ -8,6 +8,8 @@ export default function UserModal({ setUserModal ,id ,status, setBlockStatus}) {
     if (response) {
       setBlockStatus(state => !state);
       setUserModal(false)
+      dispatch(driverLogout())
+
     }
   }
     

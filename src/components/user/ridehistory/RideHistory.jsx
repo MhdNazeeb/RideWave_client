@@ -11,16 +11,7 @@ import Loader from "../../common/Loader";
 function RideHistory() {
   const [rides, setRides] = useState([]);
   const [loader, setLoader] = useState(false);
-  const page = localStorage.getItem("page");
-  const [currentPage, setCurrentPage] = useState(page ?? 1);
-  const recordPerPage = 5;
-  const lastindex = currentPage * recordPerPage;
-  const firstindex = lastindex - recordPerPage;
-  const records = rides?.slice(firstindex, lastindex);
-  const npage = Math.ceil(rides?.length / recordPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
-  const userDetails = useSelector((state) => state.userReducer.user);
-  const userid = userDetails?.user?._id;
+ 
   const navigate = useNavigate();
   const ref = useRef();
 

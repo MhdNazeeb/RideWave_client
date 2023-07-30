@@ -22,14 +22,13 @@ export default function UserRoutes() {
   const client = userDetails?.user;
   const DriverDetails = useSelector((state) => state.driverReducer.driver);
   const driver = DriverDetails?.driver;
-  console.log(driver, "this is driver");
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/login"
-          element={client || driver ? <Navigate to="/" /> : <Login />}
+          element={client || driver ?  <Navigate to="/" /> : <Login />}
         />
         <Route path="/signup" element={<SignUP />} />
 
