@@ -135,8 +135,8 @@ const RiderSelector = () => {
 
     dispatch(
       addTrip({
-        pickup: tripDetails?.pickup,
-        dropOff: tripDetails?.dropOff,
+        pickup: tripDetails.pickup,
+        dropOff: tripDetails.dropOff,
         car: car,
         driver: driverId,
         distance: distance,
@@ -149,7 +149,7 @@ const RiderSelector = () => {
 
   return (
     <div className="h-fit flex flex-col w-full">
-      {console.log(carlist, "this car11")}
+      
       <div className="text-gray-500 text-center text-xs py-2 "></div>
       {dropOff?.length > 0 && carlist?.length > 0
         ? carlist

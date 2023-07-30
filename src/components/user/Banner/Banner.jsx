@@ -9,6 +9,7 @@ import {
 } from "../../../axios/services/driver/driverSignup";
 import { toast } from "react-toastify";
 import { confirm } from "../../../redux/rideSlice";
+import { cleanup } from "../../../redux/tripdetails";
 
 let accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -52,7 +53,7 @@ export default function Banner() {
         driverCoordinets.push(longitude);
         driverCoordinets.push(latitude);
 
-        async function driveLo() {
+       ( async function () {
           const res = await DriverLocation(
             token,
             driverCoordinets,
@@ -64,8 +65,7 @@ export default function Banner() {
           } else {
             toast.error(res?.data?.message);
           }
-        }
-        driveLo();
+        })();
       });
     }
   }
@@ -75,7 +75,9 @@ export default function Banner() {
     });
   }, []);
 
- 
+  if(user){
+    dispatch(cleanup())
+  }
 
 
   return (

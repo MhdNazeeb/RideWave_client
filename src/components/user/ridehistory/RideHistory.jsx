@@ -11,7 +11,16 @@ import Loader from "../../common/Loader";
 function RideHistory() {
   const [rides, setRides] = useState([]);
   const [loader, setLoader] = useState(false);
- 
+  const page = localStorage.getItem("page");
+  const [currentPage, setCurrentPage] = useState(page ?? 1);
+  const recordPerPage = 5;
+  const lastindex = currentPage * recordPerPage;
+  const firstindex = lastindex - recordPerPage;
+  const records = rides?.slice(firstindex, lastindex);
+  const npage = Math.ceil(rides?.length / recordPerPage);
+  const numbers = [...Array(npage +1).keys()].slice(1);
+  const userDetails = useSelector((state) => state.userReducer.user);
+  const userid = userDetails?.user?._id;
   const navigate = useNavigate();
   const ref = useRef();
 
@@ -72,7 +81,7 @@ function RideHistory() {
     } 
   };
 
-  const doSomeMagic =  function (fn,d) {
+  const debounce =  function (fn,d) {
     let timer
     return function () {
       clearTimeout(timer)
@@ -83,7 +92,7 @@ function RideHistory() {
     }
   }
 
-  const betterFunction = doSomeMagic(filttering,1000)
+  const searchFunction = debounce(filttering,1000)
 
   return (
     <>
@@ -128,7 +137,7 @@ function RideHistory() {
                           type="search"
                           id="default-search"
                           ref={ref}
-                          onChange={betterFunction}
+                          onChange={searchFunction}
                           className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Search"
                           required

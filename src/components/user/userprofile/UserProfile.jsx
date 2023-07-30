@@ -3,6 +3,7 @@ import moment from 'moment';
 import { useSelector } from "react-redux";
 import User_profile_edit from "../edit_profile/User_profile._edit";
 import { findUser } from "../../../axios/services/user/User";
+import Loader from "../../common/Loader";
 
 
 function UserProfile() {
@@ -17,6 +18,8 @@ function UserProfile() {
     const formattedDate = moment(user?.updated).format('YYYY-MM-DD');
 
     const [usermodal,setusermodal] = useState(false)
+
+    const [loader,setLoader] = useState(false)
      
     function modal() {
     setusermodal(true)
@@ -25,18 +28,25 @@ function UserProfile() {
 
     useEffect(()=>{
        async function user() {
+        setLoader(true)
         const res = await findUser(userid,token)
           setUserData(res?.data)
+          setLoader(false)
        }
        user()
     },[usermodal])
-console.log(userData,'this is  userData');
     
     
 
 
   return (
     <>
+
+{loader && (
+        <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-white bg-opacity-25 backdrop-filter backdrop-blur z-50">
+          <Loader />
+        </div>
+      )}
     {usermodal?<User_profile_edit user={user} setusermodal={setusermodal}  token={token}  />:""}
     <div className="bg-gray-200">
       <div className="">
