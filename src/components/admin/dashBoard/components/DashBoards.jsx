@@ -35,7 +35,7 @@ export default function DashBoards() {
           <CompletdRide CompletdRide={data?.completedTrip} />
           <TotalDetails
             monthly={
-              data?.monthlyReport ? data?.monthlyReport[0].totalEarnings : 0
+              data?.monthlyReport ? data?.monthlyReport[0]?.totalEarnings : 0
             }
           />
           <AdminWallet adminwallet={data?.adminwallet?.currentBalance} />
